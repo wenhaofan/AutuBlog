@@ -1,0 +1,254 @@
+#include("header.html")
+<article>
+  <h1 class="t_nav"><span>您现在的位置是：首页 > 学无止境>#(article.title) </span><a href="/" class="n1">网站首页</a><a href="/" class="n2">学无止境</a></h1>
+  <div class="infos">
+    <div class="newsview">
+      <h3 class="news_title">#(article.title)</h3>
+      <div class="news_author"><span class="au01"><a href="mailto:dancesmiling@qq.com">#(config.author)</a></span><span class="au02">#(article.gmtCreate)</span><span class="au03">共<b>#(article.pv)</b>人围观</span></div>
+      <div class="tags">
+      		#for(meta:atags)
+      		<a href="/article/category/#(meta.id)" target="_blank">#(meta.mname)</a>
+      			#if(!for.last) &nbsp;#end 
+      		#end
+      </div>
+      <div class="news_about"><strong>简介</strong>#(article.intro)</div>
+      <div class="news_infos">
+      	#(article.content)
+      </div>
+    </div>
+    <div class="share"> </div>
+    <div class="nextinfo">
+      <p>
+      #if(lastNextArticle.get(0)!=null)
+      	上一篇： <a href="/article/#(lastNextArticle.get(0).identify)">#(lastNextArticle.get(0).title)</a>
+      #end
+      </p>
+      <p>
+      #if(lastNextArticle.get(1)!=null)
+      	下一篇： <a href="/article/#(lastNextArticle.get(1).identify)">#(lastNextArticle.get(1).title)</a>
+      #end
+      </p>
+       
+    </div>
+    <div class="otherlink">
+      <h2>相关文章</h2>
+      <ul>
+      	#for(article:aboutArticles)
+      		<li><a href="/article/#(article.identify)" title="#(article.title)">#(article.title)</a></li>
+      	#end
+        
+      </ul>
+    </div>
+  #if(article.allowComment!=false)
+    <div class="news_pl comment-container"  >
+      <h2 id="commentPage">文章评论</h2>
+      <ul>
+      <form action="" method="post" name="saypl" id="saypl" onsubmit="return  fl.subComment()">
+				<div id="plpost">
+				<p class="saying">
+					<span><a href="/zaoan/e/pl/?classid=7&amp;id=20">共有#(commentPage.totalRow)条评论</a></span>
+					<span class="response">来说两句吧...</span>
+				</p>
+		         <input type="hidden" name="identify" id="identify" value="#(article.identify)"/>
+		         <input type="hidden" name="parentId" id="parentId" value=""/>
+		         <input type="hidden" name="toUserId" id="toUserId" value=""/>
+		         <p class="yname">
+		         	<span>用户名:</span>
+		            <input name="name" maxlength="12" id="name" class="inputText"   placeholder="姓名 (*)" value="#(agentUser.name??)" size="16" required/>
+		         </p>
+		          <p class="yname">
+		         	<span>&nbsp;邮&nbsp;箱 :</span>
+		            <input name="email" maxlength="12" id="name" class="inputText"   placeholder="邮箱 (*)" value="#(agentUser.email??)" size="20" required/>
+		         </p>
+		          <p class="yname">
+		         	<span>&nbsp;网&nbsp;址 :</span>
+		            <input name="website" maxlength="12" id="name" class="inputText"   placeholder="网址 (*)" value="#(agentUser.website??)" size="20"  />
+		         </p>
+					<input name="nomember" type="hidden" id="nomember" value="1" checked="checked">
+					 <textarea name="content" rows="6" id="saytext"></textarea>
+					 <input name="imageField" type="submit" value="提交">
+					 <div style="clear:both;"></div>
+				 </div>
+			</form> 
+       <div class="gbko">
+ 		#if(commentPage!=null)
+      	 
+          	  #for(comment : commentPage.list)
+          	  	<div class="fb">
+            	<ul id="ul-comment-#(comment.id)">
+	      			<p class="fbtime" id="comment-#(comment.id)">
+	      				<span>#(comment.gmtCreate)</span> #(comment.name)<span class="comment-reply">
+	                               <a rel="nofollow" class="reply" data-id="#(comment.id)" data-userId="#(comment.userId)">回复</a>
+	                </span>	
+	      			</p>
+	      			<p class="fbinfo">
+	      				#(comment.content)
+	      			
+	      			</p>
+	      			
+       			</ul>
+       		
+                #if(comment.childs!=null)
+                 
+                        #for(child : comment.childs)
+	               			<ul>
+	               				<p class="fbtime" id="comment-#(comment.id)">
+		      						<span>#(comment.gmtCreate)</span> 
+		      						#(comment.name)	
+		      						<span class="comment-reply">
+	                                           <a rel="nofollow" class="reply" data-id="#(child.id)" data-userid="#(child.userId)">回复</a>
+	                                 </span>
+	      						</p>
+		      					<p class="fbinfo">
+		      					@#(child.user.name) #(comment.content)
+		      				
+		      					</p>
+                        </ul>  
+                        #end
+                #end
+                </div>
+ 			#end
+       #end
+          <div class="lists-navigator clearfix">
+            <ol class="page-navigator">
+                #if(!commentPage.isFirstPage())
+                <li class="prev"><a href="/article/#(article.identify)?p=#(commentPage.pageNumber-1)#commentPage">←</a></li>
+                #end
+                #for(navIndex =1;navIndex<=commentPage.totalPage;navIndex++)
+                <li #if(commentPage.pageNumber == navIndex) class="current" #end><a href="/article/#(article.identify)?p=#(navIndex)#commentPage">#(navIndex)</a></li>
+                #end
+                #if(!commentPage.isLastPage())
+                <li class="next"><a href="/article/#(article.identify)?p=#(commentPage.pageNumber+1)#commentPage">→</a></li>
+                #end
+            </ol>
+        </div>
+       	<script>
+		  function CheckPl(obj)
+		  {
+			  if(obj.saytext.value=="")
+			  {
+				  alert("您没什么话要说吗？");
+				  obj.saytext.focus();
+			  	return false;
+			  }
+		  	return false;
+		  }
+		  </script>
+		</div>
+      </ul>
+    </div>
+    #end
+  </div>
+  <div class="sidebar">
+    <div class="search">
+      <form action="/article/search" method="get" name="searchform" id="searchform">
+        <input name="keyword" id="keyboard" value="#(keyword)" class="input_text" value="请输入关键字" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+     <div class="cloud">
+      <h2 class="hometitle">标签云</h2>
+      <ul>	
+      	#for(tag:tags)
+      	 <a href="/article/category/1-#(tag.id)">#(tag.mname)</a>
+      	#end
+      </ul>
+    </div>
+    
+   
+     <div class="paihang">
+      <h2 class="hometitle">点击排行</h2>
+      <ul>
+     	#for(article:hotArticles)
+    	 <li>
+    	   <b><a href="/article/#(article.identify)" target="_blank">#(article.title)...</a></b>
+           <p>
+           		#if(article.thumbImg!=null)
+           			<i><img src="#(article.thumbImg)"></i>
+           		#end
+           	 	#(article.intro)...
+           	</p>
+         </li>
+     	#end
+      </ul>
+    </div>
+
+    <!-- 
+    <div class="weixin">
+      <h2 class="hometitle">官方微信</h2>
+      <ul>
+        <img src="/_view/templates/morning/images/wx.jpg">
+      </ul>
+    </div> 
+    <div class="ad" id="left_flow2"> <img src="/_view/templates/morning/images/ad.jpg"> </div>
+  	-->
+  </div>
+</article>
+ 
+ <style>
+.fb{ border : #ececec 1px solid;
+	margin-top: 10px;
+}
+</style>
+ <script type="text/javascript">
+(function(){
+	window.fl={
+
+		   cancelReply:function(ele){
+				$(ele).remove();
+				$('#saypl input[name=parentId]').val("");
+	            $('#saypl input[name=toUserId]').val("");
+		   },reply: function (parentId,toUserId) {
+               $('#saypl input[name=parentId]').val(parentId);
+               $('#saypl input[name=toUserId]').val(toUserId);
+               $("html,body").animate({scrollTop: $('div.comment-container').offset().top-50}, 450);
+               $('#saypl #textarea').focus();
+               
+               if($(".cancel-comment-reply-link").length==0){
+                   $(".response").append('<a class="cancel-comment-reply-link" style="margin:0 15px;" href="javascript:void(0)">取消回复</a>');
+               }
+           },
+           subComment: function () {
+               $.ajax({
+                   type: 'post',
+                   url: '/comment/save',
+                   data: $('#saypl').serialize(),
+                   async: false,
+                   dataType: 'json',
+                   error: function (jqXHR, status, error) {
+                       if(status === 'error' && jqXHR.status === 400){
+                           alert('非法的请求');
+                       } else {
+                           console.log('Request Error:', error)
+                       }
+                   },
+                   success: function (result) {
+                       
+                       if (result && result.state=="ok") {
+                           alert('评论成功');
+                           window.location.reload();
+                       } else {
+                           if (result.msg) {
+                               alert(result.msg);
+                               window.location.reload();
+                           }
+                       }
+                   }
+               });
+               return false;
+           }
+       };
+})();
+$(function(){
+	$(".reply").click(function(){
+		var toUserId=$(this).data("userid");
+		var parentId=$(this).data("id");
+		fl.reply(parentId,toUserId);
+	})
+	
+	$(".response").on("click",".cancel-comment-reply-link",function(){
+		 fl.cancelReply($(this));
+	})
+})
+</script>
+#include('footer.html')

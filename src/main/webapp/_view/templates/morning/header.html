@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>#(seoTitle==null?config.title:(seoTitle==config.title?seoTitle:seoTitle+"-"+config.title))</title>
+<meta name="keywords" content="#(seoKeywords)" />
+<meta name="description" content="#(seoDescr)" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/_view/templates/morning/css/base.css" rel="stylesheet">
+<link href="/_view/templates/morning/css/index.css" rel="stylesheet">
+<link href="/_view/templates/morning/css/m.css" rel="stylesheet">
+<link rel="shortcut icon" href="#(config.ico??"/favicon.ico")">
+<link rel="apple-touch-icon" href="#(config.ico??"/favicon.ico")">
+#@jquery()
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+<script>
+window.onload = function ()
+{
+	var oH2 = document.getElementsByTagName("h2")[0];
+	var oUl = document.getElementsByTagName("ul")[0];
+	oH2.onclick = function ()
+	{
+		var style = oUl.style;
+		style.display = style.display == "block" ? "none" : "block";
+		oH2.className = style.display == "block" ? "open" : ""
+	}
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="tophead">
+    <div class="logo"><a href="/">#(config.Title)</a></div>
+    <div id="mnav">
+      <h2><span class="navicon"></span></h2>
+      <ul>
+       	#for(nav:navs)
+       	 <li><a href="#(nav.url)">#(nav.title)</a></li>	
+        #end
+      </ul>
+    </div>
+    <nav class="topnav" id="topnav">
+      <ul>
+        #for(nav:navs)
+       	 <li><a href="#(nav.url)">#(nav.title)</a></li>	
+        #end
+      </ul>
+    </nav>
+  </div>
+</header>

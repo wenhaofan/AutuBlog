@@ -1,0 +1,45 @@
+#include("header.html")
+<style>
+.post-list-item-container .item-label{
+	height:200px;
+}
+</style>
+<div class="main-content common-page clearfix">
+    <div class="common-item">
+        <div class="common-title">
+	        #if(tag!=null)
+	        	#(tag.type=="category"?"分类":"标签")
+        		#(tag.mname)
+        	#else
+        		search:#(keyword)
+	        #end
+        </div>
+        <div class="post-lists">
+            <div class="post-lists-body">
+            	#if((articlePage==null||articlePage.list.isEmpty()&&tag==null))
+            		 <div class="post-list-item">没有找到内容,换别的关键字进行检索吧</div>
+            	#else if(articlePage==null||articlePage.list.isEmpty())
+            		<div class="post-list-item">暂无文章,先看看其他的吧</div> 
+            	#end
+                #for(article : articlePage.list??)
+                <div class="post-list-item">
+                    <div class="post-list-item-container">
+                        <div class="item-label">
+                            <div class="item-title">
+                                <a href="/article/#(article.identify)">#(article.title)</a>
+                            </div>
+                            <div class="item-intro">
+                            	 <a href="/article/#(article.identify)">#(article.intro)</a>
+                            </div>
+                            <div class="item-meta clearfix">
+                                <div class="item-meta-date">发布于 #(article.gmtCreate)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                #end
+            </div>
+        </div>
+    </div>
+</div>
+#include('footer.html')

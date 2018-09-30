@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>博客后台管理</title>
+#@jquery()
+#@layui()
+<link href="/assets/admin/css/index.css"  rel="stylesheet">
+<link href="/assets/plugins/nprogress/nprogress.css"  rel="stylesheet">
+<link href="/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.css" rel="stylesheet">
+<script src="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.js"></script>
+<script src="/assets/js/base.js?v=v1.0"></script>
+<script type="text/javascript" src="/assets/plugins/template/art-template.js"></script>
+<script type="text/javascript" src="/assets/js/from-util.js"></script>
+<script type="text/javascript" src="/assets/plugins/jquery-pjax/jquery.pjax.js"></script>
+<script type="text/javascript" src="/assets/plugins/nprogress/nprogress.js"></script>
+<script type="text/javascript" src="/assets/admin/js/index.js"></script>
+<script type="text/javascript">
+ 
+var requestUrl="#(requestUrl)";
+
+</script>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+  	<div class="layui-toggle-menu">
+  		<i class="layui-icon"></i>
+  	</div>
+    <div class="layui-logo">博客管理</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+ 
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          
+         	欢迎你,#(adminUser.name)
+        </a>
+        <dl class="layui-nav-child">
+           <dd id="updateInfo"><a href="javascript:void(0)">修改个人信息</a></dd>
+      	   <dd id="updatePwd"><a href="javascript:void(0)">修改密码</a></dd>
+      	   <dd><a href="/">前台</a></dd>
+           <dd><a href="/login/logout">退出</a></dd>
+        </dl>
+      </li>
+ 
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree menu-tree"  >
+      	<li class="layui-nav-item"><a href="/admin/" pjax > <i class="layui-icon layui-icon-console"></i><span>控制台</span></a></li>
+        <li class="layui-nav-item"><a href="/admin/article/edit"  pjax ><i class="fa fa-pencil-square-o"></i><span>发表文章</span></a></li>
+        <li class="layui-nav-item"><a href="/admin/article/list"  pjax ><i class="fa fa-list"></i><span>文章列表</span></a></li>
+        <li class="layui-nav-item"><a href="/admin/meta/list"  pjax ><i class="fa fa-tags"></i><span>分类管理</span></a></li>
+      	<li class="layui-nav-item"><a href="/admin/disk" pjax ><i class="fa fa-cloud-upload"></i><span>文件管理</span></a></li>
+     	<li class="layui-nav-item"><a href="/admin/comment" pjax ><i class="layui-icon layui-icon-reply-fill"></i><span>评论管理</span></a></li>
+      	<li class="layui-nav-item"><a href="/admin/nav" pjax ><i class="fa fa-navicon"></i><span>导航管理</span></a></li>
+      	<li class="layui-nav-item"><a href="/admin/config" pjax ><i class="layui-icon  layui-icon-set"></i><span>网站设置</span></a></li>
+      	<li class="layui-nav-item"><a href="/admin/advancedConfig" pjax ><i class="layui-icon  layui-icon-set"></i><span>高级配置</span></a></li>
+      	<li class="layui-nav-item"><a href="/admin/user/edit" pjax ><i class="layui-icon layui-icon-about"></i><span>个人介绍</span></a></li>
+     	<li class="layui-nav-item"><a href="/admin/sysLog" pjax ><i class="fa fa-list-alt"></i><span>系统日志</span></a></li>
+     	<li class="layui-nav-item"><a href="/admin/themes" pjax ><i class="layui-icon layui-icon-theme"></i><span>主题配置</span></a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;" class=" site-block">
+    	<main class="layui-fluid site-block">
+    		 #render(includeUrl)
+    	</main>	
+    </div>
+  </div>
+ 
+</div>
+<script type="text/html" id="tpl-update-pwd">
+<div style="width:290px;padding:10px;">
+	<form class="layui-form update-pwd-from" onsubmit="return false;">
+		 <div class="layui-form-item layui-form-text">
+	   	 	<div class="layui-input-block">
+      			<input type="text" name="oldPwd" required  lay-verify="required" placeholder="请输入原密码" autocomplete="off" class="layui-input">
+    		</div>
+	  	</div>
+	  	 <div class="layui-form-item layui-form-text">
+	   	 	<div class="layui-input-block">
+      			<input type="text" name="newPwd" required  lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+    		</div>
+	  	</div>
+		  <div class="">
+		     <div style="    text-align: center;">
+		    	<button class="layui-btn" lay-submit lay-filter="updatePwd">立即提交</button>
+			 </div>
+	  	</div>
+</form>
+</div>
+</script>
+<script type="text/html" id="tpl-update-info">
+<div style="width:290px;padding:10px;">
+	<form class="layui-form update-info-from" onsubmit="return false;">
+		<div class="layui-form-item layui-form-text">
+	   	 	<div class="layui-input-block">
+      			<input type="text" name="account" required  lay-verify="required" placeholder="请输入登陆账号" autocomplete="off" value="#(adminUser.account)" class="layui-input">
+    		</div>
+	  	</div>
+		 <div class="layui-form-item layui-form-text">
+	   	 	<div class="layui-input-block">
+      			<input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" value="#(adminUser.name)" class="layui-input">
+    		</div>
+	  	</div>
+	  	 <div class="layui-form-item layui-form-text">
+	   	 	<div class="layui-input-block">
+      			<input type="text" name="email" required  lay-verify="required" placeholder="请输入邮箱" autocomplete="off" value="#(adminUser.email)" class="layui-input">
+    		</div>
+	  	</div>
+		  <div class="">
+		     <div style="text-align: center;">
+		    	<button class="layui-btn" lay-submit lay-filter="updateInfo">立即提交</button>
+			 </div>
+	  	</div>
+</form>
+</div>
+</script>
+</body>
+</html>
+      

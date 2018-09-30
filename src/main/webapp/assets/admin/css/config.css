@@ -1,0 +1,34 @@
+.basic-config{
+    margin: 1rem 0 0 0rem;
+}
+. page-title{
+	margin-left:25px;
+}
+.add-form{
+ 	width:485px;
+ 	margin-top: 10px;
+}
+@media screen and (max-width: 768px){
+	.layui-form-label{
+		width: 50px!important;
+	    padding-left:  0px!important;
+	}
+	.layui-input-block{
+		 margin-left: 70px;
+	 	max-width: 230px;
+	}
+	.add-form{
+		width:300px;
+		margin: 0 auto;
+		margin-top: 10px;
+	}
+}
+@media screen and (max-width: 1200px){
+	.table-block{
+		width:90%;
+		margin: 0 auto;
+	}
+}
+.upload-btn{
+	margin-left:10px;
+}

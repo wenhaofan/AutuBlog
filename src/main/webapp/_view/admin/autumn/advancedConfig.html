@@ -1,0 +1,125 @@
+<div class="layui-row">
+	<div class="layui-col-xs12 layui-col-md12 layui-col-lg6">
+		<blockquote class="page-title">metaweblog配置</blockquote>
+		<div class="table-block">
+			<div class="site-block">
+			 	<button class="layui-btn layui-btn-sm madd" >新增</button>
+			</div>
+			<table id="metaweblog" lay-filter="metaweblogseo"></table>
+		</div>
+	</div>
+	<div class="layui-col-xs12  layui-col-md12 layui-col-lg6">
+		<blockquote class="page-title">百度推送配置</blockquote>
+		<div class="table-block">
+			
+			<div class="site-block">
+			 	<button class="layui-btn layui-btn-sm badd" >新增</button>
+			</div>
+			<table id="baiduseo" lay-filter="baiduseo"></table>
+		</div>
+	</div>
+</div>
+<div class="layui-row">
+	<div class="layui-col-xs12  layui-col-md12 layui-col-lg6">
+		<blockquote class="page-title">百度推送工具</blockquote>
+		<div>
+			<form class="layui-form add-form" onsubmit="return false;">
+			 	  <div class="layui-form-item layui-form-text">
+				    <label class="layui-form-label">链接</label>
+				    <div class="layui-input-block">
+				      <textarea name="links" placeholder="请输入需要推送的链接(多个以\n分割)" class="layui-textarea"></textarea>
+				    </div>
+				  </div>
+				 <div class="layui-form-item">
+				    <div class="layui-input-block">
+				    <button class="layui-btn" lay-submit lay-filter="pushLinks">立即提交</button>
+				 </div>
+			  </div>
+		</form>
+		</div>
+	</div>
+</div>
+ 
+<script type="text/html" id="tpl-medit">
+ 
+	<form class="layui-form add-form" onsubmit="return false;">
+		    <input type="hidden" name="id" value="{{id}}" >
+  		  	<div class="layui-form-item layui-form-text">
+	   	 	<label class="layui-form-label">网站名</label>
+	    	<div class="layui-input-block">
+				
+	     		<input type="text" name="website" required  lay-verify="required" value="{{website}}" placeholder="请输入网站名" autocomplete="off" class="layui-input">
+	    	</div>
+	  	</div>
+	  	<div class="layui-form-item layui-form-text">
+	   	 	<label class="layui-form-label">接口路径</label>
+	    	<div class="layui-input-block">
+	     		 <input type="text" name="url" required  lay-verify="required" value="{{url}}" placeholder="请输入接口路径" autocomplete="off" class="layui-input">
+	    	</div>
+	  	</div>
+	  	<div class="layui-form-item layui-form-text">
+	   	 	<label class="layui-form-label">账号</label>
+	    	<div class="layui-input-block">
+	     		 <input type="text" name="userName" required  lay-verify="required " value="{{userName}}"  placeholder="请输入账号" autocomplete="off" class="layui-input">
+	    	</div>
+	  	</div>
+	  	
+	  	<div class="layui-form-item layui-form-text">
+	   	 	<label class="layui-form-label">密码</label>
+	    	<div class="layui-input-block">
+	     		 <input type="text" name="password" required  lay-verify="required" value="{{password}}"  placeholder="请输入密码" autocomplete="off" class="layui-input">
+	    	</div>
+	  	</div>
+		  <div class="layui-form-item">
+		    <div class="layui-input-block">
+		    <button class="layui-btn" lay-submit lay-filter="editMconfig">立即提交</button>
+		 </div>
+	  </div>
+</form>
+ 
+</script>
+<script type="text/html" id="tpl-bedit">
+
+	<form class="layui-form  add-form" onsubmit="return false;">
+		<input type="hidden" name="id" value="{{id}}" >
+  		  	<div class="layui-form-item layui-form-text">
+	   	 	<label class="layui-form-label">网站</label>
+	    	<div class="layui-input-block">
+	     		<input type="text" name="site" required  lay-verify="required" value="{{site}}" placeholder="请输入网站名" autocomplete="off" class="layui-input">
+	    	</div>
+	  	</div>
+	  	<div class="layui-form-item layui-form-text">
+	   	 	<label class="layui-form-label">Token</label>
+	    	<div class="layui-input-block">
+	     		 <input type="text" name="token" required  lay-verify="required" value="{{token}}" placeholder="请输入token" autocomplete="off" class="layui-input">
+	    	</div>
+	  	</div>
+	  	 
+		  <div class="layui-form-item">
+		    <div class="layui-input-block">
+		    <button class="layui-btn" lay-submit lay-filter="editBconfig"  >立即提交</button>
+		 </div>
+	  </div>
+</form>
+</script>
+<script type="text/html" id="tpl-mprivacy">
+	#[[<span class="privacy" data-content="{{d.password}}">*********</span>]]#
+</script>
+<script type="text/html" id="tpl-bprivacy">
+	#[[<span class="privacy" data-content="{{d.token}}">****************</span>]]#
+</script>
+<script type="text/html" id="tpl-moperation">
+	#[[
+		<button class="layui-btn layui-btn-sm mupdate" data-id="{{d.id}}">修改</button> 
+		<button class="layui-btn layui-btn-sm mdelete" data-id="{{d.id}}">删除</button>
+	]]#
+</script>
+<script type="text/html" id="tpl-boperation">
+	#[[
+		<button class="layui-btn layui-btn-sm bupdate" data-id="{{d.id}}" >修改</button> 
+		<button class="layui-btn layui-btn-sm bdelete" data-id="{{d.id}}" >删除</button> 
+	]]#
+</script>
+<script type="text/javascript" src="/assets/js/from-util.js"></script>
+<script type="text/javascript" src="/assets/admin/js/advance-config.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/advance-config.css">

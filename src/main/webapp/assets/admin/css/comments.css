@@ -1,0 +1,15 @@
+@media screen and (max-width: 768px){
+	.layui-form-label{
+		width: 50px!important;
+	    padding-left:  0px!important;
+	}
+	.layui-input-block{
+		 margin-left: 70px;
+	 	max-width: 230px;
+	}
+	.reply-form{
+		width:300px;
+		margin: 0 auto;
+		margin-top: 10px;
+	}
+}

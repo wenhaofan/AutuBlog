@@ -1,0 +1,100 @@
+ <link href="/assets/plugins/context-menu/contextMenu.css" rel="stylesheet">
+<link href="/assets/admin/css/disk.css" rel="stylesheet">
+<script type="text/html" id="tpl-folder-add-item">
+	<div class="disk-item disk-edit">
+		<div class="file-thumb" style="background:  url( /assets/admin/images/disk/folder.png) center no-repeat; ">
+		</div>
+		<div class="file-name">
+			<input class="disk-edit-input" type="text">
+			<span class="confirm-create-folder"><i class="fa fa-check"></i></span>
+			<span class="cancel-create-folder"><i class="fa fa-close"></i></span>
+		</div>
+	</div>
+</script>
+<script type="text/html" id="tpl-disk-item-rename">
+	<div class="disk-item disk-edit {{type=="folder"?" disk-folder":"disk-file"}} "   data-id="{{id}}">
+		<div class="file-thumb" style="{{style}}" >
+		</div>
+		<div class="file-name"  data-id="{{id}}">
+			<input class="disk-edit-input" type="text" value="{{name}}" >
+			<span class="confirm-rename"><i class="fa fa-check"></i></span>
+			<span class="cancel-rename"><i class="fa fa-close"></i></span>
+		</div>
+	</div>
+</script>
+<script type="text/html" id="tpl-disk-item">
+	<div class="disk-item {{type=="folder"?" disk-folder":"disk-file"}} "   data-id="{{id}}">
+		<div class="file-thumb" style="background:  url( {{ if(type=="img")}}{{url}}{{else}}/assets/admin/images/disk/{{type}}.png{{/if}}) center no-repeat;   " >
+		</div>
+		<div class="file-name">
+			<h3 class="overflow-omit" title="{{name}}">{{name}}</h3>
+		</div>
+	</div>
+</script>
+<script type="text/html" id="tpl-folder-nav-item">
+	<a href="javascript:void(0)" data-id="{{id}}">{{name}}</a>
+	<span style="color: #c5d8f3;padding: 0 5px;line-height: 16px;">&gt;</span>
+</script>
+<script type="text/html" id="tpl-copy">
+<div class="disk-copy">
+<input id="disk-link" class="layui-input layui-btn-primary copy-link" value="https://github.com/zenorocha/clipboard.js.git">
+
+<button type="button" class="layui-btn layui-btn-normal  layui-btn-sm copy-btn" data-clipboard-target="#disk-link">
+	复制
+</button>
+<h4 class="copy-link-hint"></h4>
+</div>
+</script>
+<script type="text/javascript">
+var currentFolderId="#(folderId)";
+</script>
+<div class="disk-main">
+	<div class="disk-header clear">
+		<div class="header-left float-left">
+			<input type="file" class=" disk-upload-file " style="display:none;">
+			<button type="button" class="disk-btn inline-block disk-upload-button"><i class="fa fa-cloud-upload"></i><span>上传文件</span></button> 
+			<button type="button" class="disk-btn inline-block disk-create-folder">新建文件夹</button>
+		</div>
+	</div>
+	<div class="folder-click-nav">
+		<ul>
+			<li class="folder-all-info">
+				<span>全部文件</span>
+			</li>
+			
+			<li class="folder-goback hide" data-id="">
+				<a href="javascript:void(0)">返回上一级</a>
+				<span style="color: #c5d8f3;padding: 0 3px;">|</span>
+			</li>
+			
+			<li class="folder-nav hide">
+				<a href="javascript:void(0)" data-id="0">全部文件</a>
+			</li>
+			
+			<li class="float-right">
+				<span><span class="disk-folder-num">10</span>个文件夹,<span class="disk-file-num">20</span>个文件</span>
+			</li>
+		</ul>
+	</div>
+	<div class="disk-select-line hide">
+	 	<div class="select-all">	
+	 		<i class="fa fa-check-square"></i>
+	 		<i class="fa fa-square-o"></i>
+	 		<span>全选</span>
+	 	</div>
+	 	<div class="select-size">
+	 		<i class="fa fa-arrow-down"></i><i class="fa fa-arrow-up"></i><span>大小</span>
+	 	</div>
+	 	<div class="select-gmtcreate">
+	 		<i class="fa fa-arrow-down"></i><i class="fa fa-arrow-up"></i><span>创建时间</span>
+	 	</div>
+	</div>
+	<div class="disk-content clear">
+	 
+	</div>
+</div>
+
+<script type="text/javascript" src="/assets/plugins/context-menu/contextMenu.js"></script>
+<script type="text/javascript" src="/assets/common/upload.js"></script>
+<script type="text/javascript" src="/assets/admin/js/disk.js"></script>
+<script type="text/javascript" src="/assets/plugins/clipboard/clipboard.min.js"></script>

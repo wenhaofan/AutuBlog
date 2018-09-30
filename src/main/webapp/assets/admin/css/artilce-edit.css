@@ -1,0 +1,38 @@
+.tags_tag {
+	width: 200px !important;
+}
+
+#tags_tags input {
+	background-color: #fafafa;
+	border: 1px solid #eeeeee;
+}
+
+#tags_addTag input {
+	width: 100%;
+}
+
+.swal2-modal .swal2-spacer {
+	height: 0px;
+}
+
+#dropzone{
+	height:500px;
+}
+
+#dropzone-thumbImg{
+	background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
+}
+#modal-dialog{
+	margin-top:150px!important;
+}
+@media screen and (max-width: 768px) {
+ 	.mditor .head{
+		height:76px;
+	}
+	#md-container .body{
+		margin-top:38px;
+	}
+}
+.hint-msg{
+	color:red!important;
+}

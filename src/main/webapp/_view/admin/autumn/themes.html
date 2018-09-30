@@ -1,0 +1,31 @@
+ <blockquote class="page-title  page-title">主题管理</blockquote>
+
+<div class="layui-row" >
+	<div class="layui-col-xs12 layui-col-md3 layui-col-lg3 theme-item">
+		<img class="theme-img" src="http://pd6htjig8.bkt.clouddn.com/520520_20180928165923.png" width="200px" height="200px">
+		<p class="theme-info">
+			<span class="theme-name">pinghsu</span>
+			#if(currentTheme=="pinghsu")
+				<span class="theme-seleted">当前主题</span>
+			#end
+		</p>
+			#if(currentTheme!="pinghsu")
+				<button class="layui-btn layui-btn-sm theme-change" data-name="pinghsu">更改主题</button>
+			#end
+	</div>
+	<div class="layui-col-xs12 layui-col-md3 layui-col-lg3 theme-item">
+		<img class="theme-img" src="http://pd6htjig8.bkt.clouddn.com/520520_20180928170235.png" width="200px" height="200px">
+		<p class="theme-info">
+			<span class="theme-name">morning</span>
+			#if(currentTheme=="morning")
+				<span class="theme-seleted">当前主题</span>
+			#end
+		</p>
+			#if(currentTheme!="morning")
+		
+				<button class="layui-btn layui-btn-sm theme-change" data-name="morning">更改主题</button>
+			#end
+	</div>
+</div>
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/themes.css">
+<script type="text/javascript" src="/assets/admin/js/themes.js"></script>

@@ -1,0 +1,22 @@
+#include("header.html")
+<div class="main-content page-page">
+    <div class="search-page">
+        <form id="search" class="search-form" method="post" action="/article/search/" role="search">
+            <span class="search-box clearfix">
+                <input type="text" id="input" class="input" name="keyword" required="true" placeholder="Search..." maxlength="30" autocomplete="off">
+                <button type="submit" class="spsubmit"><i class="icon-search"></i></button>
+            </span>
+        </form>
+        <div class="search-tags">
+		       #for(tag:tags)
+		       	<a href="/article/category/1-#(tag.id)-100" class="bg-white"># #(tag.mname)(#(tag.count))</a>
+		       #end
+		       #if(tags==null||tags.isEmpty())
+		       	<p> Nothing here ! </p>
+		       #end
+	        <div class="search-tags-hr <?php if ($this->options->colorBgPosts == 'defaultColor'): ?> bg-deepgrey<?php elseif ($this->options->colorBgPosts == 'customColor'): ?> bg-<?php echo randBgColor(); ?><?php endif; ?>"></div>
+	        </div>
+        </div>
+    </div>
+</div>
+#include('footer.html')

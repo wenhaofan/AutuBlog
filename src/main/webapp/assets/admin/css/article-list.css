@@ -1,0 +1,21 @@
+.article-query-form .layui-form-item{
+	margin-bottom:0px;
+}
+.category-select{
+	width:160px;
+}
+.state-select{
+	width:100px;
+}
+.article-query-form .layui-form-item{
+	display:inline-block;
+}
+.article-query-form .layui-form-label{
+	width: 50px;
+    padding-left:  0px
+	
+}
+.article-query-form .layui-input-block{
+	margin-left:70px;
+	
+}
