@@ -1,37 +1,60 @@
-# AutuBlog
+# Antu 博客系统
 
 #### 项目介绍
-antu-blog是一款轻量级的博客系统,基于jfinal框架开发，持续更新中，欢迎提出建议以及start和fork。Q群662586079。 
 
-#### 软件架构
-软件架构说明
++ `Antu` 是一款使用基于[JFinal](https://gitee.com/jfinal/jfinal)开发的轻量级Java博客系统。
++ 主题1预览：[pinghsu](http://pinghsu.autu.live)
++ 主题2预览：[morning](http://morning.autu.live)
 
+## 特性
 
-#### 安装教程
++ 全站响应式
++ 全站pjax
++ 支持Markdown
++ 整合多套前台主题， [pinghsu](https://github.com/chakhsu/pinghsu),[morning](http://www.yangqq.com/zaoan/)
++ 对接百度推送接口
++ 支持metaweblog推送
++ 内置文件系统
++ 全文检索
 
-1. xxxx
-2. xxxx
-3. xxxx
+## 技术选型
+### 后端
++ 语言：JAVA
++ 核心框架：JFinal
++ 数据库：mysql5.6
++ 缓存层：ehcache
++ 全文检索：lucene+ik分词器
+### 前端
+ #####      后台
++ 核心库：jquery
++ 框架：layui+部分bootstrap
++ 编辑器：mditor+summernote
++ 插件：clipboard，context-menu，dropzone，font-awesome ，
+jquery-multi-select，jquery-pjax，jquery-toggles，limonte-sweetalert2，
+，multi-select，nprogress，select2，tagsinput，art-template toggles 
+ #####      前台
+ + 核心库：jquery
+ + 插件：instantclick，fastclick，headroom
 
+## 界面预览
+
+![antu1.png](http://pd6htjig8.bkt.clouddn.com/20180929160422.png)
+![antu_022.png](http://pd6htjig8.bkt.clouddn.com/20180929160744.png)
+![antu_03.png](http://pd6htjig8.bkt.clouddn.com/20180929160744.png)
+![antu_04.png](http://pd6htjig8.bkt.clouddn.com/20180929161049.png)
+![antu_05.png](http://pd6htjig8.bkt.clouddn.com/20180929161200.png)
+![antu_06.png](http://pd6htjig8.bkt.clouddn.com/20180929161229.png)
+
+## 开源协议
+
+[MIT](LICENSE)
 #### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. 使用jetty运行 右键Application.java
+2. 使用tomcat运行 项目打包为war包放入webapp目录下运行
 
 #### 参与贡献
 
 1. Fork 本项目
-2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
