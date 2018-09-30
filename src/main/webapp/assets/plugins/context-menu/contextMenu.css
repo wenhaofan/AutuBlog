@@ -1,0 +1,12 @@
+
+.context-menu ul,li{ margin:0; padding:0; list-style:none; font-size:12px;}
+.context-menu{position:absolute; z-index: 9999; border:1px solid #AEAEAE; padding:2px; width:80px;border-radius:5px;}
+.context-menu a{text-indent: 10px;display:block; color:#325B8E;   text-decoration:none; height:26px; line-height:25px;  }
+.context-menu a:hover{  border-radius:5px;}
+
+.context-menu{
+	border: 1px solid #dde0e4;
+    border-radius: 5px;
+    box-shadow: 0 0 8px #ccc;
+    background-color: #FFF;
+}

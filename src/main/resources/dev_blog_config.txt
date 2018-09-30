@@ -1,0 +1,12 @@
+devMode=true
+#数据库信息
+dbDriver=com.mysql.jdbc.Driver
+jdbcUrl=jdbc:mysql://127.0.0.1:3306/autublog?characterEncoding=utf-8
+userName=root
+pwd=root
+blogCharset=utf-8
+notValid=0
+isValid=1
+domain=127.0.0.1
+projectPath=http://127.0.0.1/
+theme=pinghsu

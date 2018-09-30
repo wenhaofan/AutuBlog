@@ -1,0 +1,91 @@
+<div class="layui-row ">
+	<div class="layui-col-lg12 layui-col-md12">
+		<blockquote class="page-title">评论列表</blockquote>
+	</div>
+</div>
+ <div class="site-block">
+	<form class="layui-form query-comment"  method="post">
+	  	<div class="layui-form-item layui-inline">
+			<label class="layui-form-label">分类:</label>
+			<div class="layui-input-block">
+				<select  lay-search id="category-select" lay-filter="identify-select">
+					<option value="">-----</option>
+					<option value="links">友链申请</option>
+					#for(article:articles)
+						<option value="#(article.identify)">#(article.title)</option>
+					#end
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item layui-inline">
+			<label class="layui-form-label">状态:</label>
+			<div class="layui-input-block">
+				<select name="state" id="state-select" lay-filter="state-select">
+					<option value="">不限</option>
+					<option value="0">未审核</option>
+					<option value="1">已审核</option>
+					
+				</select>
+			</div>
+		</div>
+	</form>
+</div>
+<div style="width:100%;overflow:auto;">
+	<table class="layui-hide"   width="auto" style="white-space:nowrap"   id="comments"></table>
+</div>
+
+<script type="text/html" id="aduit-tpl">
+  #[[ {{#  if(d.isAduit==1){ }}
+   	{{ "审核通过" }}
+  {{#  } else if(d.aduit==null) { }}
+   	{{ "未审核" }}
+  {{# }else{ }}
+	{{ "审核未通过"}}
+  {{# }}}
+	]]#
+</script>
+
+<script type="text/html" id="tpl-reply">
+
+	<form  style="width:500px;padding:10px;" class="layui-form reply-form" onsubmit="return false;">
+		<input type="hidden" name="toId" value="{{toId}}" >
+  		  	<div class="layui-form-item layui-form-text">
+	   	 <label class="layui-form-label">评论内容</label>
+	    	<div class="layui-input-block">
+	     	 <textarea  maxlength="300" rows="2" cols="40" disabled="disabled" name="content" placeholder="请输入内容" class="layui-textarea">{{content}}</textarea>
+	    	</div>
+	  	</div>
+	  	<div class="layui-form-item layui-form-text">
+	   	 <label class="layui-form-label">回答内容</label>
+	    	<div class="layui-input-block">
+	     	 <textarea  maxlength="300" rows="5" cols="40" name="content" placeholder="请输入内容" class="layui-textarea"></textarea>
+	    	</div>
+	  	</div>
+		  <div class="layui-form-item">
+		    <div class="layui-input-block">
+		    <button class="layui-btn" lay-submit lay-filter="reply">立即提交</button>
+		 </div>
+	  </div>
+</form>
+ 
+</script>
+<script type="text/htmp" id="option-tpl">
+	<option value="" selected>----<option>
+	{{ each categorys }}
+		<option value='{{ $value.id}}'>{{  $value.mname }}({{  $value.count }})<option>
+	{{ /each }}
+</script>
+<script type="text/html" id="operation-tpl">
+#[[ 
+	{{#  if(d.isAduit!=1){ }}
+		<button class="layui-btn layui-btn-sm aduit" data-id="{{d.id}}" data-val="1">审核</button> 
+	{{# } }}
+	<button class="layui-btn layui-btn-sm reply" data-id="{{d.id}}">回复</button>
+	{{#  if(d.isAduit==1){ }}
+		<button class="layui-btn layui-btn-sm go" data-id="{{d.id}}" data-page="{{d.pageNum}}" data-identify="{{d.identify}}">查看</button>
+	{{# } }}
+	<button class="layui-btn layui-btn-sm delete" data-id="{{d.id}}">删除</button> 
+]]#
+</script>
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/comments.css">
+<script type="text/javascript" src="/assets/admin/js/comments.js"></script>

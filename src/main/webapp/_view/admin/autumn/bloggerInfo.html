@@ -1,0 +1,75 @@
+<script type="text/html" id="tpl-content">
+#(user.about)
+</script>
+<div class="layui-row ">
+	<div class="layui-col-lg12 layui-col-md12">
+		<blockquote class="page-title ">个人介绍</blockquote>
+	</div>
+</div>
+<div class="layui-row" >
+	<div class="layui-col-xs12 layui-col-md6 layui-col-lg6">
+ 			<form class="layui-form bloggerForm" action=""   onsubmit="return false">
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">头像</label>
+			    <div class="layui-input-block">
+			      <input name="headImg" type="hidden" value="#(user.headImg??)">
+			 	  <img alt="" class="avatar-img" src="#(user.headImg??"/_view/templates/morning/images/avatar.jpg")">
+			      <button type="button" class="layui-btn" id="uploadHeadImg">
+					  <i class="layui-icon">&#xe67c;</i>上传头像
+				  </button>
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">QQ</label>
+			    <div class="layui-input-block">
+			      <input type="hidden" name="id">
+			      <input type="text" name="qq" value="#(user.qq)" placeholder="请输入QQ" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">职业</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="abposition"  value="#(user.abposition)"  placeholder="请输入职业" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">所在地</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="address" value="#(user.address)"  required  lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item layui-form-text">
+			    <label class="layui-form-label">简介</label>
+			    <div class="layui-input-block">
+			      <textarea name="description" placeholder="请输入介绍" class="layui-textarea">#(user.description)</textarea>
+			    </div>
+			  </div>
+			  
+				<div class="layui-form-item layui-form-text">
+				 <label class="layui-form-label">详细介绍</label>
+			    <div class="layui-input-block">
+			      	<div id="html-container" style="width:100%;">
+						<div class="summernote"></div>
+					</div>
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button  class="layui-btn" lay-submit lay-filter="submitEdit">立即提交</button>
+			    </div>
+			  </div>
+			</form>
+	</div> 
+</div>
+<style>
+.avatar-img{
+	width:100px;
+	border-radius: 50%;
+}
+</style>
+	#@bootstrap()
+<link href="/assets/plugins/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="/assets/plugins/summernote/0.8.9/summernote.min.js"></script>
+<script type="text/javascript" src="/assets/js/from-util.js"></script>
+<script type="text/javascript" src="/assets/admin/js/blogger.js"></script>

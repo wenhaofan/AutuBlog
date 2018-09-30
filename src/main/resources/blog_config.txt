@@ -1,0 +1,9 @@
+#数据库信息
+dbDriver=com.mysql.jdbc.Driver
+jdbcUrl=jdbc:mysql://127.0.0.1:3306/autublog?characterEncoding=utf-8
+userName=root
+pwd=root
+blogCharset=utf-8
+domain=wenhaofan.com
+projectPath=http://www.wenhaofan.com
+theme=pinghsu

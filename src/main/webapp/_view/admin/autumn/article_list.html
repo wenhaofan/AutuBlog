@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="/assets/admin/css/article-list.css">
+<div class="layui-row ">
+	<div class="layui-col-lg12 layui-col-md12">
+		<blockquote class="page-title">文章列表</blockquote>
+	</div>
+</div>
+<div class="site-block">
+	<form class="layui-form article-query-form" method="post" >
+		<div class="layui-form-item">
+			<label class="layui-form-label">分类:</label>
+			<div class="layui-input-block category-select">
+				<select name="categoryId" id="category-select"
+					lay-filter="category-select">
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">状态:</label>
+			<div class="layui-input-block state-select">
+				<select name="state" id="state-select" lay-filter="state-select">
+					<option value="1">发布</option>
+					<option value="0">草稿</option>
+					<option value="2">废弃</option>
+					<option value="-1">不限</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+		    <div class="layui-input-block">
+		    <button type="button" class="layui-btn createIndex"  >重置索引</button>
+		     <a href="/admin/article/edit" pjax><button type="button" class="layui-btn"  >新增</button></a>
+		 </div>
+	</form>
+</div>
+<div style="width:100%;overflow:auto;">
+	<table class="layui-table" id="articles" width="auto" style="white-space:nowrap"  lay-data="{ }"lay-filter="test">
+		
+	</table>
+</div>
+ 
+
+<script type="text/html" id="state-tpl">
+  #[[ {{#  if(d.state ==0){ }}
+   	{{ "草稿" }}
+  {{#  } else if(d.state==1) { }}
+   	{{ "发布" }}
+  {{# }else{ }}
+	{{ "废弃" }}
+  {{# }}}
+	]]#
+</script>
+ 
+<script type="text/htmp" id="option-tpl">
+	<option value="" selected>----<option>
+	{{ each categorys }}
+		<option value='{{ $value.id}}'>{{  $value.mname }}({{  $value.count }})<option>
+	{{ /each }}
+</script>
+<script type="text/html" id="operation-tpl">
+#[[
+	
+	<button class="layui-btn layui-btn-sm article-push" data-id="{{d.id}}">推送</button>
+	<button class="layui-btn layui-btn-sm "><a href="/article/{{d.identify}}" target="_blank">预览</a></button>	
+	<button class="layui-btn layui-btn-sm "><a href="/admin/article/edit/{{d.id}}" pjax >修改</a></button>
+	
+{{# if(d.state == 2){ }}
+	<button class="layui-btn layui-btn-sm article-recover" data-id="{{d.id}}">恢复</button> 
+	 <button class="layui-btn layui-btn-sm article-delete" data-id="{{d.id}}">删除</button> 
+{{# } else if(d.state == 1){ }}
+    <button class="layui-btn layui-btn-sm article-remove" data-id="{{d.id}}">废弃</button> 
+{{# }else if(d.state==0){ }}
+	 <button class="layui-btn layui-btn-sm article-delete" data-id="{{d.id}}">删除</button> 
+{{# }}}
+]]#
+</script>
+<script type="text/javascript" src="/assets/common/meta.js"></script>
+<script type="text/javascript" src="/assets/admin/js/article-list.js"></script>

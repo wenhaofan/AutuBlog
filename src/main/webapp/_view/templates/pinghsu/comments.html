@@ -1,0 +1,156 @@
+<div id="#(article.id)" class="comment-container">
+    <div id="comments" class="clearfix">
+        <span class="response">Responses  / </span>
+        <form method="post"  id="comment-form" class="comment-form" onsubmit="return fl.subComment();">
+            <input type="hidden" name="identify" id="identify" value="#(article.identify)"/>
+            <input type="hidden" name="parentId" id="parentId" value=""/>
+            <input type="hidden" name="toUserId" id="toUserId" value=""/>
+            <input name="name" maxlength="12" id="name" class="form-control input-control clearfix"
+                   placeholder="姓名 (*)" value="#(agentUser.name??)" required/>
+            <input type="email" name="email" id="email" class="form-control input-control clearfix" placeholder="邮箱 (*)"
+                   value="#(agentUser.email??)" required/>
+            <input type="url" name="website" id="website" class="form-control input-control clearfix" placeholder="网址 (http://)"  value="#(agentUser.website??)"/>
+            <textarea name="content" id="textarea" class="form-control" placeholder="留下你的评论." required minlength="2" maxlength="2000"></textarea>
+            <button class="submit" id="comment-submit">提交</button>
+        </form>
+ 		#if(commentPage!=null)
+        <ol class="comment-list">
+            #for(comment : commentPage.list)
+            <li id="li-comment-#(comment.id)" class="comment-body comment-parent comment-odd">
+                <div id="comment-#(comment.id)">
+                    <div class="comment-view" onclick="">
+                        <div class="comment-header">
+                            <img class="avatar" src="https://secure.gravatar.com/avatar/f3928ade04cae2de5658d728c3dc8cd9?s=80&r=G&d=mm" title="游客" width="80" height="80">
+                            <span class="comment-author comment-by-author">
+                                <a href="javascript:void(0)" target="_blank" rel="external nofollow">#(comment.name)</a>
+                            </span>
+                        </div>
+                        <div class="comment-content">
+                            <span class="comment-author-at"></span>
+                            <p>#(comment.content)</p>
+                        </div>
+                        <div class="comment-meta">
+                            <time class="comment-time">#(comment.gmtCreate)</time>
+                            <span class="comment-reply">
+                                <a rel="nofollow" class="reply" data-id="#(comment.id)" data-userId="#(comment.userId)">回复</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                #if(comment.childs!=null)
+                <div class="comment-children">
+                    <ol class="comment-list">
+                        #for(child : comment.childs)
+	                        <li id="li-comment-#(child.id)"
+	                            class="comment-body comment-child comment-level-odd comment-odd">
+	                            <div id="comment-#(child.id)">
+	                                <div class="comment-view">
+	                                    <div class="comment-header">
+	                                        <img class="avatar" src="https://secure.gravatar.com/avatar/f3928ade04cae2de5658d728c3dc8cd9?s=80&r=G&d=mm" title="游客" width="80" height="80">
+	                                        <span class="comment-author comment-by-author">
+	                                            <a href="javascript:void(0)" target="_blank" rel="external nofollow">#(child.name)</a>
+	                                        </span>
+	                                    </div>
+	                                    <div class="comment-content">
+	                                        <span class="comment-author-at">
+	                                           @#(child.user.name)
+	                                        </span>
+	                                        <p>#(child.content)</p>
+	                                    </div>
+	                                    <div class="comment-meta">
+	                                        <time class="comment-time">#(child.gmtCreate)</time>
+	                                        <span class="comment-reply">
+	                                            <a rel="nofollow" class="reply" data-id="#(child.id)" data-userid="#(child.userId)">回复</a>
+	                                        </span>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </li>
+                        #end
+                    </ol>
+                </div>
+                #end
+            </li>
+           
+        </ol> 
+       #end
+        <div class="lists-navigator clearfix">
+            <ol class="page-navigator">
+                #if(!commentPage.isFirstPage())
+                <li class="prev"><a href="/article/#(article.identify)?p=#(commentPage.pageNumber-1)#comments">←</a></li>
+                #end
+                #for(navIndex =1;navIndex<=commentPage.totalPage;navIndex++)
+                <li #if(commentPage.pageNumber == navIndex) class="current" #end><a href="/article/#(article.identify)?p=#(navIndex)#comments">#(navIndex)</a></li>
+                #end
+                #if(!commentPage.isLastPage())
+                <li class="next"><a href="/article/#(article.identify)?p=#(commentPage.pageNumber+1)#comments">→</a></li>
+                #end
+            </ol>
+        </div>
+        #end
+    </div>
+</div>
+
+<script type="text/javascript">
+(function(){
+	window.fl={
+
+		   cancelReply:function(ele){
+				$(ele).remove();
+				$('#comment-form input[name=parentId]').val("");
+	            $('#comment-form input[name=toUserId]').val("");
+		   },reply: function (parentId,toUserId) {
+               $('#comment-form input[name=parentId]').val(parentId);
+               $('#comment-form input[name=toUserId]').val(toUserId);
+               $("html,body").animate({scrollTop: $('div.comment-container').offset().top-50}, 450);
+               $('#comment-form #textarea').focus();
+               
+               if($(".cancel-comment-reply-link").length==0){
+                   $(".response").append('<a class="cancel-comment-reply-link" href="javascript:void(0)">取消回复</a>');
+               }
+           },
+           subComment: function () {
+               $.ajax({
+                   type: 'post',
+                   url: '/comment/save',
+                   data: $('#comment-form').serialize(),
+                   async: false,
+                   dataType: 'json',
+                   error: function (jqXHR, status, error) {
+                       if(status === 'error' && jqXHR.status === 400){
+                           alert('非法的请求');
+                       } else {
+                           console.log('Request Error:', error)
+                       }
+                   },
+                   success: function (result) {
+                       
+                       if (result && result.state=="ok") {
+                           alert('评论成功');
+                           window.location.reload();
+                       } else {
+                           if (result.msg) {
+                               alert(result.msg);
+                               window.location.reload();
+                           }
+                       }
+                   }
+               });
+               return false;
+           }
+       };
+})();
+$(function(){
+	$(".reply").click(function(){
+		var toUserId=$(this).data("userid");
+		var parentId=$(this).data("id");
+		fl.reply(parentId,toUserId);
+	})
+	
+	$(".response").on("click",".cancel-comment-reply-link",function(){
+		 fl.cancelReply($(this));
+	})
+})
+</script>
+ 
+ 

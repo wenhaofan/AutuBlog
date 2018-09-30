@@ -1,0 +1,16 @@
+.theme-info{
+	text-align: center;
+}
+.theme-item{
+	text-align: center;
+	font-size: 16px;
+}
+.theme-info{
+	margin-top:12px;
+}
+.theme-seleted{
+	color:red;
+}
+.theme-change{
+	margin-top:5px;
+}

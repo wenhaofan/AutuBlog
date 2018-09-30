@@ -1,0 +1,190 @@
+<div class="layui-row" >
+	<div class="layui-col-xs12 layui-col-md6 layui-col-lg6">
+		<div class="basic-config">
+			<blockquote class="page-title  page-title">网站信息</blockquote>
+			<form class="layui-form editConfig" lay-filter="editConfig" action=""   onsubmit="return false">
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">标题</label>
+			    <div class="layui-input-block">
+			      <input type="hidden" name="id">
+			      <input type="text" name="title"   placeholder="请输入标题" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">介绍</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="description"   placeholder="请输入介绍" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">关键字</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="keywords"   placeholder="请输入关键字" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			    <div class="layui-form-item">
+			    <label class="layui-form-label">author</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="author" placeholder="请输入作者" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			   <div class="layui-form-item">
+			   <label class="layui-form-label">ico</label>
+			    <div class="layui-input-block">
+			      <input name="ico" type="hidden">
+			 	  <img alt="" class="ico-img">
+			      <button type="button" class="layui-btn upload-btn upload-ico">
+					  <i class="layui-icon">&#xe67c;</i>上传ico
+				  </button>
+			    </div>
+			  </div>
+			    <div class="layui-form-item">
+			   <label class="layui-form-label">logo</label>
+			    <div class="layui-input-inline" style="width: auto;">
+			   	 <input name="logo" type="hidden"  >
+			 	  <img alt="" class="logo-img"  >
+			      <button type="button" class="layui-btn upload-btn upload-logo"  >
+					  <i class="layui-icon">&#xe67c;</i>上传logo
+				  </button>
+				  
+			    </div>
+			     <div class="layui-form-mid layui-word-aux" style="line-height: 57px;">建议大小:120*60</div>
+			  </div>
+		  <div class="layui-form-item">
+			    <label class="layui-form-label">备案号</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="ICPRecord"    placeholder="请输入备案号" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button  class="layui-btn" lay-submit lay-filter="editConfig">立即提交</button>
+			    </div>
+			  </div>
+			</form>
+		</div>
+	</div>
+	<div class="layui-col-xs12 layui-col-md6 layui-col-lg6">
+		<div class="basic-config">
+			<blockquote class="page-title  page-title">其他设置</blockquote>
+			<form class="layui-form editConfig" lay-filter="editConfig" action="" onsubmit="return false">
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">发件邮箱</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="fromEmail"   placeholder="请输入发件邮箱" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">邮箱授权码</label>
+			    <div class="layui-input-block">
+			      <input type="text" name="emailPassword"   placeholder="请输入邮件密码" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">邮件服务器</label>
+			    <div class="layui-input-block">
+			      <input type="hidden" name="id">
+			      <input type="text" name="emailServer"   placeholder="请输入邮件服务器地址" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">七牛云AK</label>
+			    <div class="layui-input-block">
+			      <input type="hidden" name="id">
+			      <input type="text" name="qiniuAk"  placeholder="请输入七牛云AK" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">七牛云SK</label>
+			    <div class="layui-input-block">
+			      <input type="hidden" name="id">
+			      <input type="text" name="qiniuSk"   placeholder="请输入七牛云SK" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">七牛云存储空间名称</label>
+			    <div class="layui-input-block">
+			      <input type="hidden" name="id">
+			      <input type="text" name="qiniuBucket"  placeholder="请输入七牛云存储空间名称" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">七牛云URL</label>
+			    <div class="layui-input-block">
+			      <input type="hidden" name="id">
+			      <input type="text" name="qiniuUrl"  placeholder="请输入七牛云URL" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			 <div class="layui-form-item">
+			    <label class="layui-form-label">评论审核</label>
+			    <div class="layui-input-block">
+			       <input type="checkbox" value="1" name="isAuditComment" lay-skin="switch" lay-text="开启|关闭" checked>
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button  class="layui-btn" lay-submit lay-filter="editConfig">立即提交</button>
+			    </div>
+			  </div>
+			</form>
+		</div>
+	</div>
+</div>
+ <div class="layui-row" >
+	<div class="layui-col-xs12 layui-col-md6 layui-col-lg6">
+		<div class="basic-config">
+			<blockquote class="page-title  page-title">友情链接</blockquote>
+			<form action="" onsubmit="return false;" class="layui-form">
+				<div class="layui-form-item">
+				     
+				    <button type="button" class="layui-btn" id="addBlogroll"   >新增</button>
+				 
+			</form>
+		 	<table class="layui-hide"   width="auto" style="white-space:nowrap"  id="blogrolls"></table>
+		</div>
+	</div>
+ 
+</div>
+ 
+<script type="text/html" id="tpl-edit-blogroll">
+
+<form class="layui-form add-form" onsubmit="return false;">
+	 
+	    <input type="hidden" name="id" value="{{id}}" >
+	<div class="layui-form-item layui-form-text">
+   	 	<label class="layui-form-label">网站名</label>
+    	<div class="layui-input-block">
+     		<input type="text" name="title" required  lay-verify="required" value="{{title}}" placeholder="请输入网站名" autocomplete="off" class="layui-input">
+    	</div>
+  	</div>
+  	<div class="layui-form-item layui-form-text">
+   	 	<label class="layui-form-label">路径</label>
+    	<div class="layui-input-block">
+     		 <input type="text" name="url" required  lay-verify="required" value="{{url}}" placeholder="请输入路径" autocomplete="off" class="layui-input">
+    	</div>
+  	</div>
+  	<div class="layui-form-item layui-form-text">
+   	 	<label class="layui-form-label">排序</label>
+    	<div class="layui-input-block">
+     		 <input type="number" name="sort" required  lay-verify="required " value="{{sort}}"  placeholder="数值越大显示越靠前" autocomplete="off" class="layui-input">
+    	</div>
+  	</div>
+  	 
+	 <div class="layui-form-item">
+	    <div class="layui-input-block">
+	    <button class="layui-btn" lay-submit lay-filter="editBlogroll">立即提交</button>
+	 	</div>
+ 	 </div>
+</form>
+</script>
+
+<script type="text/html" id="tpl-blogroll-operate">
+	<button class="layui-btn layui-btn-sm delete-blogroll" data-id="{{d.id}}">删除</button>
+	<button class="layui-btn layui-btn-sm update-blogroll" data-id="{{d.id}}">修改</button>
+</script>
+<link rel="stylesheet" type="text/css" href="/assets/admin/css/config.css">
+<script type="text/javascript" src="/assets/js/from-util.js"></script>
+<script type="text/javascript" src="/assets/admin/js/config.js"></script>

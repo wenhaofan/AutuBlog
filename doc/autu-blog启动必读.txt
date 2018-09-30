@@ -1,0 +1,32 @@
+
+管理员登录账号：admin  密码:111111
+ 
+ 
+------------------------------------------------------------------------
+
+0：启动之前需要先创建名为 jfinal_club 的数据库，字符集使用 utf-8
+    导入 jfinal_club-1.5.sql 中的建表与初始化数据
+
+1：修改 src/main/resources 目录下的 dev_blog_config.txt 配置文件
+
+2：该项目为标准的 maven web app 项目，以往相关经验可直接使用
+
+3：Application.java 文件中已经创建了一个 main 方法，
+     直接右键该文件，点击 debug 或 run 即可运行
+     注意：
+     	1.main 方法中默认是支持 eclipse 启动，如果是 IDEA，则需要 启用该 main 方法被注释掉的那行代码 
+ 	    2.高版本eclipse如果报错则同样选择被注释的那行代码来执行
+
+4：按照以上方式运行过一次以后，eclipse 或 IDEA 会自动生成一条debug、run configuration
+     配置项，对该配置项可进行进一步设置，例如可设置 VM argument: -XX:PermSize=64M -XX:MaxPermSize=256M
+
+5：不建议在 pom.xml 中配置 maven jetty plugin 的方式启动项目，该方式启动速度
+  较上述方式慢得多，有损开发效率
+
+6：IDEA 下开发，jfinal 官方集成的 jetty 并不直接支持热加载，在开发过程中，可通过
+   按 Alt + 5 激活调试窗口，再按一下 Ctrl + F5 的方式重启项目，此方法的启动速度仍然
+   比 maven jetty plugin 要高得多
+   重要：IDEA 下开发，对于 jetty-server 依赖的 scope 属性需要设置为 compile，否则无法启动项目
+         打 war 包时为了避免 jetty 的包被打进去，再改成 provided 即可
+
+

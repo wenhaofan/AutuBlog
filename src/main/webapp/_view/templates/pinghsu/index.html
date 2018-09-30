@@ -1,0 +1,80 @@
+#include("header.html")
+<div class="main-content index-page clearfix  onelist-page>
+	<div class="post-lists">
+		<div class="post-lists-body">
+			#for(article:articleTopList)
+	 			<div class="post-list-item">
+					<div class="post-list-item-container">
+						 
+						<div class="item-thumb" #if(article.thumbImg!=null) style="background-image:url(#(article.thumbImg));" #end ></div>
+	            
+						<a href="/article/#(article.identify)">
+		                	<div class="item-desc">
+								<p>#(article.intro)...</p>
+							</div>
+						</a>
+						<div class="item-slant reverse-slant  bg-deepgrey"></div>
+						<div class="item-slant"></div>
+						<div class="item-label">
+							<div class="item-title"><a href="/article/#(article.identify)">#(article.title)</a></div>
+							<div class="item-meta clearfix">
+								<div class="item-meta-ico bg-ico-book" style="background: url(/_view/templates/pinghsu/static/img/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
+								<div class="item-meta-cat">
+										#for(meta:article.metas)
+											<a href="/article/category/1-#(meta.id)-100">#(meta.mname)</a>
+											#if(!for.last)、
+											#end 
+										#end
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			#end
+			#for(article:articlePage.list)
+	 			<div class="post-list-item">
+					<div class="post-list-item-container">
+						 
+						<div class="item-thumb" #if(article.thumbImg!=null) style="background-image:url(#(article.thumbImg));" #end ></div>
+	            
+						<a href="/article/#(article.identify)">
+		                	<div class="item-desc">
+								<p>#(article.intro)...</p>
+							</div>
+						</a>
+						<div class="item-slant reverse-slant  bg-deepgrey"></div>
+						<div class="item-slant"></div>
+						<div class="item-label">
+							<div class="item-title"><a href="/article/#(article.identify)">#(article.title)</a></div>
+							<div class="item-meta clearfix">
+								<div class="item-meta-ico bg-ico-book" style="background: url(/_view/templates/pinghsu/static/img/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
+								<div class="item-meta-cat"><a href="">#for(meta:article.metas)#(meta.mname)#if(!for.last)、#end #end</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			#end
+		</div>
+	</div>
+	<div class="lists-navigator clearfix">
+     <ol class="page-navigator">
+		    #if(!articlePage.isFirstPage())
+		    	<li class="prev"><a href="/#(currentPageNum-1)">上一页</a></li>
+		    #end
+		  
+		    #for(pageNum=1;pageNum<=articlePage.totalPage;pageNum++)
+				#if(pageNum == currentPageNum) 
+					<li  class="current" ><a href="javascript:void(0)">#(currentPageNum)</a></li>
+				#else
+					<li ><a href="/#(pageNum)">#(pageNum)</a></li>
+		    	#end
+		    #end
+		
+		    #if(!articlePage.isLastPage())
+		    <li class="next"><a href="/#(currentPageNum+1)">下一页</a></li>
+		    #end
+		</ol>
+  </div>
+</div>
+
+#include('footer.html')

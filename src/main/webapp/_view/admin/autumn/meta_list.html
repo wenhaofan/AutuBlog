@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="/assets/admin/css/meta-list.css" />
+
+ 
+<div class="layui-row list ">
+	<div class="layui-col-md6 categorys-block">
+		<div class="tags-head">
+			<blockquote class="page-title ">分类管理</blockquote>
+		
+		</div>
+			<div class="categorys-body">
+				<ul class="layui-nav" id="category-list">
+				</ul>
+			</div>
+	</div>
+	<div class="layui-col-md6 tags-block">
+		<div class="tags-head">
+			<blockquote class="page-title ">标签管理</blockquote>
+		</div>
+		
+		<div class="tags-body">
+			<ul class="layui-nav" id="tag-list" lay-filter="">
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="layui-row  ">
+	<div class="layui-col-md3">
+		<div class="update">
+			<div class="form">
+				<form class="layui-form" style="padding-bottom: 1px;" onsubmit="return false">
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							名称：
+						</label>
+						<div class="layui-input-block">
+							<input type="text" class="layui-hide"  name="id" />
+							<input type="text" class="layui-hide"  name="type" />
+							<input type="text" style="width:200px;" autocomplete="off"  name="mname" lay-verify="required" class="layui-input layui-form-danger" width="100px" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							优先级：
+						</label>
+						<div class="layui-input-block">
+							<input type="text" style="width:100px;" name="sort" lay-verify="required|number" class="layui-input layui-form-danger" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							 <button class="layui-btn" id="submit-btn-category" onclick="changeType('category')" lay-submit lay-filter="metaForm" >添加分类</button>
+							 <button class="layui-btn" id="submit-btn-tag" onclick="changeType('tag')" lay-submit lay-filter="metaForm" >添加标签</button>
+							 <button type="reset" id="reset" class="layui-btn layui-btn-primary" >清空</button>
+						</div>
+					</div>
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="tpl-meta-list">
+	 <li class="layui-nav-item">
+	    <a href="javascript:;">
+				{{ meta.mname}}({{meta.count}})
+<i class="fa fa-caret-down"></i>
+ 
+		</a>
+	    <dl class="layui-nav-child" > <!-- 二级菜单 -->
+	      <dd><a href="javascript:void(0)" onclick="update(this,'{{type}}',{{meta.id}},'{{meta.mname}}',{{meta.sort}})" >修改</a></dd>
+	      <dd><a href="javascript:remove({{meta.id}})">删除</a></dd>
+	    </dl>
+	 </li>		
+</script>
+<script src="/assets/admin/js/meta-list.js"></script>
+<script src="/assets/common/meta.js"></script>
