@@ -44,6 +44,7 @@ jquery-multi-select，jquery-pjax，jquery-toggles，limonte-sweetalert2，
 ![antu_04.png](http://pd6htjig8.bkt.clouddn.com/20180929161049.png)
 ![antu_05.png](http://pd6htjig8.bkt.clouddn.com/20180929161200.png)
 ![antu_06.png](http://pd6htjig8.bkt.clouddn.com/20180929161229.png)
+![antu_07.png](http://pd6htjig8.bkt.clouddn.com/TIM图片20181002120153.png)
 
 ## 开源协议
 
