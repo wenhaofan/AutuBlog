@@ -9,19 +9,19 @@ import com.autu.common.model.entity.SysLog;
 public class SysLogHelper {
 	
  
-	public static void addInfoLog(String content,String action,String data) {
-		addSysLog(content, data, action, null, null,null,SysLogLevelEnum.INFO.getValue());
+	public static void saveInfoLog(String content,String action,String data) {
+		saveSysLog(content, data, action, null, null,null,SysLogLevelEnum.INFO.getValue());
 	}
-	public static void addWarnLog(String content,String action,String data) {
-		addSysLog(content, data, action, null, null,null,SysLogLevelEnum.WARN.getValue());
+	public static void saveWarnLog(String content,String action,String data) {
+		saveSysLog(content, data, action, null, null,null,SysLogLevelEnum.WARN.getValue());
 	}
-	public static void addErrorLog(String content,String action,String data) {
-		addSysLog(content, data, action, null, null,null,SysLogLevelEnum.ERROR.getValue());
+	public static void saveErrorLog(String content,String action,String data) {
+		saveSysLog(content, data, action, null, null,null,SysLogLevelEnum.ERROR.getValue());
 	}
-	public static void addSysLog(String content,String action,String data,Integer level) {
-		addSysLog(content, data, action, null, null,null,level);
+	public static void saveSysLog(String content,String action,String data,Integer level) {
+		saveSysLog(content, data, action, null, null,null,level);
 	}
-	public static void addSysLog(String content,String data,
+	public static void saveSysLog(String content,String data,
 			String action,String ip,String url,Integer userId,Integer level) {
 		SysLog sysLog=new SysLog();
 		sysLog.setContent(content);
@@ -31,6 +31,10 @@ public class SysLogHelper {
 		sysLog.setUserId(userId);
 		sysLog.setLevel(level);
 		sysLog.setUrl(url);
+		saveSysLog(sysLog);
+	}
+	
+	public static void saveSysLog(SysLog sysLog) {
 		sysLog.save();
 	}
 }

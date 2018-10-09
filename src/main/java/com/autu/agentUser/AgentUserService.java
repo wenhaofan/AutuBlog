@@ -1,7 +1,7 @@
 package com.autu.agentUser;
 
-import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.AgentUser;
+import com.jfinal.aop.Inject;
 
 public class AgentUserService {
 

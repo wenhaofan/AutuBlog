@@ -1,8 +1,8 @@
 package com.autu._admin.config;
 
 import com.autu.common._config.BlogContext;
-import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.Config;
+import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.SqlPara;
 

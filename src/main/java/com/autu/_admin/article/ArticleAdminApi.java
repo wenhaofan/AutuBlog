@@ -2,13 +2,13 @@ package com.autu._admin.article;
 
 import java.util.List;
 
-import com.autu.common.annotation.SysLog;
-import com.autu.common.aop.Inject;
+import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.controller.BaseController;
-import com.autu.common.kit.Ret;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Meta;
 import com.autu.common.model.entity.User;
+import com.jfinal.aop.Inject;
+import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 
 /**
@@ -24,7 +24,7 @@ public class ArticleAdminApi extends BaseController {
 	@Inject
 	private AdminArticleLuceneIndexes luceneIndexes;
 	
-	@SysLog(value="重置文章索引",action="udpate")
+	@SysLogInfo(value="重置文章索引",action="udpate")
 	public void createIndex() {
 		luceneIndexes.resetArticleIndexes();
 		renderJson(Ret.ok());
@@ -41,7 +41,7 @@ public class ArticleAdminApi extends BaseController {
 	}
 	
 
-	@SysLog(value="使用metaweblog接口推送文章",action="other")
+	@SysLogInfo(value="使用metaweblog接口推送文章",action="other")
 	public void asyncMetaWeblog() {
 		Integer id=getParaToInt();
 		renderJson(articleService.asyncMetaWeblog(id));
@@ -52,7 +52,7 @@ public class ArticleAdminApi extends BaseController {
 	 * 
 	 * @throws Exception
 	 */
-	@SysLog(value="编辑文章",action="saveOrUpdate")
+	@SysLogInfo(value="编辑文章",action="saveOrUpdate")
 	public void edit() {
 		Article article = getModel(Article.class, "", true);
 		List<Meta> tags=getModelList(Meta.class, "tag");
@@ -61,22 +61,22 @@ public class ArticleAdminApi extends BaseController {
 		article.setUserId(user.getId());
 		articleService.saveOrUpdate(article, tags, categorys);
 	
-		renderJson(Ret.ok("添加成功!").set("article", article).toJson());
+		renderJson(Ret.ok("msg","添加成功!").set("article", article).toJson());
 	}
 
  
-	@SysLog(value="废弃文章",action="update")
+	@SysLogInfo(value="废弃文章",action="update")
 	public void remove() {
 		Integer id =getParaToInt(0);
 		renderJson(articleService.remove(id).toJson());;
 	}
-	@SysLog(value="删除文章",action="delete")
+	@SysLogInfo(value="删除文章",action="delete")
 	public void delete() {
 		Integer id =getParaToInt(0);
 		renderJson(articleService.delete(id).toJson());;
 	}
 	 
-	@SysLog(value="恢复文章",action="update")
+	@SysLogInfo(value="恢复文章",action="update")
 	public void recover() {
 		Integer id = getParaToInt(0);
 		renderJson(articleService.recover(id));;

@@ -1,7 +1,7 @@
 package com.autu._admin.metaweblog;
 
-import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.MetaweblogRelevance;
+import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.plugin.activerecord.SqlPara;
 

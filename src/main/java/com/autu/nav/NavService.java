@@ -2,8 +2,8 @@ package com.autu.nav;
 
 import java.util.List;
 
-import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.Nav;
+import com.jfinal.aop.Inject;
 
 /**
  * 后台页面控制器
