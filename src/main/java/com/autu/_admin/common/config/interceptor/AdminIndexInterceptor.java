@@ -1,10 +1,10 @@
 package com.autu._admin.common.config.interceptor;
 
 import com.autu._admin.user.AdminUserService;
-import com.autu.common.aop.AopFactory;
 import com.autu.common.kit.StrKit;
 import com.autu.common.model.entity.User;
-import com.autu.common.service.IndexService;
+import com.jfinal.aop.Aop;
+import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
@@ -12,7 +12,9 @@ import com.jfinal.core.Controller;
 
 public class AdminIndexInterceptor implements Interceptor{
 
-	IndexService service=IndexService.me;
+ 
+	@Inject
+	private AdminUserService adminUserService;
 	
 	@Override
 	public void intercept(Invocation inv) {
@@ -26,8 +28,7 @@ public class AdminIndexInterceptor implements Interceptor{
 		if(isPjax) {
 			return;
 		}
-		
-		AdminUserService adminUserService=AopFactory.getInject(AdminUserService.class);
+ 
 		User adminUser=adminUserService.getAdminUser();
 
 		String requestUrl=c.getRequest().getRequestURI();

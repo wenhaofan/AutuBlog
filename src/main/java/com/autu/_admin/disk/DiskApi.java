@@ -3,12 +3,12 @@ package com.autu._admin.disk;
 import java.util.List;
 
 import com.autu.common._config.BlogContext;
-import com.autu.common.annotation.SysLog;
-import com.autu.common.aop.Inject;
+import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.Disk;
 import com.autu.common.model.entity.QueryDisk;
 import com.autu.common.uplod.UploadService;
+import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 import com.jfinal.upload.UploadFile;
 
@@ -33,7 +33,7 @@ public class DiskApi extends BaseController{
 		renderJson(Ret.ok("list", diskList));
 	}
 	
-	@SysLog(value="文件系统上传",action="upload")
+	@SysLogInfo(value="文件系统上传",action="upload")
 	public void upload() {
 		UploadFile	uploadFile = getFile("upfile", UploadService.tempPath);
 		Integer parentId=getParaToInt("parentId",0);
@@ -41,7 +41,7 @@ public class DiskApi extends BaseController{
 		renderJson(Ret.ok("disk", disk));
 	}
 	
-	@SysLog(value="创建文件夹",action="save")
+	@SysLogInfo(value="创建文件夹",action="save")
 	public void createFolder() {
 		Disk disk=getModel(Disk.class,"",true);
 		disk.setType(DiskType.FOLDER.toString());
@@ -49,13 +49,13 @@ public class DiskApi extends BaseController{
 		renderJson(Ret.ok("disk",disk));
 	}
 	
-	@SysLog(value="删除文件夹或文件",action="delete")
+	@SysLogInfo(value="删除文件夹或文件",action="delete")
 	public void remove() {
 		service.remove(getParaToInt());
 		renderJson(Ret.ok());
 	}
 	
-	@SysLog(value="更新文件夹或文件",action="update")
+	@SysLogInfo(value="更新文件夹或文件",action="update")
 	public void update() {
 		Disk disk=getModel(Disk.class,"",true);
 		renderJson(Ret.ok("disk", service.update(disk)	));

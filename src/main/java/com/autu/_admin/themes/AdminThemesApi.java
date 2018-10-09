@@ -1,7 +1,7 @@
 package com.autu._admin.themes;
 
 import com.autu.common._config.BlogContext;
-import com.autu.common.annotation.SysLog;
+import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.controller.BaseController;
 import com.autu.common.kit.PropertyKit;
 import com.jfinal.kit.Ret;
@@ -12,7 +12,7 @@ import com.jfinal.kit.Ret;
 */
 public class AdminThemesApi extends BaseController {
 
-	@SysLog(value="切换主题",action="udpate")
+	@SysLogInfo(value="切换主题",action="udpate")
 	public void change() {
 		String themeName=getPara();
 		BlogContext.setTheme(themeName);
