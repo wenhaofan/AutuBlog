@@ -17,20 +17,17 @@ $.fn.serializeJson = function()
 }; 
 $(function(){
 	
-	$(".menu-tree li").each(function(){
-		if($(this).find("a").attr("href")==requestUrl){
+ 	$(".menu-tree a").each(function(){
+		if($(this).attr("href")==requestUrl){
 			$(this).addClass("layui-this")
 		}
 	})
-	$(".menu-tree li").click(function(){
-		$(".menu-tree li").each(function(){
-			$(this).removeClass("layui-this")
-		})
-		$(this).addClass("layui-this");
-	})
-	
+ 
 	$(document).on('pjax:start', function() { NProgress.start(); });
-	$(document).on('pjax:end',   function() { NProgress.done(); $(".note-popover").remove() });
+	$(document).on('pjax:end',   function() { 
+		NProgress.done(); 
+		$(".note-popover").remove() 
+	});
  	$(document).pjax('a[pjax]', '.layui-fluid');
 	
 	$(".layui-toggle-menu").click(function(){
@@ -69,12 +66,12 @@ $(function(){
 		$(".layui-side").show();
 	}
 })
-
+ 
 var updatePwdIndex;
-layui.use(['form','layer'],function(){
+layui.use(['form','element','layer'],function(){
 	form=layui.form;
 	layer=layui.layer;
-	
+	var element = layui.element;
 	  //监听提交
 	  form.on('submit(updatePwd)', function(data){
 		   fl.ajax({
@@ -124,11 +121,7 @@ function updateInfo(){
 	  	}
   	});
 }
-layui.use('element', function(){
-  var element = layui.element;
-  
-  
-});
+
 
 $(function(){
 	$("#updatePwd").click(function(){
