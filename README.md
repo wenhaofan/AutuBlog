@@ -1,8 +1,8 @@
-# Antu 博客系统
+# AntuBlog 博客系统
 
 #### 项目介绍
 
-+ `Antu` 是一款使用基于[JFinal](https://gitee.com/jfinal/jfinal)开发的轻量级Java博客系统。
++ `AntuBlog` 是一款使用基于[JFinal](https://gitee.com/jfinal/jfinal)开发的轻量级Java博客系统。
 + 主题1预览：[pinghsu](http://pinghsu.autu.live)
 + 主题2预览：[morning](http://morning.autu.live)
 
