@@ -1,8 +1,8 @@
 package com.autu.user;
 
 import com.autu.common._config.BlogContext;
-import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.User;
+import com.jfinal.aop.Inject;
 
 /**
  *  

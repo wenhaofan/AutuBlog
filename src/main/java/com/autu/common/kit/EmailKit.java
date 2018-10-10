@@ -17,14 +17,17 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import com.autu.comment.CommentService;
 import com.autu.common._config.BlogContext;
+import com.jfinal.kit.Ret;
+import com.jfinal.log.Log;
 
 /**
  * 邮件发送工具类
  */
 public class EmailKit {
 	
- 
+	private static Log log=Log.getLog(CommentService.class);
  
 	public static Ret sendEmail(String emailServer, String fromEmail, String password, String toEmail, String title, String content) throws AddressException,MessagingException {
 		
@@ -78,10 +81,22 @@ public class EmailKit {
 		
 	}
 	
-	public  static boolean sendEmail(String toEmail,String title,String content) throws AddressException,MessagingException {
-		Ret result= sendEmail(BlogContext.emailConfig.getEmailServer(), BlogContext.emailConfig.getFromEmail(), BlogContext.emailConfig.getEmailPassword()
-					, toEmail, title, content);
-		return result.isOk();
+	public  static boolean sendEmail(String toEmail,String title,String content) {
+		Ret result=null;
+		try {
+			result = sendEmail(BlogContext.emailConfig.getEmailServer(), BlogContext.emailConfig.getFromEmail(), BlogContext.emailConfig.getEmailPassword()
+						, toEmail, title, content);
+			return result.isOk();
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.error(e.getMessage(),e);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.error(e.getMessage(),e);
+		}
+		return false;
 	}
 
  

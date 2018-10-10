@@ -1,8 +1,8 @@
-package com.autu._admin.common.config.interceptor;
+package com.autu.common.interceptor;
 
 import java.lang.reflect.Method;
 
-import com.autu.common.annotation.SysLog;
+import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.controller.BaseController;
 import com.autu.common.kit.IpKit;
 import com.autu.common.log.SysLogHelper;
@@ -20,7 +20,7 @@ public class SysLogInterceptor implements   Interceptor {
 		
 		Method method=inv.getMethod();
 		
-		SysLog sysLog=method.getAnnotation(SysLog.class);
+		SysLogInfo sysLog=method.getAnnotation(SysLogInfo.class);
 		
 		if(sysLog==null) {
 			return;
@@ -46,7 +46,7 @@ public class SysLogInterceptor implements   Interceptor {
 			dataMap.set("methodArgs", inv.getArgs());
 		}
 		data=dataMap.toJson();
-		SysLogHelper.addSysLog(content, data, action, ip,url,userId,SysLogLevelEnum.INFO.getValue());
+		SysLogHelper.saveSysLog(content, data, action, ip,url,userId,SysLogLevelEnum.INFO.getValue());
 	}
 
 }
