@@ -11,11 +11,13 @@ import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
+import com.autu.common.aop.Inject;
+import com.autu.common.log.SysLogActionEnum;
+import com.autu.common.log.SysLogHelper;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Meta;
 import com.autu.common.model.entity.MetaweblogConfig;
 import com.autu.common.model.entity.MetaweblogRelevance;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;
 
@@ -76,13 +78,10 @@ public class MetaweblogHelper {
 			}else {
 				failCount++;
 				failKv.set(config.getWebsite(), config).set("type", type);
+				SysLogHelper.addWarnLog("metaweblog接口异常！", SysLogActionEnum.OTHER.getName(),Ret.by("config", config).toJson());
+
 			}
 		}
-		
-		if(!failKv.isEmpty()) {
-			return Ret.fail("success",successKv).set("fail", failKv);
-		}
-		
 		
 		return Ret.ok("success",successKv).set("fail", failKv);
 	}

@@ -5,12 +5,12 @@ import com.alibaba.druid.wall.WallFilter;
 import com.autu._admin.article.AdminArticleLuceneIndexes;
 import com.autu._admin.common.config.interceptor.LoginInterceptor;
 import com.autu._admin.common.config.router.AdminRoutes;
+import com.autu.common.aop.AopFactory;
 import com.autu.common.handle.BasePathHandler;
 import com.autu.common.interceptor.AccessLogInterceptor;
 import com.autu.common.model.entity.Config;
 import com.autu.common.model.entity._MappingKit;
 import com.autu.config.ConfigService;
-import com.jfinal.aop.Aop;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -45,9 +45,9 @@ public class BlogConfig extends JFinalConfig {
 	@Override
 	public void configConstant(Constants me) {
 		me.setDevMode(p.getBoolean("devMode", false));
+		me.setControllerFactory(new AopFactory());
 		me.setJsonFactory(new MixedJsonFactory());
 		me.setError404View("/_view/error/404.html");
-		me.setInjectDependency(true);
 	}
 
 
@@ -135,8 +135,8 @@ public class BlogConfig extends JFinalConfig {
 		// TODO Auto-generated method stub
 		super.afterJFinalStart();
 		
-		ConfigService configService=Aop.get(ConfigService.class);
-		AdminArticleLuceneIndexes  articleLucene=Aop.get(AdminArticleLuceneIndexes.class);
+		ConfigService configService=AopFactory.getInject(ConfigService.class);
+		AdminArticleLuceneIndexes  articleLucene=AopFactory.getInject(AdminArticleLuceneIndexes.class);
 		Config  config=configService.get();
 		BlogContext.reset(config);
 		articleLucene.resetArticleIndexes();

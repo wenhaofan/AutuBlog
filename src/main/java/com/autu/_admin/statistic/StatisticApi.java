@@ -2,8 +2,8 @@ package com.autu._admin.statistic;
 
 import java.util.Date;
 
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
-import com.jfinal.aop.Inject;
 
 public class StatisticApi extends BaseController{
 

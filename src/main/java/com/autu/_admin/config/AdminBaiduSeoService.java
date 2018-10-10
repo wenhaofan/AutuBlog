@@ -2,11 +2,10 @@ package com.autu._admin.config;
 
 import java.util.List;
 
-import com.autu.common.annotation.SysLogInfo;
-import com.autu.common.interceptor.SysLogInterceptor;
+import com.autu.common.aop.Inject;
+import com.autu.common.log.SysLogActionEnum;
+import com.autu.common.log.SysLogHelper;
 import com.autu.common.model.entity.BaiduSeoConfig;
-import com.jfinal.aop.Before;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;
@@ -37,19 +36,18 @@ public class AdminBaiduSeoService {
 		HttpKit.post(url,link,headers);
 	}
 	
-	@Before(SysLogInterceptor.class)
-	@SysLogInfo(value="执行百度推送",action="push")
-	public boolean pushLink(List<BaiduSeoConfig> configs,String link) {
-		try {
-			configs.stream().forEach((BaiduSeoConfig config)->{
+	public void pushLink(List<BaiduSeoConfig> configs,String link) {
+		configs.stream().forEach((BaiduSeoConfig config)->{
+			try {
 				pushLink(link,config.getSite(),config.getToken());
-			}); 
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+			} catch (Exception e) {
+				e.printStackTrace();
+				SysLogHelper.addWarnLog("百度推送接口异常！", SysLogActionEnum.OTHER.getName(), Kv.by("config", config).set("link", link).toJson());
+			}
+		}); 
 	}
+	
+ 
 	
 	public Ret delete(Integer toId) {
 		dao.deleteById(toId);

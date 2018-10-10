@@ -6,6 +6,7 @@ import com.autu._admin.blogroll.AdminBlogrollApi;
 import com.autu._admin.comment.AdminCommentApi;
 import com.autu._admin.comment.AdminCommentController;
 import com.autu._admin.common.config.interceptor.AdminIndexInterceptor;
+import com.autu._admin.common.config.interceptor.SysLogInterceptor;
 import com.autu._admin.config.AdminAdvancedConfigController;
 import com.autu._admin.config.AdminBaiduConfigApi;
 import com.autu._admin.config.AdminConfigApi;
@@ -27,7 +28,6 @@ import com.autu._admin.themes.AdminThemesController;
 import com.autu._admin.user.AdminUserApi;
 import com.autu._admin.user.AdminUserController;
 import com.autu.common.interceptor.ExceptionInterceptor;
-import com.autu.common.interceptor.SysLogInterceptor;
 import com.autu.common.uplod.FileUploadApi;
 import com.jfinal.config.Routes;
 

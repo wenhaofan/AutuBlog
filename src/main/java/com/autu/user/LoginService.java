@@ -2,10 +2,10 @@ package com.autu.user;
 
 import java.util.Date;
 
+import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.LoginRecord;
 import com.autu.common.model.entity.Session;
 import com.autu.common.model.entity.User;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;

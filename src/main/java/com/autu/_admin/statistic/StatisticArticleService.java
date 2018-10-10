@@ -3,8 +3,8 @@ package com.autu._admin.statistic;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.Article;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;

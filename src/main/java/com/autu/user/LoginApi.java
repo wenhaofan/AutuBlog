@@ -1,10 +1,10 @@
 package com.autu.user;
 
 import com.autu.agentUser.AgentUserService;
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
 import com.autu.common.kit.IpKit;
 import com.jfinal.aop.Clear;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.PropKit;
 import com.jfinal.kit.Ret;
 

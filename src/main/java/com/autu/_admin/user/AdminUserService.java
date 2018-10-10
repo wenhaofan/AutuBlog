@@ -1,9 +1,9 @@
 package com.autu._admin.user;
 
 import com.autu.common._config.BlogContext;
+import com.autu.common.aop.Inject;
 import com.autu.common.kit.StrKit;
 import com.autu.common.model.entity.User;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.ehcache.CacheKit;

@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.autu.common._config.BlogContext;
-import com.jfinal.kit.Ret;
 import com.jfinal.log.Log;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.Configuration;
