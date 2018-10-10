@@ -1,7 +1,7 @@
 package com.autu._admin.user;
 
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
-import com.jfinal.aop.Inject;
 
 public class AdminUserController extends BaseController {
 

@@ -2,10 +2,10 @@ package com.autu._admin.config;
 
 import java.util.List;
 
-import com.autu.common.annotation.SysLogInfo;
+import com.autu.common.annotation.SysLog;
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.BaiduSeoConfig;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 
 public class AdminBaiduConfigApi extends BaseController {
@@ -23,19 +23,19 @@ public class AdminBaiduConfigApi extends BaseController {
 		renderJson(Ret.ok().set("code", 0).set("data", configs));
 	}
 	
-	@SysLogInfo(value="编辑百度接口配置",action="update")
+	@SysLog(value="编辑百度接口配置",action="update")
 	public void bconfigEdit() {
 		BaiduSeoConfig config=getModel(BaiduSeoConfig.class,"",true);
 		renderJson(baiduSeoService.saveOrUpdate(config));
 	}
  
  
-	@SysLogInfo(value="删除百度接口配置",action="update")
+	@SysLog(value="删除百度接口配置",action="update")
 	public void bconfigDelete() {
 		renderJson(baiduSeoService.delete(getParaToInt()));
 	}
 	
-	@SysLogInfo(value="调用百度推送接口")
+	@SysLog(value="调用百度推送接口")
 	public void pushBaiduLinks() {
 		String links=getPara("links");
 		baiduSeoService.pushLink(links);

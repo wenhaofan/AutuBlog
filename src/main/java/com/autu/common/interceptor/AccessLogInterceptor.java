@@ -5,13 +5,12 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.autu.common.aop.AopFactory;
 import com.autu.common.controller.BaseController;
 import com.autu.common.kit.IpKit;
 import com.autu.common.log.AccessLogService;
 import com.autu.common.model.entity.AccessLog;
 import com.autu.common.model.entity.AgentUser;
-import com.jfinal.aop.Aop;
-import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
@@ -20,8 +19,7 @@ public class AccessLogInterceptor implements Interceptor {
 
 	private static int maxOutputLengthOfParaValue = 512;
 	
-	@Inject
-	private  AccessLogService service;
+	private static AccessLogService service=AopFactory.getInject(AccessLogService.class);
 	
 	
 	@Override

@@ -7,8 +7,8 @@ package com.autu.blogroll;
 import java.util.List;
 
 import com.autu.common._config.BlogContext;
+import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.Blogroll;
-import com.jfinal.aop.Inject;
 
 public class BlogrollService {
 

@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.autu.common.aop.Inject;
 import com.autu.common.kit.QiniuFileUtils;
+import com.autu.common.kit.Ret;
 import com.autu.common.log.SysLogActionEnum;
 import com.autu.common.log.SysLogHelper;
 import com.autu.common.model.entity.Disk;
 import com.autu.common.model.entity.QueryDisk;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.PathKit;
-import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.SqlPara;
 import com.jfinal.upload.UploadFile;
@@ -125,9 +125,9 @@ public class DiskService {
 			
 			String data=Ret.create("fileUrl", fileUrl).toJson();
 			if(ret.getInt("code")==0){
-				SysLogHelper.saveWarnLog("七牛云未配置，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(),data);
+				SysLogHelper.addWarnLog("七牛云未配置，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(),data);
 			}else {
-				SysLogHelper.saveErrorLog("七牛云上传失败，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(), data);
+				SysLogHelper.addErrorLog("七牛云上传失败，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(), data);
 			}
 		}else {
 			fileUrl=ret.getStr("url");

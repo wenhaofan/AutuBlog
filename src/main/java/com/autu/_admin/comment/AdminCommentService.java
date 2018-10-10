@@ -3,10 +3,10 @@ package com.autu._admin.comment;
 import java.util.List;
 
 import com.autu.comment.CommentService;
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.AgentUser;
 import com.autu.common.model.entity.Comment;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Db;

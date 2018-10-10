@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.autu.article.ArticleService;
 import com.autu.comment.CommentService;
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Comment;
 import com.autu.meta.MetaService;
 import com.autu.user.UserService;
 import com.jfinal.aop.Before;
-import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Page;
 
 /**

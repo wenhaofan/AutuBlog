@@ -1,7 +1,7 @@
 package com.autu.config;
 
+import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.Config;
-import com.jfinal.aop.Inject;
 
 public class ConfigService {
 

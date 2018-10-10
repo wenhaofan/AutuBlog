@@ -23,6 +23,7 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleFragmenter;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
@@ -55,7 +56,6 @@ public class LuceneHelper {
 
 	static class SingleHolder{
 		static LuceneHelper single=new LuceneHelper();
-		 
 	}
 	
 	public static LuceneHelper single() {
@@ -69,7 +69,8 @@ public class LuceneHelper {
 			IndexWriterConfig config = new IndexWriterConfig(getAnalyzer());
 			indexWriter= new IndexWriter(directory, config);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -116,10 +117,13 @@ public class LuceneHelper {
 			 writer.addDocuments(documents);
 			return writer.commit();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}finally {
+		
 			writeLock.unlock();
 		}
+		return 0;
 	}
 
 	/**
@@ -140,11 +144,14 @@ public class LuceneHelper {
 			IndexWriter writer = getIndexWriter();
 			writer.addDocument(document);
 			return writer.commit();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			writeLock.unlock();
 		}
+
+		return 0;
 	}
 
 	/**
@@ -181,9 +188,12 @@ public class LuceneHelper {
 			search = pageSearch(query, searcher, pageNum, pageSize);
 
 			articles = convertToArticles(query, reader, search, searcher);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}finally {
 			//释放读锁
 			readLock.unlock();
@@ -254,26 +264,37 @@ public class LuceneHelper {
 				article.setTitle(title);
 				articles.add(article);
 			}
-			return articles;
-		} catch (Exception e) {
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InvalidTokenOffsetsException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException(e);
-		} 
-		
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return articles;
 	}
 
-	public long deleteAll() {
+	public void deleteAll() {
 		writeLock.lock();
 		// 通过指定的索引目录地址、配置对象创建IndexWriter流对象
 		IndexWriter writer = getIndexWriter();
 		
 		try {
 			writer.deleteAll();
-			return writer.commit();
+			 writer.commit();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			 writeLock.unlock();
 		}
@@ -298,10 +319,10 @@ public class LuceneHelper {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			writeLock.unlock();
 		}
+		return 0;
 	}
 
 	/**
@@ -316,14 +337,14 @@ public class LuceneHelper {
 		IndexWriter writer = getIndexWriter();
 		try {
 			  writer.updateDocument(new Term(key, value), document);
+			   
 			  return writer.commit();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			 writeLock.unlock();
 		}
-	 
+		return 0;
 	}
 }

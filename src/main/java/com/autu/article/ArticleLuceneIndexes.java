@@ -3,9 +3,9 @@ package com.autu.article;
 import java.util.List;
 
 import com.autu._admin.article.AdminArticleLuceneIndexes;
+import com.autu.common.aop.Inject;
 import com.autu.common.lucene.LuceneHelper;
 import com.autu.common.model.entity.Article;
-import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Page;
 
 /**

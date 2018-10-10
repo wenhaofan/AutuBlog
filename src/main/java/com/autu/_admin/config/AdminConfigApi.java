@@ -1,9 +1,9 @@
 package com.autu._admin.config;
 
-import com.autu.common.annotation.SysLogInfo;
+import com.autu.common.annotation.SysLog;
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.Config;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 
 public class AdminConfigApi  extends BaseController {
@@ -15,7 +15,7 @@ public class AdminConfigApi  extends BaseController {
 		renderJson(Ret.ok("config", service.get()));
 	}
 	
-	@SysLogInfo(value="编辑系统配置",action="update")
+	@SysLog(value="编辑系统配置",action="update")
 	public void edit() {
 		renderJson(service.saveOrUpdate(getBean(Config.class,"")));
 	}

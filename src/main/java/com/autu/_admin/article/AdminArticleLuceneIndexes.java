@@ -10,17 +10,16 @@ import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexOptions;
 
-import com.autu.common.annotation.SysLogInfo;
-import com.autu.common.interceptor.SysLogInterceptor;
+import com.autu.common.aop.Inject;
 import com.autu.common.kit.EmailKit;
+import com.autu.common.log.SysLogActionEnum;
+import com.autu.common.log.SysLogHelper;
 import com.autu.common.lucene.LuceneHelper;
 import com.autu.common.model.entity.Article;
 import com.autu.common.safe.JsoupFilter;
-import com.jfinal.aop.Before;
-import com.jfinal.aop.Inject;
+import com.jfinal.kit.Kv;
 import com.jfinal.log.Log;
 
-@Before(SysLogInterceptor.class)
 public class AdminArticleLuceneIndexes {
 	
 	private static final Log log = Log.getLog(EmailKit.class);
@@ -29,47 +28,61 @@ public class AdminArticleLuceneIndexes {
 	@Inject
 	private AdminArticleService adminArticleService;
 	
-	@SysLogInfo(value="重置索引",action="delete")
 	public void resetArticleIndexes() {
 		deleteAll();
 		addAll();
 	}
-
 	
-	public boolean deleteAll() {
+	public void deleteAll() {
 		try {
-			return LuceneHelper.single().deleteAll()>0;
+			LuceneHelper.single().deleteAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage(),e);
-			return false;
+			SysLogHelper.addErrorLog("删除文章索引失败！", SysLogActionEnum.DELETE.getName(), e.getMessage());
 		}
 		
 	}
 	
-	public boolean addAll() {
-		List<Article> articleList=adminArticleService.listAll(1);
-		List<Document> documents=new ArrayList<>();
-		for(Article article:articleList) {
-			documents.add(getDocument(article));
+	public void addAll() {
+		try {
+			List<Article> articleList=adminArticleService.listAll(1);
+			addIndexs(articleList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage(),e);
+			SysLogHelper.addErrorLog("文章索引初始化失败！", SysLogActionEnum.SAVE.getName(), e.getMessage());
 		}
-		return LuceneHelper.single().createIndexs(documents)>0;
+		
 	}
-
-	@SysLogInfo(value="添加多个文章索引",action="save")
-	public boolean addIndexs(List<Article> articles) {
+	
+	/**
+	 * 添加多篇文章的索引
+	 * @param articles
+	 */
+	public void addIndexs(List<Article> articles) {
 		List<Document> documents=new ArrayList<>();
 		for(Article article:articles) {
 			documents.add(getDocument(article));
 		}
-		return LuceneHelper.single().createIndexs(documents)>0;
+		
+		LuceneHelper.single().createIndexs(documents);
 	}
 	
-	@SysLogInfo(value="添加文章索引",action="save")
-	public boolean addIndex(Article article) {
+	/**
+	 * 添加索引
+	 * @param article
+	 */
+	public void addIndex(Article article) {
 		//过滤html标签
 		Document document = getDocument(article);
-		return LuceneHelper.single().createIndex(document)>0;
+		 
+		long count=LuceneHelper.single().createIndex(document);
+	 
+		if(count==0) {
+			log.error("引索创建失败！id="+article.getId());
+			SysLogHelper.addErrorLog("文章索引创建失败", SysLogActionEnum.SAVE.getName(), Kv.by("article", article).toJson());
+		}
 	}
 
 	/**
@@ -97,16 +110,20 @@ public class AdminArticleLuceneIndexes {
 		return document;
 	}
 	
-	
-	@SysLogInfo(value="删除索引",action="delete")
-	public boolean delete(Integer id) {
-		return LuceneHelper.single().deleteIndex("id", id.toString())>0;
-	 
+	public void delete(Integer id) {
+		long count=LuceneHelper.single().deleteIndex("id", id.toString());
+		if(count==0) {
+			log.error("文章引索删除失败！id="+id);
+			SysLogHelper.addErrorLog("文章索引删除失败", SysLogActionEnum.DELETE.getName(), Kv.by("articleId", id).toJson());
+		}
 	}
 	
-	@SysLogInfo(value="更新索引",action="update")
-	public boolean update(Article article) {
-		return LuceneHelper.single().updateIndex("id", article.getId().toString(), getDocument(article))>0;
+	public void update(Article article) {
+		long count=LuceneHelper.single().updateIndex("id", article.getId().toString(), getDocument(article));
+		if(count==0) {
+			log.error("文章引索更新失败！id="+article.getId());
+			SysLogHelper.addErrorLog("文章索引更新失败", SysLogActionEnum.UPDATE.getName(), Kv.by("article", article).toJson());
+		}
 	}
 	
 	 

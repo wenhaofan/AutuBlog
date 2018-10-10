@@ -3,8 +3,8 @@ package com.autu._admin.blogroll;
 import java.util.List;
 
 import com.autu.common._config.BlogContext;
+import com.autu.common.aop.Inject;
 import com.autu.common.model.entity.Blogroll;
-import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.SqlPara;
 import com.jfinal.plugin.ehcache.CacheKit;
 

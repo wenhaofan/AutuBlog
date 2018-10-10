@@ -1,8 +1,8 @@
 package com.autu._admin.sysLog;
 
+import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.SysLog;
-import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;
 
