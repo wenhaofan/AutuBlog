@@ -49,25 +49,46 @@ var requestUrl="#(requestUrl)";
     </ul>
   </div>
   
-  <div class="layui-side layui-bg-black">
+    <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
-      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-      <ul class="layui-nav layui-nav-tree menu-tree"  >
-      	<li class="layui-nav-item"><a href="/admin/" pjax > <i class="layui-icon layui-icon-console"></i><span>控制台</span></a></li>
-        <li class="layui-nav-item"><a href="/admin/article/edit"  pjax ><i class="fa fa-pencil-square-o"></i><span>发表文章</span></a></li>
-        <li class="layui-nav-item"><a href="/admin/article/list"  pjax ><i class="fa fa-list"></i><span>文章列表</span></a></li>
-        <li class="layui-nav-item"><a href="/admin/meta/list"  pjax ><i class="fa fa-tags"></i><span>分类管理</span></a></li>
-      	<li class="layui-nav-item"><a href="/admin/disk" pjax ><i class="fa fa-cloud-upload"></i><span>文件管理</span></a></li>
-     	<li class="layui-nav-item"><a href="/admin/comment" pjax ><i class="layui-icon layui-icon-reply-fill"></i><span>评论管理</span></a></li>
-      	<li class="layui-nav-item"><a href="/admin/nav" pjax ><i class="fa fa-navicon"></i><span>导航管理</span></a></li>
-      	<li class="layui-nav-item"><a href="/admin/config" pjax ><i class="layui-icon  layui-icon-set"></i><span>网站设置</span></a></li>
-      	<li class="layui-nav-item"><a href="/admin/advancedConfig" pjax ><i class="layui-icon  layui-icon-set"></i><span>高级配置</span></a></li>
-      	<li class="layui-nav-item"><a href="/admin/user/edit" pjax ><i class="layui-icon layui-icon-about"></i><span>个人介绍</span></a></li>
-     	<li class="layui-nav-item"><a href="/admin/sysLog" pjax ><i class="fa fa-list-alt"></i><span>系统日志</span></a></li>
-     	<li class="layui-nav-item"><a href="/admin/themes" pjax ><i class="layui-icon layui-icon-theme"></i><span>主题配置</span></a></li>
+    <ul class="layui-nav layui-nav-tree menu-tree">
+         <li class="layui-nav-item"><a href="/admin/" pjax > <i class="layui-icon layui-icon-console"></i><span>控制台</span></a></li>
+	     <li class="layui-nav-item  layui-nav-itemed">
+          <a class="" href="javascript:;">文章管理</a>
+          <dl class="layui-nav-child">
+            	<dd><a href="/admin/article/edit"  pjax ><i class="fa fa-pencil-square-o"></i><span>发表文章</span></a></dd>
+            	<dd><a href="/admin/article/list"  pjax ><i class="fa fa-list"></i><span>文章列表</span></a></dd>
+            	<dd><a href="/admin/article/draft"  pjax ><i class="fa fa-archive"></i><span>草稿箱</span></a></dd>
+            	<dd><a href="/admin/meta/list"  pjax ><i class="fa fa-tags"></i><span>分类管理</span></a></dd>
+           		<dd><a href="/admin/comment" pjax ><i class="layui-icon layui-icon-reply-fill"></i><span>评论管理</span></a></dd>
+          </dl>
+        </li>	
+      	<li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">文件管理</a>
+          <dl class="layui-nav-child">
+          	   <dd><a href="/admin/disk" pjax ><i class="fa fa-cloud-upload"></i><span>文件管理</span></a></dd>
+          </dl>
+         </li>	
+         <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">网站设置</a>
+          <dl class="layui-nav-child">
+          	    <dd><a href="/admin/user/edit" pjax ><i class="layui-icon layui-icon-about"></i><span>个人介绍</span></a></dd>
+     			<dd><a href="/admin/sysLog" pjax ><i class="fa fa-list-alt"></i><span>系统日志</span></a></dd>
+     			<dd><a href="/admin/themes" pjax ><i class="layui-icon layui-icon-theme"></i><span>主题配置</span></a></dd>
+       	      	<dd><a href="/admin/nav" pjax ><i class="fa fa-navicon"></i><span>导航管理</span></a></dd>
+          </dl>
+         </li>	
+ 		 <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">配置</a>
+          <dl class="layui-nav-child">
+       	    	<dd ><a href="/admin/config" pjax ><i class="layui-icon  layui-icon-set"></i><span>网站设置</span></a></dd>
+   				<dd ><a href="/admin/advancedConfig" pjax ><i class="layui-icon  layui-icon-set"></i><span>高级配置</span></a></dd>
+          </dl>
+          </li>	
       </ul>
     </div>
   </div>
+ 
   
   <div class="layui-body">
     <!-- 内容主体区域 -->

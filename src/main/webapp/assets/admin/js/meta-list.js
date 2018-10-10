@@ -76,7 +76,7 @@ $(function() {
 			})
 	$("body").on(
 			'click',
-			"a",
+			".meta-list .layui-nav-item a",
 			function() {
 				var left = $(this).position().left
 						+ parseFloat($(this).css("marginLeft"));
@@ -90,7 +90,7 @@ $(function() {
 				$(this).find("span").addClass("layui-nva-mored");
 			})
 
-	$(document).bind("click", function(e) {
+	$(document).on("click",".meta-list .layui-nav-item", function(e) {
 		var $t = $(e.target).parent();
 		var cl = $t.closest(".layui-nav-child").length
 		var il = $t.closest(".layui-nav-item").length;

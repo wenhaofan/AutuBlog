@@ -23,7 +23,9 @@ public class ArticleAdminController  extends BaseController{
 	public void list() {
 		render("article_list.html");
 	}
-	
+	public void draft() {
+		render("article_draft.html");
+	}
 	/**
 	 * 跳转进文章编辑页面
 	 */
