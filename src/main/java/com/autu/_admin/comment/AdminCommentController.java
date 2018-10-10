@@ -2,8 +2,8 @@ package com.autu._admin.comment;
 
 
 import com.autu._admin.article.AdminArticleService;
-import com.autu.common.aop.Inject;
 import com.autu.common.controller.BaseController;
+import com.jfinal.aop.Inject;
 
 public class AdminCommentController extends BaseController {
 

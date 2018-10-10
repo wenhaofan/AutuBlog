@@ -2,11 +2,11 @@ package com.autu._admin.meta;
 
 import java.util.List;
 
-import com.autu.common.aop.Inject;
 import com.autu.common.exception.MsgException;
 import com.autu.common.kit.ListKit;
 import com.autu.common.model.entity.Meta;
 import com.autu.common.model.entity.Relevancy;
+import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;

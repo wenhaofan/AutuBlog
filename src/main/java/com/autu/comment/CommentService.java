@@ -6,33 +6,32 @@ import com.autu._admin.user.AdminUserService;
 import com.autu.agentUser.AgentUserService;
 import com.autu.article.ArticleService;
 import com.autu.common._config.BlogContext;
-import com.autu.common.aop.AopFactory;
-import com.autu.common.aop.Inject;
+import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.exception.MsgException;
+import com.autu.common.interceptor.SysLogInterceptor;
 import com.autu.common.kit.EmailKit;
-import com.autu.common.log.SysLogActionEnum;
-import com.autu.common.log.SysLogHelper;
 import com.autu.common.model.entity.AgentUser;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Comment;
 import com.autu.common.model.entity.User;
-import com.jfinal.kit.Kv;
+import com.jfinal.aop.Before;
+import com.jfinal.aop.Inject;
 import com.jfinal.kit.StrKit;
-import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.SqlPara;
 
 public class CommentService {
 
-	private static Log log=Log.getLog(CommentService.class);
-	
+
 	@Inject
 	private static  Comment dao;
 	@Inject
 	private static AgentUserService agentUserService;
 	@Inject
 	private ArticleService articleService;
+	@Inject
+	private AdminUserService adminUserService;
 	public void save(Comment comment,String cookie) {
 		if(cookie==null) {
 			throw new MsgException("什么鬼！");
@@ -97,18 +96,19 @@ public class CommentService {
 	}
 
 
-	private void sendHintAdminEmail(Comment comment) {
+	@Before(SysLogInterceptor.class)
+	@SysLogInfo(value="发送评论提醒邮件",action="push")
+	private boolean sendHintAdminEmail(Comment comment) {
 		
 		//如果等于该值 则表示为管理员则发送回复邮件
 		if(comment.getUserId()==-1) {
 			sendReplyEmail(comment);
-			return;
+			return true;
 		}
 		//否则通知管理员
-		AdminUserService adminUserService=AopFactory.getInject(AdminUserService.class);
 		User adminUser=adminUserService.getAdminUser();
 		if(adminUser==null) {
-			return;
+			return true;
 		}
 		
 		AgentUser user=agentUserService.get(comment.getUserId());
@@ -121,15 +121,8 @@ public class CommentService {
 				title="友情链接";
 			}
 		}
-		
-		try {
-			EmailKit.sendEmail(adminUser.getEmail(), "你收到了一条评论 by "+BlogContext.config.getTitle(),getHintEmailContent(user.getName(),title));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log.error(e.getMessage(),e);
-			SysLogHelper.addWarnLog("管理员评论通知发送失败！",SysLogActionEnum.OTHER.getName(), Kv.by("comment", comment).toJson());
-		} 
+
+		return EmailKit.sendEmail(adminUser.getEmail(), "你收到了一条评论 by "+BlogContext.config.getTitle(),getHintEmailContent(user.getName(),title));
 	}
 	
 	public String getHintEmailContent(String userName,String title) {
@@ -159,9 +152,11 @@ public class CommentService {
 		 c.setPageNum(beforeRow/6);
 	}
 	
-	public void sendReplyEmail(Comment comment) {
+	@Before(SysLogInterceptor.class)
+	@SysLogInfo(value="发送评论回复邮件",action="push")
+	public boolean sendReplyEmail(Comment comment) {
 		
-		if(comment.getParentId()==null)return ;
+		if(comment.getParentId()==null) return true ;
  
 		//获取被回复人信息
 		AgentUser replayAgentUser=agentUserService.get(comment.getToUserId());
@@ -170,15 +165,9 @@ public class CommentService {
 		String userName=agentUserService.get(comment.getUserId()).getName();
 		
 		if(replayAgentUser!=null) {
-			try {
-				EmailKit.sendEmail(replayAgentUser.getEmail(),userName+ "回复了你的评论  by "+BlogContext.config.getTitle(),getHintEmail(userName,comment));
-			} catch (Exception e) {
-				e.printStackTrace();
-				log.error(e.getMessage(),e);
-				SysLogHelper.addWarnLog("@评论通知发送失败！",SysLogActionEnum.OTHER.getName(), Kv.by("comment", comment).toJson());
-			} 
-		 
-		}	 
+			return EmailKit.sendEmail(replayAgentUser.getEmail(),userName+ "回复了你的评论  by "+BlogContext.config.getTitle(),getHintEmail(userName,comment));
+		}
+		return false;	 
 	}
 	
 	public String getHintEmail(String name,Comment comment) {

@@ -7,11 +7,11 @@ import java.util.Date;
 
 import com.autu.common.kit.DateKit;
 import com.autu.common.kit.QiniuFileUtils;
-import com.autu.common.kit.Ret;
 import com.autu.common.log.SysLogActionEnum;
 import com.autu.common.log.SysLogHelper;
 import com.autu.common.model.dto.FileUploadInfo;
 import com.jfinal.kit.PathKit;
+import com.jfinal.kit.Ret;
 import com.jfinal.upload.UploadFile;
 
 /**
@@ -68,9 +68,9 @@ public class UploadService {
 			
 			String data=Ret.create("fileUrl", fileUrl).toJson();
 			if(ret.getInt("code")==0){
-				SysLogHelper.addWarnLog("七牛云未配置，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(),data);
+				SysLogHelper.saveWarnLog("七牛云未配置，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(),data);
 			}else {
-				SysLogHelper.addErrorLog("七牛云上传失败，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(), data);
+				SysLogHelper.saveErrorLog("七牛云上传失败，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(), data);
 			}
 		}else {
 			fileUrl=ret.getStr("url");
