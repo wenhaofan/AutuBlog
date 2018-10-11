@@ -1,12 +1,13 @@
+#是否使用开发者模式启动项目
 devMode=true
 #数据库信息
 dbDriver=com.mysql.jdbc.Driver
 jdbcUrl=jdbc:mysql://127.0.0.1:3306/autublog?characterEncoding=utf-8
 userName=root
 pwd=root
-blogCharset=utf-8
-notValid=0
-isValid=1
+#cookie域,如果和访问地址不一致会导致登录不生效
 domain=127.0.0.1
+#项目路径
 projectPath=http://127.0.0.1/
+#使用的主题
 theme=pinghsu
