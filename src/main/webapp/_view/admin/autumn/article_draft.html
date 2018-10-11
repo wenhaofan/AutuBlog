@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/assets/admin/css/article-list.css">
+<div class="layui-row ">
+	<div class="layui-col-lg12 layui-col-md12">
+		<blockquote class="page-title">草稿列表</blockquote>
+	</div>
+</div>
+
+<div style="width:100%;overflow:auto;">
+	<table class="layui-table" id="article-drafts" width="auto" style="white-space:nowrap"  lay-data="{ }"lay-filter="test">
+		
+	</table>
+</div>
+
+ 
+<script type="text/html" id="operation-tpl">
+#[[
+	
+	<button class="layui-btn layui-btn-sm article-push" data-id="{{d.id}}">推送</button>
+	<button class="layui-btn layui-btn-sm "><a href="/article/{{d.identify}}" target="_blank">预览</a></button>	
+	<button class="layui-btn layui-btn-sm "><a href="/admin/article/edit/{{d.id}}" pjax >修改</a></button>
+ 
+	<button class="layui-btn layui-btn-sm article-delete" data-id="{{d.id}}">删除</button> 
+ 
+]]#
+</script>
+<script type="text/javascript" src="/assets/common/meta.js"></script>
+<script type="text/javascript" src="/assets/admin/js/article-draft.js"></script>
