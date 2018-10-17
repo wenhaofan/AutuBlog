@@ -24,8 +24,7 @@ public class FrontRoutes extends Routes{
 		addInterceptor(new ThemesInterceptor());
 		addInterceptor(new ExceptionInterceptor());
 		addInterceptor(new FrontInterceptor());
-		String pinghsuFront="/_view/templates/"+BlogContext.getTheme()+"/";
-		setBaseViewPath(pinghsuFront);
+	 
 		add("/api/login", LoginApi.class,"/");
 		add("/login",LoginController.class,"/");
 		add("/article",ArticleController.class,"/");
