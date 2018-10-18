@@ -3,7 +3,6 @@ package com.autu._admin.themes;
 import com.autu.common._config.BlogContext;
 import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.controller.BaseController;
-import com.autu.common.kit.PropertyKit;
 import com.jfinal.kit.Ret;
 
 /**
@@ -16,7 +15,6 @@ public class AdminThemesApi extends BaseController {
 	public void change() {
 		String themeName=getPara();
 		BlogContext.setTheme(themeName);
-		PropertyKit.updateValue(BlogContext.CONFIG_FILE_NAME, "theme", themeName);
 		renderJson(Ret.ok());
 	}
 	
