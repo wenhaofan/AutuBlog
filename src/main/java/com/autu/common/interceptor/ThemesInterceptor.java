@@ -14,7 +14,7 @@ public class ThemesInterceptor implements Interceptor {
 
 	@Override
 	public void intercept(Invocation inv) {
-		inv.invoke();
+			inv.invoke();
 			Render r = inv.getController().getRender();
 			if (r instanceof TemplateRender) {
 			TemplateRender render = (TemplateRender)r;
