@@ -8,6 +8,7 @@
 ------------------------------------------------------------------------
 
 0：启动之前需要使用autublog.sql  中建库建表与初始化数据
+	0.1：如果当前pom文件版本非1.0.0 ，则需要执行升级的sql文件，按版本依次执行至autu-blog-update-${pom-version}.sql 
 
 1：修改 src/main/resources 目录下的 dev_blog_config.txt 配置文件
 
