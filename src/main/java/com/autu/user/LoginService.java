@@ -47,10 +47,7 @@ public class LoginService {
 		
 		String loginPwdMd5=HashKit.md5(pwd);
 		
-		System.out.println("db1"+loginPwdMd5);
-		System.out.println("db2"+dbPwd);
-		System.out.println("result1:"+StrKit.equals(dbPwd, loginPwdMd5));
-		System.out.println("result2"+dbPwd.equals(loginPwdMd5));
+ 
 		if(!StrKit.equals(dbPwd, loginPwdMd5)) {
 			return Ret.fail("msg", "账号密码错误!");
 		}

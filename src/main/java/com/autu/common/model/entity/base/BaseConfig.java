@@ -117,6 +117,15 @@ public abstract class BaseConfig<M extends BaseConfig<M>> extends Model<M> imple
 		return getStr("logo");
 	}
 
+	public M setIsAuditComment(java.lang.Boolean isAuditComment) {
+		set("isAuditComment", isAuditComment);
+		return (M)this;
+	}
+	
+	public java.lang.Boolean getIsAuditComment() {
+		return get("isAuditComment");
+	}
+
 	public M setQiniuAk(java.lang.String qiniuAk) {
 		set("qiniuAk", qiniuAk);
 		return (M)this;
@@ -135,15 +144,6 @@ public abstract class BaseConfig<M extends BaseConfig<M>> extends Model<M> imple
 		return getStr("qiniuSk");
 	}
 
-	public M setQiniuBucket(java.lang.String qiniuBucket) {
-		set("qiniuBucket", qiniuBucket);
-		return (M)this;
-	}
-	
-	public java.lang.String getQiniuBucket() {
-		return getStr("qiniuBucket");
-	}
-
 	public M setQiniuUrl(java.lang.String qiniuUrl) {
 		set("qiniuUrl", qiniuUrl);
 		return (M)this;
@@ -153,12 +153,22 @@ public abstract class BaseConfig<M extends BaseConfig<M>> extends Model<M> imple
 		return getStr("qiniuUrl");
 	}
 
-	public M setIsAuditComment(java.lang.Boolean isAuditComment) {
-		set("isAuditComment", isAuditComment);
+	public M setQiniuBucket(java.lang.String qiniuBucket) {
+		set("qiniuBucket", qiniuBucket);
 		return (M)this;
 	}
 	
-	public java.lang.Boolean getIsAuditComment() {
-		return get("isAuditComment");
+	public java.lang.String getQiniuBucket() {
+		return getStr("qiniuBucket");
 	}
+
+	public M setTheme(java.lang.String theme) {
+		set("theme", theme);
+		return (M)this;
+	}
+	
+	public java.lang.String getTheme() {
+		return getStr("theme");
+	}
+
 }

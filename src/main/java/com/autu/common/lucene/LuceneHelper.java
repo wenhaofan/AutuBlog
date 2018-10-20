@@ -47,22 +47,27 @@ public class LuceneHelper {
 	private static IKAnalyzer iKAnalyzer;
 	//多个线程使用同一个indexWriter，避免锁冲突
 	private static IndexWriter indexWriter;
-	
+
 	//使用读写锁保证索引操作的线程安全
 	private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
 	private WriteLock writeLock = rwl.writeLock();
 	private ReadLock readLock = rwl.readLock();
-
-	static class SingleHolder{
-		static LuceneHelper single=new LuceneHelper();
-		 
+	
+	public static void stop() {
+		try {
+			single().writeLock.lock();
+			indexWriter.close();
+			iKAnalyzer.close();
+			directory.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			single().writeLock.unlock();
+		}
 	}
 	
-	public static LuceneHelper single() {
-		 return SingleHolder.single;
-	}
- 
-	private LuceneHelper() {
+	public  void start() {
 		try {
 			directory = FSDirectory.open(Paths.get(indexDir));
 			iKAnalyzer = new IKAnalyzer(true);
@@ -73,6 +78,18 @@ public class LuceneHelper {
 		}
 	}
 	
+	public LuceneHelper() {
+		super();
+		start();
+	}
+	
+	static class SingleHolder{
+		static LuceneHelper single=new LuceneHelper();
+	}
+	
+	public static LuceneHelper single() {
+		 return SingleHolder.single;
+	}
 	
 	/**
 	 * 获取索引存放目录
