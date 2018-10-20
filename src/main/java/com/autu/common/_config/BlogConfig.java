@@ -7,6 +7,7 @@ import com.autu._admin.common.config.interceptor.LoginInterceptor;
 import com.autu._admin.common.config.router.AdminRoutes;
 import com.autu.common.handle.BasePathHandler;
 import com.autu.common.interceptor.AccessLogInterceptor;
+import com.autu.common.lucene.LuceneHelper;
 import com.autu.common.model.entity.Config;
 import com.autu.common.model.entity._MappingKit;
 import com.autu.config.ConfigService;
@@ -88,6 +89,7 @@ public class BlogConfig extends JFinalConfig {
 		me.addSharedFunction("_view/common/bootstrap.html");
 		me.addSharedFunction("_view/common/layui.html");
 		me.setSourceFactory(new FileSourceFactory());
+		me.setDevMode(p.getBoolean("engineMode", false));
 	}
 
 	@Override
@@ -139,8 +141,20 @@ public class BlogConfig extends JFinalConfig {
 		AdminArticleLuceneIndexes  articleLucene=Aop.get(AdminArticleLuceneIndexes.class);
 		Config  config=configService.get();
 		BlogContext.reset(config);
+
 		articleLucene.resetArticleIndexes();
 	}
+
+
+	@Override
+	public void beforeJFinalStop() {
+		// TODO Auto-generated method stub
+		super.beforeJFinalStop();
+		
+		LuceneHelper.stop();
+		
+	}
+	
 	
 }
 
