@@ -85,11 +85,12 @@ public class BlogConfig extends JFinalConfig {
 
 	@Override
 	public void configEngine(Engine me) {
+		me.setDevMode(p.getBoolean("engineMode", false));
 		me.addSharedFunction("_view/common/jquery.html");
 		me.addSharedFunction("_view/common/bootstrap.html");
 		me.addSharedFunction("_view/common/layui.html");
 		me.setSourceFactory(new FileSourceFactory());
-		me.setDevMode(p.getBoolean("engineMode", false));
+	
 	}
 
 	@Override
