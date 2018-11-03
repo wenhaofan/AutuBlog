@@ -38,7 +38,7 @@ document.oncopy = addLink;
 	<div id="post-content" class="post-content" itemprop="articleBody">
         <p class="post-tags">
         	#for(category:acategorys)
-        		<a href="/#(category.id)" >#(category.mname)</a>
+        		<a href="/article/category/1-#(category.id)" >#(category.mname)</a>
         	#end
         </p>
 		#(article.content)
