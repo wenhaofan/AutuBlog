@@ -17,6 +17,6 @@ public class AdminConfigApi  extends BaseController {
 	
 	@SysLogInfo(value="编辑系统配置",action="update")
 	public void edit() {
-		renderJson(service.saveOrUpdate(getBean(Config.class,"")));
+		renderJson(service.saveOrUpdate(getModel(Config.class,"",true)));
 	}
 }
