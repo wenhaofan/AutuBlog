@@ -21,14 +21,6 @@ function tagInit(){
 	#for(atag:aTags)
 		$('#tags').addTag("#(atag.mname)");
 	#end
-	
-	var localContent=getBrowerSaveArticle($("input[name='id']").val());
-	if(localContent&&getPlainText(localContent).length>0){
-		$('#html-container .note-editable').empty().html(localContent);
-		$(".hint-msg").text("本地存储读取成功！");
-		return;
-	}
-	$('#html-container .note-editable').empty().html($("#tpl-content").html());
 }
 
 $(document).ready(function() {
@@ -80,7 +72,7 @@ $(document).ready(function() {
 		 
 					<select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">
 						#for(category:allCategory)
-							<option #for(aCategory:aCategorys)#if(aCategory.mid==category.id) selected  #end  #end  >#(category.mname)</option>
+							<option #for(aCategory:aCategorys)#if(aCategory.mid==category.id) selected  #end  #end value="#(category.id)" >#(category.mname)</option>
 						#end
 					</select>
 				</div>

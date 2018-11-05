@@ -5,6 +5,125 @@ var attach_url = $('#attach_url').val();
 
 Dropzone.autoDiscover = false;
 
+var article={
+	init:function(){
+		this.initArticleInfo();
+		this.autoSaveCache();
+	},getArticleId:function(){
+		return $("input[name='id']").val();
+	},editArticle:function(paras){
+	   fl.ajax({
+		   url:"/admin/api/article/edit",
+		   data:paras.fdata,
+		   async:false,
+		   success:function(data){
+			    articleCache.removeCurrentCache();
+				paras.success(data);
+		   }
+	   })
+	},getContent:function (){
+		var fmtType= $('#fmtType').val();
+		var content = fmtType == 'markdown' ? mditor.value : htmlEditor.summernote('code');
+		if(fmtType == 'markdown'){
+		    content=markdownUtil.toHtml(content);
+		}
+		return content;
+	},setTags:function(tags){
+		if(!(tags&&tags.length>0)){
+			return;
+		}
+		$.each(tags.split(","),function(index,item){
+			$('#tags').addTag(item);
+		})
+	},setCategorys:function(categorys){
+		$.each(categorys,function(index,item){
+			$("#multiple-sel option[value='"+item+"']").attr("selected",true)
+		})
+	},saveArticleCache:function(){
+		try {
+			var cacheInfo={};
+			cacheInfo.content=article.getContent();
+			cacheInfo.title=$("#articleForm input[name='title']").val();
+			cacheInfo.tags=$("#tags").val();
+			cacheInfo.categorys=$("#multiple-sel").select2("val");
+			cacheInfo.identify=$("#articleForm input[name='identify']").val();
+			cacheInfo.thumbImg=$("#articleForm input[name='thumbImg']").val();
+			var jsonStr=JSON.stringify(cacheInfo); 
+			 
+			if(cacheInfo.content||cacheInfo.title||cacheInfo.tags
+					||cacheInfo.categorys.length>0||cacheInfo.identify){
+				articleCache.saveCache(article.getArticleId(),jsonStr); 
+				console.log("自动保存成功！");
+			}	
+			
+			$(".hint-msg").text("自动保存成功！");
+		} catch (e) {
+			console.log(e);
+			console.log("自动保存失败！");
+		}
+	},autoSaveCache:function(){
+		setInterval(() => {
+			this.saveArticleCache();
+		}, articleCache.constant.autoTime);
+	},initArticleInfo:function(){
+		var cacheData=articleCache.getCurrentCache();
+		
+		if(!cacheData){
+			$('#html-container .note-editable').empty().html($("#tpl-content").html());
+			return;
+		}
+		if(cacheData.content){
+			$('#html-container .note-editable').empty().html(cacheData.content);
+		}
+		if(cacheData.identify){
+			$("#articleForm input[name='identify']").val(cacheData.identify);
+		}
+		if(cacheData.title){
+			$("#articleForm input[name='title']").val(cacheData.title);
+		}
+		if(cacheData.thumbImg){
+			$("#articleForm input[name='thumbImg']").val(cacheData.thumbImg);
+			var $thumbdropzone= $('.dropzone');
+			$thumbdropzone.css('background-image', 'url('+ cacheData.thumbImg +')');
+			$thumbdropzone.css('background-size', 'cover');
+             $('.dz-image').hide();
+		}
+		if(cacheData.tags){
+			article.setTags(cacheData.tags);
+		}
+		if(cacheData.categorys){
+			article.setCategorys(cacheData.categorys);
+		}
+		
+		$(".hint-msg").text("本地存储读取成功！");
+	}
+	
+}
+
+var articleCache={
+	constant:{
+		cacheKey: 'article-cache-',
+		autoTime:10000
+	},getCurrentCache:function(id){
+		return this.getCache(article.getArticleId());
+	},getCache:function(id){
+		var cache=localStorage.getItem(this.constant.cacheKey+id);
+		if(!cache){
+			return cache;
+		}
+		return  eval('(' + cache + ')');;
+	},saveCache:function(id,data){
+		if(getPlainText(data).length==0){
+			return;
+		}
+		this.removeCache(this.constant.cacheKey+id);
+		localStorage.setItem(this.constant.cacheKey+id, data );	
+	},removeCache:function(id){
+		localStorage.removeItem(this.constant.cacheKey+id);
+	},removeCurrentCache:function(){
+		this.removeCache(article.getArticleId());
+	} 
+}
 
 function getPlainText(content){
     var $tempDiv=$('<div style="display:none;"></div>')
@@ -16,35 +135,9 @@ function getPlainText(content){
     return divText;
 }
 
-/**
- * 获取编辑器的内容
- * @returns
- */
-function getContent(){
-	var fmtType= $('#fmtType').val();
-	var content = fmtType == 'markdown' ? mditor.value : htmlEditor.summernote('code');
-	if(fmtType == 'markdown'){
-	    content=markdownUtil.toHtml(content);
-	}
-	return content;
-}
 
-function browerSaveArticle(id,content){
-	try {
-		if(getPlainText(content).length==0){
-			return;
-		}
-		localStorage.setItem( 'article-auto-'+id, content );	
-	} catch (e) {
-		localStorage.clear();
-		console.log("超出最大存储,清空本地存储！");
-		localStorage.setItem( 'article-auto-'+id, content );	
-	}
-	$(".hint-msg").text("本地保存成功！");
-}
-function getBrowerSaveArticle(id){
-	return localStorage.getItem('article-auto-'+id);
-}
+ 
+ 
 function setSelectedTag(data){
     var tags=$("#tags").val();
     if(notNull(tags)){
@@ -66,23 +159,13 @@ function setSelectedCategory(data){
 	return data;
 }
 
-function editArticle(paras){
-   fl.ajax({
-	   url:"/admin/api/article/edit",
-	   data:paras.fdata,
-	   async:false,
-	   success:function(data){
-			paras.success(data);
-	   }
-   })
-}
-
+ 
 /**
  * 保存文章
  * @returns
  */
 function save(state){
-	var content = getContent();
+	var content = article.getContent();
     var title = $('#articleForm input[name=title]').val();
     if (title == '') {
     	fl.alertWarn('标题不能为空');
@@ -104,7 +187,7 @@ function save(state){
     setSelectedTag(fdata);
     setSelectedCategory(fdata);
    
-    editArticle({fdata:fdata,success:function(data){
+    article.editArticle({fdata:fdata,success:function(data){
     	  var time="["+new Date()+"]";
     	  $(".hint-msg").text((data.article.state==0?"草稿保存成功！":"发布成功！")+time);
     	  $("input[name='id']").val(data.article.id);
@@ -117,15 +200,9 @@ function save(state){
     }});
 }
 
-function autoSave(){
-	setInterval(() => {
-		browerSaveArticle($("input[name='id']").val(), getContent()); 
-	}, 20000);
-}
 
 $(document).ready(function () {
-	
-	autoSave();
+ 
 	
 	//保存草稿
 	$("#draft").click(function(){
@@ -262,6 +339,7 @@ $(document).ready(function () {
                     thumbdropzone.css('background-size', 'cover');
                     $('.dz-image').hide();
                     $('#thumbImg').val(url);
+                    article.saveArticleCache();
                 }
             });
             this.on('error', function (a, errorMessage, result) {
@@ -274,11 +352,11 @@ $(document).ready(function () {
 });
 
 $(function(){
-	 
+	article.init();
 	if($(window).width()<=768){
-	    	$(".fa-columns").trigger("click");
-	    	isHideShowHtml=true;
-	    }
+	    $(".fa-columns").trigger("click");
+	    isHideShowHtml=true;
+	}
 	 $("#multiple-sel").select2({
 	        width: '100%'
 	 });	 
@@ -287,8 +365,8 @@ $(function(){
         height: '35px',
         defaultText: '请输入文章标签'
     });
-
     tagInit();
+ 
 })
 
  
