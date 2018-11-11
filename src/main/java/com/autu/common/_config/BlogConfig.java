@@ -3,10 +3,11 @@ package com.autu.common._config;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.autu._admin.article.AdminArticleLuceneIndexes;
-import com.autu._admin.common.config.interceptor.LoginInterceptor;
 import com.autu._admin.common.config.router.AdminRoutes;
 import com.autu.common.handle.BasePathHandler;
 import com.autu.common.interceptor.AccessLogInterceptor;
+import com.autu.common.interceptor.AgentUserInterceptor;
+import com.autu.common.interceptor.LoginInterceptor;
 import com.autu.common.lucene.LuceneHelper;
 import com.autu.common.model.entity.Config;
 import com.autu.common.model.entity._MappingKit;
@@ -123,6 +124,7 @@ public class BlogConfig extends JFinalConfig {
 		// 全局配置拦截器
 		//me.add(new InitInterceptor());
 		me.add(new LoginInterceptor());
+		me.add(new AgentUserInterceptor());
 		me.add(new SessionInViewInterceptor());
 		me.add(new AccessLogInterceptor());
 	}

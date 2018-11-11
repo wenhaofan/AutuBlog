@@ -24,7 +24,6 @@ public class FrontRoutes extends Routes{
 		addInterceptor(new ThemesInterceptor());
 		addInterceptor(new ExceptionInterceptor());
 		addInterceptor(new FrontInterceptor());
-	 
 		add("/api/login", LoginApi.class,"/");
 		add("/login",LoginController.class,"/");
 		add("/article",ArticleController.class,"/");

@@ -16,12 +16,11 @@ import com.autu.user.UserService;
 import com.jfinal.aop.Aop;
 import com.jfinal.core.Controller;
 import com.jfinal.core.NotAction;
-import com.jfinal.kit.StrKit;
 
 public class BaseController extends Controller {
 
 	private User loginUser = null;
-	
+	private AgentUser agentUser=null;
  
 	public static AgentUserService agentUserService=Aop.get(AgentUserService.class);
 	 
@@ -30,42 +29,12 @@ public class BaseController extends Controller {
 	public static LoginService loginService=Aop.get(LoginService.class);
 	
 	@NotAction
+	public void setAgentUser(AgentUser agentUser) {
+		this.agentUser=agentUser;
+	}
+	@NotAction
 	public AgentUser getAgentUser() {
-		AgentUser agentUser = null;
-	 
-		String cookie = getCookie(AgentUserService.AGENT_USER_COOKIE_KEY);
-
-		if (StrKit.notBlank(cookie) && getLoginUser() == null) {
-			agentUser = agentUserService.get(cookie);
-			if (agentUser != null) {
-				return agentUser;
-			}
-		}
-
-		cookie = StrKit.getRandomUUID();
-		if (getLoginUser() != null) {
-			agentUser = agentUserService.get(-1);
-			if (agentUser == null)
-				agentUser = new AgentUser();
-			String userName = getLoginUser().getName();
-			agentUser.setId(-1);
-			agentUser.setName(StrKit.isBlank(userName) ? "系统管理员" : userName);
-			agentUser.setEmail(getLoginUser().getEmail());
-		} else {
-			agentUser = new AgentUser();
-		}
-		agentUser.setCookie(cookie);
-
-		if (agentUser.getId() != null) {
-			agentUserService.update(agentUser);
-		} else {
-			agentUserService.save(agentUser);
-		}
-
-		// 设置cookie
-		setCookie(AgentUserService.AGENT_USER_COOKIE_KEY, cookie, AgentUserService.AGENT_USER_COOKIE_AGE);
 		return agentUser;
-
 	}
 	@NotAction
 	public boolean isAjax() {
@@ -74,31 +43,11 @@ public class BaseController extends Controller {
 	}
 	@NotAction
 	public User getLoginUser() {
-
-		if (loginUser != null) {
-			return loginUser;
-		}
-
-		String sessionId = getCookie(LoginService.sessionIdName);
-
-		if (sessionId != null) {
-			// 通过sessionId从缓存中获取登录用户
-			User loginUser = loginService.getUserWithSessionId(sessionId);
-			// 如果依然为空则从数据库中寻找有效的登录用户
-			if (loginUser == null) {
-				loginUser = loginService.loginWithSessionId(sessionId);
-			}
-
-			if (loginUser != null) {
-				setAttr(LoginService.loginUserKey, loginUser);
-			} else {
-				// 为空则表示cookie无用，删之
-				removeCookie(LoginService.sessionIdName);
-				renderError(404);
-			}
-		}
-
-		return getAttr(LoginService.loginUserKey);
+ 		return loginUser;
+	}
+	@NotAction
+	public void setLoginUser(User user) {
+		this.loginUser=user;
 	}
 	@NotAction
 	public boolean isLogin() {

@@ -28,4 +28,11 @@ public class AgentUserService {
 		agentUser.save();
 	}
 	
+	public boolean saveOrUpdate(AgentUser agentUser) {
+		if(agentUser.getId()==null) {
+			return agentUser.save();
+		}else {
+			return agentUser.update();
+		}
+	}
 }

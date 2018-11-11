@@ -1,7 +1,7 @@
 package com.autu.user;
 
-import com.autu._admin.common.config.interceptor.LoginInterceptor;
 import com.autu.common.controller.BaseController;
+import com.autu.common.interceptor.LoginInterceptor;
 import com.autu.index.IndexSeoInterceptor;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;

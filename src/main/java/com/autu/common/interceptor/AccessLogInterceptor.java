@@ -41,14 +41,17 @@ public class AccessLogInterceptor implements Interceptor {
 		AgentUser agentUser=c.getAgentUser();
 		
 		AccessLog log = new AccessLog();
-		log.setUserAgent(userAgent);
 		log.setGmtCreate(new Date());
 		log.setInfo(info);
 		log.setIp(ip);
 		log.setReferer(referer);
 		log.setTarget(target);
-		log.setCookie(agentUser.getCookie());
-		log.setAgentUserId(agentUser.getId());
+		if(agentUser!=null) {
+			log.setCookie(agentUser.getCookie());
+			log.setAgentUserId(agentUser.getId());
+			log.setUserAgent(userAgent);
+		}
+	
 		service.add(log);
 		
 		inv.invoke();
