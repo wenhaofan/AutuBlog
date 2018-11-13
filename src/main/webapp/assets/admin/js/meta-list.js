@@ -74,33 +74,26 @@ $(function() {
 				$('input[name="id"]').val(0);
 				$(this).hide();
 			})
-	$("body").on(
-			'click',
-			".meta-list .layui-nav-item a",
-			function() {
-				var left = $(this).position().left
-						+ parseFloat($(this).css("marginLeft"));
-				var top = $(this).position().top + $(this).height();
-				$(this).next().css({
-					opacity : 1,
-					left : left,
-					top : top,
-					display : "block"
-				})
-				$(this).find("span").addClass("layui-nva-mored");
-			})
-
-	$(document).on("click",".meta-list .layui-nav-item", function(e) {
-		var $t = $(e.target).parent();
-		var cl = $t.closest(".layui-nav-child").length
-		var il = $t.closest(".layui-nav-item").length;
-		if (cl == 0 && il == 0) {
-			$(".layui-nav-child").each(function() {
-				$(this).hide();
-				$(this).prev().find("span").removeClass("layui-nva-mored");
-			})
+	$("body").on('click',".meta-list .layui-nav-item a",function() {
+		var left = $(this).position().left
+				+ parseFloat($(this).css("marginLeft"));
+		var top = $(this).position().top + $(this).height();
+		$(this).next().css({
+			opacity : 1,
+			left : left,
+			top : top
+		})
+		var $next=$(this).next();
+		if($next.is(':hidden')){
+			$(this).find("span").addClass("layui-nva-mored");
+			$(this).next().show();
+		}else{
+			$(this).next().hide();
+			$(this).find("span").removeClass("layui-nva-mored");
 		}
+		
 	})
+ 
 })
 
 $( function() {
