@@ -19,17 +19,17 @@
     <div class="share"> </div>
     <div class="nextinfo">
       <p>
-      #if(lastNextArticle.get(0)!=null)
-      	上一篇： <a href="/article/#(lastNextArticle.get(0).identify)">#(lastNextArticle.get(0).title)</a>
+      #if(lastNextArticle.lastArticle!=null)
+      	上一篇： <a href="/article/#(lastNextArticle.lastArticle.identify)">#(lastNextArticle.lastArticle.title)</a>
       #end
       </p>
       <p>
-      #if(lastNextArticle.get(1)!=null)
-      	下一篇： <a href="/article/#(lastNextArticle.get(1).identify)">#(lastNextArticle.get(1).title)</a>
+      #if(lastNextArticle.nextArticle!=null)
+      	下一篇： <a href="/article/#(lastNextArticle.nextArticle.identify)">#(lastNextArticle.nextArticle.title)</a>
       #end
       </p>
        
-    </div>
+    </div>  
     <div class="otherlink">
       <h2>相关文章</h2>
       <ul>

@@ -3,6 +3,7 @@ package com.autu.article;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.autu.common.model.dto.LastNextArticleDTO;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Meta;
 import com.autu.meta.MetaService;
@@ -68,11 +69,28 @@ public class ArticleService {
 	 * @param article
 	 * @return
 	 */
-	public List<Article> lastNextArticle(Article article){
- 		List<Article> articles=new ArrayList<>();
- 		articles.add(0, dao.findById(article.getId()-1));
- 		articles.add(1, dao.findById(article.getId()+1));
-		return articles;
+	public LastNextArticleDTO lastNextArticle(Article queryArticle){
+		SqlPara sqlPara=dao.getSqlPara("article.lastNextArticle",queryArticle.getId());
+ 		List<Article> articles=dao.find(sqlPara);
+ 		
+ 		if(articles==null||articles.isEmpty()) {
+ 			articles=listRandomArticle(2,null);
+ 			return null;
+ 		}else if(articles.size()==1) {
+ 			List<Integer> notInIds=new ArrayList<>();
+ 			notInIds.add(queryArticle.getId());
+ 			notInIds.add(articles.get(0).getId());
+ 			List<Article> randomArticles=listRandomArticle(1,notInIds);
+ 			articles.add(randomArticles.get(0));
+ 		}
+ 	 
+		return new LastNextArticleDTO().setLastArticle(articles.get(0)).setNextArticle(articles.get(1));
+	}
+	
+	public List<Article> listRandomArticle(Integer limit,List<Integer> notInIds){
+		SqlPara sqlPara=dao.getSqlPara("article.randomArticle",
+				Kv.by("limit", limit).set("notInIds", notInIds));
+		return dao.find(sqlPara);
 	}
 	
 	public List<Article> about(Article article,Integer size){

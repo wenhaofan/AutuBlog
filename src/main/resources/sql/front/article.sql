@@ -1,30 +1,89 @@
 #sql("lastNextArticle")
-	select 
+	SELECT
 		*
-	from
+	FROM
 		article
-	where
-		1=1
+	WHERE
+	state = 1
+	and id >= (
+		(
+			SELECT
+				MAX(id)
+			FROM
+				article
+			WHERE
+				state = 1
+			and id !=#para(0)
+		) - (
+			SELECT
+				MIN(id)
+			FROM
+				article
+			WHERE
+				state = 1
+			and id !=#para(0)
+		)
+	) * RAND() + (
+		SELECT
+			MIN(id)
+		FROM
+			article
+		WHERE
+			state = 1
+		and id !=#para(0)
+	)
+	and id !=#para(0)
+ 
+	LIMIT 2
+#end
+
+#sql("randomArticle")
+SELECT
+	*
+FROM
+	article
+WHERE
+	id >= (
+		(
+			SELECT
+				MAX(id)
+			FROM
+				article
+			WHERE
+				state = 1
+			#if(notInIds!=null&&!notInIds.isEmpty())
+			and 
+				id not in (#for(id:notInIds)#(id)#if(!for.last),#end #end)
+			#end
+		) - (
+			SELECT
+				MIN(id)
+			FROM
+				article
+			WHERE
+				state = 1
+			#if(notInIds!=null&&!notInIds.isEmpty())
+			and 
+				id not in (#for(id:notInIds)#(id)#if(!for.last),#end #end)
+			#end
+		)
+	) * RAND() + (
+		SELECT
+			MIN(id)
+		FROM
+			article
+		WHERE
+			state = 1
+		#if(notInIds!=null&&!notInIds.isEmpty())
+		and 
+			id not in (#for(id:notInIds)#(id)#if(!for.last),#end #end)
+		#end
+	)
+	#if(notInIds!=null&&!notInIds.isEmpty())
 	and 
-		state=1
-		and id in (
-			select 
-				articleId
-			from
-				articleCategory
-			where
-				categoryId in (
-						select
-							categoryId 
-						from 
-							articleCategory
-						where 
-							articleId=#para(0)
-						)
-			GROUP BY articleId
-				)
-	order by readNum desc
-	limit 2
+		id not in (#for(id:notInIds)#(id)#if(!for.last),#end #end)
+	#end
+LIMIT #(limit??1)
 #end
 
 #sql("page")

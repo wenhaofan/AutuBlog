@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.autu.comment.CommentService;
 import com.autu.common.controller.BaseController;
+import com.autu.common.model.dto.LastNextArticleDTO;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Comment;
 import com.autu.common.model.entity.Meta;
@@ -65,7 +66,7 @@ public class ArticleController extends BaseController{
 		List<Meta> atags=metaService.listByCId(article.getId(), "tag");
 		Page<Comment> commentPage=commentService.page(getParaToInt("p",1),6, article.getIdentify());
  
-		List<Article> lastNextArticle=articleService.lastNextArticle(article);
+		LastNextArticleDTO lastNextArticle=articleService.lastNextArticle(article);
 		setAttr("lastNextArticle", lastNextArticle);
  
 		List<Article> aboutArticles=articleService.about(article, 10);
