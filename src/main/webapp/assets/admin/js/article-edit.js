@@ -69,6 +69,7 @@ var article={
 		var cacheData=articleCache.getCurrentCache();
 		
 		if(!cacheData){
+			tagInit();
 			$('#html-container .note-editable').empty().html($("#tpl-content").html());
 			return;
 		}
@@ -88,11 +89,12 @@ var article={
 			$thumbdropzone.css('background-size', 'cover');
              $('.dz-image').hide();
 		}
+ 
 		if(cacheData.tags){
-			article.setTags(cacheData.tags);
+			this.setTags(cacheData.tags);
 		}
 		if(cacheData.categorys){
-			article.setCategorys(cacheData.categorys);
+			this.setCategorys(cacheData.categorys);
 		}
 		
 		$(".hint-msg").text("本地存储读取成功！");
@@ -365,7 +367,6 @@ $(function(){
         height: '35px',
         defaultText: '请输入文章标签'
     });
-    tagInit();
  
 })
 
