@@ -43,8 +43,23 @@ if ('addEventListener' in document) {
             if (typeof ga !== 'undefined') ga('send', 'pageview', location.pathname + location.search);
             if (typeof MathJax !== 'undefined'){MathJax.Hub.Queue(["Typeset",MathJax.Hub]);}
         }
+        baiduPush();
     });
     InstantClick.init('mousedown');
+    
+    //百度自动推送
+    function baiduPush(){
+  	   	 var bp = document.createElement('script');
+         var curProtocol = window.location.protocol.split(':')[0];
+         if (curProtocol === 'https') {
+             bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+         }
+         else {
+             bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+         }
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(bp, s);
+    }
 </script>
 
 </body>
