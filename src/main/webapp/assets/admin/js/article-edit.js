@@ -128,13 +128,12 @@ var articleCache={
 }
 
 function getPlainText(content){
-    var $tempDiv=$('<div style="display:none;"></div>')
-    $tempDiv.html(content);
-  
-    var divText= $tempDiv.text().replace(/<[^>]*>|/g,"").replace(/\s+/g, "");
- 
-    $tempDiv.remove();
-    return divText;
+   content = content.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+   content = content.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+            //str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+   content=content.replace(/&nbsp;/ig,'');//去掉&nbsp;
+   content=content.replace(/\s/g,''); //将空格去掉
+   return content;
 }
 
 
