@@ -151,10 +151,10 @@ function setSelectedTag(data){
 }
 function setSelectedCategory(data){
 	var categoryIds=$("#multiple-sel").select2("val");
-	var category;
+	var categoryVal;
 	for(var i=0,size=categoryIds.length;i<size;i++){
-		category=categoryIds[i];
-		data.push({name:"category["+i+"].mname",value:category});
+		categoryVal=$("option[value='"+categoryIds[i]+"']").text();
+		data.push({name:"category["+i+"].mname",value:categoryVal});
 		data.push({name:"category["+i+"].type",value:"category"});
 	}
 	return data;
