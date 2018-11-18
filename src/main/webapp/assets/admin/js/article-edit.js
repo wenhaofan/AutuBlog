@@ -356,6 +356,23 @@ $(document).ready(function () {
 
 $(function(){
 	article.init();
+	
+	 $('#tags').tagsInput({
+	        width: '100%',
+	        height: '35px',
+	        defaultText: '请输入文章标签',
+	        onRemoveTag:function(){
+	        	article.isChange=true;
+	        },onChange:function(){
+	        	article.isChange=true;
+	        },onAddTag:function(){
+	        	article.isChange=true;
+	        }
+	   });
+	 $("#multiple-sel").select2({
+	        width: '100%'
+	 });	
+		 
 	 //监听seletc2 
 	 $("body").on("change","#articleForm #multiple-sel",function(e){
 		 article.isChange=true;
@@ -380,27 +397,12 @@ $(function(){
 	 })
 	
 	 
-	 $('#tags').tagsInput({
-        width: '100%',
-        height: '35px',
-        defaultText: '请输入文章标签',
-        onRemoveTag:function(){
-        	article.isChange=true;
-        },onChange:function(){
-        	article.isChange=true;
-        },onAddTag:function(){
-        	article.isChange=true;
-        }
-    });
-	 
+	
 	if($(window).width()<=768){
 	    $(".fa-columns").trigger("click");
 	    isHideShowHtml=true;
 	}
-	 $("#multiple-sel").select2({
-	        width: '100%'
-	 });	
-	 
+	
    
  
 })
