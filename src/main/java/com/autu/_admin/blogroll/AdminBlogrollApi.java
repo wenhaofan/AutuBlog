@@ -20,7 +20,7 @@ public class AdminBlogrollApi extends BaseController {
 	
 	public void list() {
 		List<Blogroll> blogrolls=blogrollService.listBlogroll();
-		renderJson( Ret.ok("code", 0).set("data",blogrolls));
+		renderJson( Ret.ok("list", blogrolls));
 	}
 	
 	@SysLogInfo(value="编辑友链",action="saveOrUpdate")

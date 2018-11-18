@@ -20,7 +20,7 @@ public class AdminBaiduConfigApi extends BaseController {
 	
 	public void bList() {
 		List<BaiduSeoConfig> configs=baiduSeoService.list();
-		renderJson(Ret.ok().set("code", 0).set("data", configs));
+		renderJson(Ret.ok("list",configs));
 	}
 	
 	@SysLogInfo(value="编辑百度接口配置",action="update")

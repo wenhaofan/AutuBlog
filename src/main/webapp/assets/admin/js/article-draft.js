@@ -7,7 +7,7 @@ layui.use([ 'table'], function() {
 });
 
 function renderArticles(){
-	table.render({
+	fl.renderTable({
 		where:{state:0}
 		,page:{count:80,limit:10}
 		,url:'/admin/api/article/list' 

@@ -141,7 +141,7 @@ layui.use(['form','table','laytpl'],function(){
 	
 	form.render();
 	
-	table.render({
+	fl.renderTable({
 		elem: '#metaweblog'
 	   ,url:'/admin/api/metaConfig/mList'
 	   ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
@@ -155,7 +155,7 @@ layui.use(['form','table','laytpl'],function(){
 	   ]]
 	 });
 	
-	table.render({
+	fl.renderTable({
 		  elem: '#baiduseo'
 		   ,url:'/admin/api/baiduConfig/bList'
 		   ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增

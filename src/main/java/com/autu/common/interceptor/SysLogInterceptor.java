@@ -24,10 +24,13 @@ public class SysLogInterceptor implements Interceptor {
 
 		Method method = inv.getMethod();
 		SysLogInfo sysLogInfo = (SysLogInfo) method.getAnnotation(SysLogInfo.class);
-		if (inv.isActionInvocation() && sysLogInfo != null) {
-			this.doControllerSysLog(method, inv, e);
-		} else if (sysLogInfo != null) {
-			this.doServiceSysLog(method, inv, e);
+		
+		if(sysLogInfo!=null) {
+			if (inv.isActionInvocation()) {
+				this.doControllerSysLog(method, inv, e);
+			} else {
+				this.doServiceSysLog(method, inv, e);
+			}
 		}
 
 		if (e != null) {

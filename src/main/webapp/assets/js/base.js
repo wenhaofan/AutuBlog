@@ -110,6 +110,30 @@ $.fl.prototype.alertBox = function (options) {
 };
 
 /**
+ * 封装layui的table
+ */
+$.fl.prototype.renderTable=function(options){
+	options.parseData=function(res){ //res 即为原始返回的数据\
+		var page=res.page;
+		var data;
+		
+		var result={};
+		
+		result.code=(res.state=="ok"?0:-1);
+		result.msg=res.msg;
+		
+		if(!page){
+			result.data=res.list;
+		}else{
+			result.data=page.list;
+			result.count= page.totalRow;
+		}
+	    return result;
+	    }
+	table.render(options);
+}
+
+/**
  * 全局post函数
  *
  * @param options   参数

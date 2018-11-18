@@ -13,7 +13,7 @@ layui.use(['form','layer','form','table'], function(){
 		   update(data.field);
 	  	 return false;
 	  });
-	 table.render({
+	  fl.renderTable({
 		elem: '#comments'
 	    ,url:'/admin/api/nav/list'
 	    ,cellMinWidth: 80 

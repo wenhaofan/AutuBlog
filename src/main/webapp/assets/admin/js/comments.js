@@ -40,7 +40,7 @@ function submitReply(info){
  * 渲染评论表格
  */
 function renderTable(identify,state){
-	 table.render({
+	fl.renderTable({
 		 page:{count:80,limit:10},
 		 where:{
 			 identify:identify,

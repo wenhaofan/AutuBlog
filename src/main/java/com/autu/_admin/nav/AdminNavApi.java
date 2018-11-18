@@ -15,8 +15,7 @@ public class AdminNavApi extends BaseController{
 	private NavService frontService;
 	
 	public void list() {
-		Ret ret = Ret.ok("code", 0).set("data", frontService.list());
-		renderJson(ret.toJson());
+		renderJson(Ret.ok("list", frontService.list()));
 	}
 	
 	public void get() {

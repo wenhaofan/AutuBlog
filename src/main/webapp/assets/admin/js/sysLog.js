@@ -12,7 +12,7 @@ layui.use(['table','form'],function(){
 })
 
 function renderSysLogTable(data){
-	  table.render({
+	fl.renderTable({
 		where:data?data:{}
 	    ,elem: '#sysLogTable'
 	    ,url: '/admin/api/sysLog/page' //数据接口

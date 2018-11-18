@@ -20,8 +20,7 @@ public class AdminSysLogApi extends BaseController {
 		Integer pageNum = getParaToInt("page",1);
 		Integer limit = getParaToInt("limit",10);
 		Page<SysLog> sysLogPage=service.page(pageNum, limit, getBean(QuerySysLog.class,"",true));
-		Ret ret = Ret.ok().set("code", 0).set("data", sysLogPage.getList()).set("count", sysLogPage.getTotalRow());
-		renderJson(ret.toJson());
+		renderJson(Ret.ok("page", sysLogPage));
 	}
 	
 }

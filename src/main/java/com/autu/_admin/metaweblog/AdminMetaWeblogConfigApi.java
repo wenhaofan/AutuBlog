@@ -22,7 +22,7 @@ public class AdminMetaWeblogConfigApi extends BaseController {
 	 */
 	public void mList() {
 		List<MetaweblogConfig> configs=metaweblogService.list();
-		renderJson(Ret.ok().set("code", 0).set("data", configs));
+		renderJson(Ret.ok("list", configs));
 	}
 	@SysLogInfo(value="编辑metaweblog配置",action="saveOrUpdate")
 	public void mconfigEdit() {

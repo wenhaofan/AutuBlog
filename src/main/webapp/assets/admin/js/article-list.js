@@ -17,7 +17,7 @@ layui.use([ 'table', 'form' ], function() {
 });
 
 function renderArticles(){
-	table.render({
+	fl.renderTable({
 		page:{count:80,limit:10}
 		,url:'/admin/api/article/list' 
 	    ,elem: '#articles'

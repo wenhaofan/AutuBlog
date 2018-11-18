@@ -36,7 +36,7 @@ public class ArticleAdminApi extends BaseController {
 		Integer pageNum = getParaToInt("page");
 		Integer limit = getParaToInt("limit");
 		Page<Article> articlePage = articleService.page(article, metaid, pageNum, limit);
-		Ret ret = Ret.ok().set("code", 0).set("data", articlePage.getList()).set("count", articlePage.getTotalRow());
+		Ret ret = Ret.ok("page",articlePage);
 		renderJson(ret.toJson());
 	}
 	
