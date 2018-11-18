@@ -6,6 +6,7 @@ var attach_url = $('#attach_url').val();
 Dropzone.autoDiscover = false;
 
 var article={
+	isChange:false,
 	init:function(){
 		this.initArticleInfo();
 		this.autoSaveCache();
@@ -41,6 +42,11 @@ var article={
 		})
 	},saveArticleCache:function(){
 		try {
+			if(!this.isChange){
+				return false;
+			}
+			this.isChange=false;
+			
 			var cacheInfo={};
 			cacheInfo.content=article.getContent();
 			cacheInfo.title=$("#articleForm input[name='title']").val();
@@ -49,14 +55,13 @@ var article={
 			cacheInfo.identify=$("#articleForm input[name='identify']").val();
 			cacheInfo.thumbImg=$("#articleForm input[name='thumbImg']").val();
 			var jsonStr=JSON.stringify(cacheInfo); 
-			 
-			if(cacheInfo.content||cacheInfo.title||cacheInfo.tags
+			
+			if(getPlainText(cacheInfo.content)||cacheInfo.title||cacheInfo.tags
 					||cacheInfo.categorys.length>0||cacheInfo.identify){
 				articleCache.saveCache(article.getArticleId(),jsonStr); 
 				console.log("自动保存成功！");
-			}	
-			
-			$(".hint-msg").text("自动保存成功！");
+				$(".hint-msg").text("自动保存成功！["+new Date()+"]");
+			}
 		} catch (e) {
 			console.log(e);
 			console.log("自动保存失败！");
@@ -115,9 +120,6 @@ var articleCache={
 		}
 		return  eval('(' + cache + ')');;
 	},saveCache:function(id,data){
-		if(getPlainText(data).length==0){
-			return;
-		}
 		this.removeCache(this.constant.cacheKey+id);
 		localStorage.setItem(this.constant.cacheKey+id, data );	
 	},removeCache:function(id){
@@ -354,22 +356,54 @@ $(document).ready(function () {
 
 $(function(){
 	article.init();
+	 //监听seletc2 
+	 $("body").on("change","#articleForm #multiple-sel",function(e){
+		 article.isChange=true;
+	 })
+	//避免pjax重复加载js导致事件重复绑定
+	if (typeof (adminArticleIsBind) != "undefined") {
+	    return;
+	}   
+	adminArticleIsBind=true;
+	
+	//监听input变化
+	$("body").on("input propertychange","#articleForm input",function(event){
+	     article.isChange=true;
+	});
+	//监听summernote编辑
+	 $('body').on('DOMNodeInserted',".note-editable",function(){
+		 article.isChange=true;
+	 })
+	 //监听mditor编辑
+	 $('body').on('input propertychange',".editor textarea",function(){
+		 article.isChange=true;
+	 })
+	
+	 
+	 $('#tags').tagsInput({
+        width: '100%',
+        height: '35px',
+        defaultText: '请输入文章标签',
+        onRemoveTag:function(){
+        	article.isChange=true;
+        },onChange:function(){
+        	article.isChange=true;
+        },onAddTag:function(){
+        	article.isChange=true;
+        }
+    });
+	 
 	if($(window).width()<=768){
 	    $(".fa-columns").trigger("click");
 	    isHideShowHtml=true;
 	}
 	 $("#multiple-sel").select2({
 	        width: '100%'
-	 });	 
-    $('#tags').tagsInput({
-        width: '100%',
-        height: '35px',
-        defaultText: '请输入文章标签'
-    });
+	 });	
+	 
+   
  
 })
-
- 
 
 function allow_comment(obj) {
     var this_ = $(obj);
