@@ -369,7 +369,6 @@ $(function(){
 	        	article.isChange=true;
 	        }
 	   });
-	 
 	 $("#multiple-sel").select2({
 	        width: '100%'
 	 });	
