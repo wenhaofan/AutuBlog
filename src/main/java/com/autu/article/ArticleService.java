@@ -76,7 +76,9 @@ public class ArticleService {
  		LastNextArticleDTO result=	new LastNextArticleDTO();
  		
  		if(articles==null||articles.isEmpty()) {
- 			articles=listRandomArticle(2,null);
+ 			List<Integer> notInIds=new ArrayList<>();
+ 			notInIds.add(queryArticle.getId());
+ 			articles=listRandomArticle(2,notInIds);
  		}else if(articles.size()==1) {
  			List<Integer> notInIds=new ArrayList<>();
  			notInIds.add(queryArticle.getId());
