@@ -81,9 +81,11 @@ public class ArticleService {
  			notInIds.add(queryArticle.getId());
  			notInIds.add(articles.get(0).getId());
  			List<Article> randomArticles=listRandomArticle(1,notInIds);
- 			articles.add(randomArticles.get(0));
+ 			if(!randomArticles.isEmpty()) {
+ 				articles.add(randomArticles.get(0));
+ 			}
  		}
- 	 
+ 	
 		return new LastNextArticleDTO().setLastArticle(articles.get(0)).setNextArticle(articles.get(1));
 	}
 	
