@@ -73,9 +73,10 @@ public class ArticleService {
 		SqlPara sqlPara=dao.getSqlPara("article.lastNextArticle",queryArticle.getId());
  		List<Article> articles=dao.find(sqlPara);
  		
+ 		LastNextArticleDTO result=	new LastNextArticleDTO();
+ 		
  		if(articles==null||articles.isEmpty()) {
  			articles=listRandomArticle(2,null);
- 			return null;
  		}else if(articles.size()==1) {
  			List<Integer> notInIds=new ArrayList<>();
  			notInIds.add(queryArticle.getId());
@@ -86,7 +87,13 @@ public class ArticleService {
  			}
  		}
  	
-		return new LastNextArticleDTO().setLastArticle(articles.get(0)).setNextArticle(articles.get(1));
+ 		if(articles.size()==2) {
+ 			result.setLastArticle(articles.get(0)).setNextArticle(articles.get(1));
+ 		}else if(articles.size()==1) {
+ 			result.setLastArticle(articles.get(0));
+ 		}
+ 		
+		return result;
 	}
 	
 	public List<Article> listRandomArticle(Integer limit,List<Integer> notInIds){
