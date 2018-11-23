@@ -20,12 +20,15 @@ public class AgentUserInterceptor implements Interceptor{
 		AgentUser agentUser = c.getAgentUser();
 		//判断是否为爬虫请求，如果为爬虫请求则不产生agentUser
 		String userAgent=c.getRequest().getHeader("User-Agent");
-		if(userAgent.contains("bot")
-			||userAgent.contains("Bot")
-			||userAgent.contains("crawler")) {
-			inv.invoke();
-			return;
+		if(StrKit.notBlank(userAgent)) {
+			if(userAgent.contains("bot")
+					||userAgent.contains("Bot")
+					||userAgent.contains("crawler")) {
+					inv.invoke();
+					return;
+			}
 		}
+		
 		
 		String cookie = c.getCookie(AgentUserService.AGENT_USER_COOKIE_KEY);
 		 

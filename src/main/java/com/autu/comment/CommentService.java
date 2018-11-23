@@ -33,10 +33,7 @@ public class CommentService {
 	@Inject
 	private AdminUserService adminUserService;
 	public void save(Comment comment,String cookie) {
-		if(cookie==null) {
-			throw new MsgException("什么鬼！");
-		}
-		
+
 		if(StrKit.isBlank(comment.getContent())||comment.getContent().length()>512) {
 			throw new MsgException("评论内容需大于0且小于等于512字！");
 		}
