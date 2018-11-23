@@ -13,7 +13,13 @@ public class ArticleApi extends BaseController{
 	//通过标识获取文章信息
 	public void index() {
 		String identify=getPara();
-		Article article=service.getArticle(identify);
+		Article article=null;
+		if(getLoginUser()!=null) {
+			article=service.getArticle(identify);
+		}else {
+			article=service.getPublishArticle(identify);
+		}
+	
 		renderJson(Ret.ok("article", article).toJson());
 	}
 	

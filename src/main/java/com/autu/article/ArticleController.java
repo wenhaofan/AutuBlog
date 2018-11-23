@@ -54,7 +54,15 @@ public class ArticleController extends BaseController{
 	
 	public void index(){
 		String identify=getPara();
-		Article article=articleService.getArticle(identify);
+		
+		Article article=null;
+		
+		if(getLoginUser()!=null) {
+			article=articleService.getArticle(identify);
+		}else {
+			article=articleService.getPublishArticle(identify);
+		}
+		
 		
 		if(article==null) {
 			renderError(404);

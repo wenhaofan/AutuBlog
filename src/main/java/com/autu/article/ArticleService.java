@@ -46,8 +46,11 @@ public class ArticleService {
 	 * @return
 	 */
 	public Article getArticle(String  identify) {
-		Article article= dao.findFirst("select * from article where identify =? ",identify);
-		return article;
+		return dao.findFirst("select * from article where identify =?  ",identify);
+	}
+	
+	public Article getPublishArticle(String  identify) {
+		return dao.findFirst("select * from article where identify =? and state=1  ",identify);
 	}
 	
 	/**
