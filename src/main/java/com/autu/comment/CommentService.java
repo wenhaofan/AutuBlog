@@ -6,15 +6,12 @@ import com.autu._admin.user.AdminUserService;
 import com.autu.agentUser.AgentUserService;
 import com.autu.article.ArticleService;
 import com.autu.common._config.BlogContext;
-import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.exception.MsgException;
-import com.autu.common.interceptor.SysLogInterceptor;
 import com.autu.common.kit.EmailKit;
 import com.autu.common.model.entity.AgentUser;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Comment;
 import com.autu.common.model.entity.User;
-import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
@@ -92,9 +89,7 @@ public class CommentService {
 		
 	}
 
-
-	@Before(SysLogInterceptor.class)
-	@SysLogInfo(value="发送评论提醒邮件",action="push")
+	
 	private boolean sendHintAdminEmail(Comment comment) {
 		
 		//如果等于该值 则表示为管理员则发送回复邮件
@@ -148,9 +143,7 @@ public class CommentService {
 		 Integer beforeRow=Db.queryInt("select count(id) from comment where identify= ? and gmtCreate > ?",c.getIdentify(),c.getGmtCreate());
 		 c.setPageNum(beforeRow/6);
 	}
-	
-	@Before(SysLogInterceptor.class)
-	@SysLogInfo(value="发送评论回复邮件",action="push")
+
 	public boolean sendReplyEmail(Comment comment) {
 		
 		if(comment.getParentId()==null) return true ;

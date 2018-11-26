@@ -1,0 +1,12 @@
+<script type="text/javascript" src="/assets/admin/js/loginRecord.js"></script>
+<table id="loginRecordTable" lay-filter="loginRecordTable"></table>
+
+<script type="text/html" id="tpl-device">
+  #[[ 
+  {{#  if(!d.device){ }}
+   	{{ "未知设备" }}
+  {{#  } else{ }}
+   	{{d.device}}
+  {{# }}}
+]]#
+</script>

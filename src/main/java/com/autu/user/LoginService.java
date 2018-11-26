@@ -1,7 +1,5 @@
 package com.autu.user;
 
-import java.util.Date;
-
 import com.autu.common.model.entity.LoginRecord;
 import com.autu.common.model.entity.Session;
 import com.autu.common.model.entity.User;
@@ -31,52 +29,49 @@ public class LoginService {
 	 */
 	private static final Integer resetSessionExpiredTime=4*60*60*1000;
  
-	public Ret  login(String ukAccount,String pwd,boolean isKeep,String ip) {
+	public Ret  login(String ukAccount,String pwd,boolean isKeep,String ip,String device) {
 
-		
 		Kv vals=Kv.by("account",ukAccount);
 		SqlPara sql=dao.getSqlPara("login.login",vals);
-		
 		User loginUser= dao.findFirst(sql);
-		
 		if(loginUser==null) {
 			return Ret.fail("msg", "账号密码错误!");
 		}
 		
 		String dbPwd=loginUser.getPwd();
-		
 		String loginPwdMd5=HashKit.md5(pwd);
-		
  
 		if(!StrKit.equals(dbPwd, loginPwdMd5)) {
 			return Ret.fail("msg", "账号密码错误!");
 		}
-
 		loginUser.setPwd("");
 		
-		LoginRecord log=new LoginRecord();
-		log.setIp(ip);
-		log.setTime(new Date());
-		log.setUserId(loginUser.getId());
-		log.save();
 		Session session=new Session();
 		session.setId(StrKit.getRandomUUID());
 		session.setUserId(loginUser.getId());
-		
-		long liveSecond=isKeep?365*24*60*60:24*60*60;
-		
+		long liveSecond=365*24*60*60;
 		session.setExpireAt(System.currentTimeMillis()+liveSecond*1000);
 		
 		if(!session.save()) {
 			return Ret.fail("msg","session保存失败!");
 		}
-
-		CacheKit.put(LoginService.sessionCacheKey, session.getId(), session);
+		//保存登录日志
+		saveLoginRecord(ip, device, loginUser, session);
 		
+		CacheKit.put(LoginService.sessionCacheKey, session.getId(), session);
 		CacheKit.put(LoginService.loginUserKey,session.getId(), loginUser);
 		
 		return Ret.ok("cookieMaxAge", liveSecond)
 				.set(LoginService.loginUserKey, loginUser).set(sessionIdName, session.getId());
+	}
+
+
+	private void saveLoginRecord(String ip, String device, User loginUser, Session session) {
+		LoginRecord log=new LoginRecord();
+		log.setIp(ip);
+		log.setSessionId(session.getId());
+		log.setDevice(device);
+		log.save();
 	}
 	
 	

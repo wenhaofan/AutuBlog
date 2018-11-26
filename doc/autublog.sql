@@ -175,11 +175,12 @@ CREATE TABLE `config` (
   `emailPassword` varchar(255) DEFAULT NULL,
   `ico` varchar(255) DEFAULT NULL,
   `logo` varchar(255) DEFAULT NULL,
+  `isAuditComment` tinyint(1) DEFAULT NULL,
   `qiniuAk` varchar(255) DEFAULT NULL,
   `qiniuSk` varchar(255) DEFAULT NULL,
-  `qiniuBucket` varchar(255) DEFAULT NULL,
   `qiniuUrl` varchar(255) DEFAULT NULL,
-  `isAuditComment` tinyint(1) DEFAULT NULL,
+  `qiniuBucket` varchar(255) DEFAULT NULL,
+  `theme` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -216,12 +217,13 @@ CREATE TABLE `disk` (
 DROP TABLE IF EXISTS `login_record`;
 CREATE TABLE `login_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '登录记录id',
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
-  `userId` int(11) NOT NULL COMMENT '用户id',
+  `gmtCreate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   `ip` varchar(30) COLLATE utf8_bin DEFAULT '' COMMENT '登录地址',
+  `sessionId` varchar(256) COLLATE utf8_bin DEFAULT NULL,
+  `device` varchar(256) COLLATE utf8_bin DEFAULT NULL,
+  `isValid` tinyint(1) DEFAULT '1' COMMENT '0为无效,1为有效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Table structure for `meta`

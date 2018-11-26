@@ -2,7 +2,6 @@ package com.autu._admin.blogroll;
 
 import java.util.List;
 
-import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.Blogroll;
 import com.jfinal.aop.Inject;
@@ -23,14 +22,13 @@ public class AdminBlogrollApi extends BaseController {
 		renderJson( Ret.ok("list", blogrolls));
 	}
 	
-	@SysLogInfo(value="编辑友链",action="saveOrUpdate")
+	 
 	public void saveOrUpdate(){
 		Blogroll blogroll=getModel(Blogroll.class,"",true);
 		blogrollService.saveOrUpdate(blogroll);
 		renderJson(Ret.ok());
 	}
 	
-	@SysLogInfo(value="删除友链",action="delete")
 	public void remove(){
 		Integer id=getParaToInt(0);
 		blogrollService.remove(id);

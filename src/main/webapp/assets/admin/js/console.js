@@ -134,13 +134,11 @@ $(function(){
 		}
 	})
 	fl.ajax({
-		url:"/admin/api/sysLog/listRecent",
+		url:"/admin/api/loginRecord/listRecent",
 		success:function(data){
-			$.each(data.logPage.list,function(index,item){
-				 
-					var $dd=$(template("tpl-list-sysLog",item));
-					$("#sysLog-list").append($dd);
-				 
+			$.each(data.list,function(index,item){
+				var $dd=$(template("tpl-list-loginRecord",item));
+				$("#loginRecord-list").append($dd);
 			})
 			
 		}

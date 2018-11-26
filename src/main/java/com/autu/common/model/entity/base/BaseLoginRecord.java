@@ -18,22 +18,13 @@ public abstract class BaseLoginRecord<M extends BaseLoginRecord<M>> extends Mode
 		return getInt("id");
 	}
 
-	public M setTime(java.util.Date time) {
-		set("time", time);
+	public M setGmtCreate(java.util.Date gmtCreate) {
+		set("gmtCreate", gmtCreate);
 		return (M)this;
 	}
 	
-	public java.util.Date getTime() {
-		return get("time");
-	}
-
-	public M setUserId(java.lang.Integer userId) {
-		set("userId", userId);
-		return (M)this;
-	}
-	
-	public java.lang.Integer getUserId() {
-		return getInt("userId");
+	public java.util.Date getGmtCreate() {
+		return get("gmtCreate");
 	}
 
 	public M setIp(java.lang.String ip) {
@@ -43,6 +34,33 @@ public abstract class BaseLoginRecord<M extends BaseLoginRecord<M>> extends Mode
 	
 	public java.lang.String getIp() {
 		return getStr("ip");
+	}
+
+	public M setSessionId(java.lang.String sessionId) {
+		set("sessionId", sessionId);
+		return (M)this;
+	}
+	
+	public java.lang.String getSessionId() {
+		return getStr("sessionId");
+	}
+
+	public M setDevice(java.lang.String device) {
+		set("device", device);
+		return (M)this;
+	}
+	
+	public java.lang.String getDevice() {
+		return getStr("device");
+	}
+
+	public M setIsValid(java.lang.Boolean isValid) {
+		set("isValid", isValid);
+		return (M)this;
+	}
+	
+	public java.lang.Boolean getIsValid() {
+		return get("isValid");
 	}
 
 }

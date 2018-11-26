@@ -2,10 +2,7 @@ package com.autu._admin.config;
 
 import java.util.List;
 
-import com.autu.common.annotation.SysLogInfo;
-import com.autu.common.interceptor.SysLogInterceptor;
 import com.autu.common.model.entity.BaiduSeoConfig;
-import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.Kv;
@@ -37,8 +34,6 @@ public class AdminBaiduSeoService {
 		HttpKit.post(url,link,headers);
 	}
 	
-	@Before(SysLogInterceptor.class)
-	@SysLogInfo(value="执行百度推送",action="push")
 	public boolean pushLink(List<BaiduSeoConfig> configs,String link) {
 		try {
 			configs.stream().forEach((BaiduSeoConfig config)->{

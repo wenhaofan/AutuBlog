@@ -10,17 +10,14 @@ import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexOptions;
 
-import com.autu.common.annotation.SysLogInfo;
-import com.autu.common.interceptor.SysLogInterceptor;
 import com.autu.common.kit.EmailKit;
 import com.autu.common.lucene.LuceneHelper;
 import com.autu.common.model.entity.Article;
 import com.autu.common.safe.JsoupFilter;
-import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.jfinal.log.Log;
 
-@Before(SysLogInterceptor.class)
+
 public class AdminArticleLuceneIndexes {
 	
 	private static final Log log = Log.getLog(EmailKit.class);
@@ -29,7 +26,7 @@ public class AdminArticleLuceneIndexes {
 	@Inject
 	private AdminArticleService adminArticleService;
 	
-	@SysLogInfo(value="重置索引",action="delete")
+ 
 	public void resetArticleIndexes() {
 		deleteAll();
 		addAll();
@@ -56,7 +53,7 @@ public class AdminArticleLuceneIndexes {
 		return LuceneHelper.single().createIndexs(documents)>0;
 	}
 
-	@SysLogInfo(value="添加多个文章索引",action="save")
+ 
 	public boolean addIndexs(List<Article> articles) {
 		List<Document> documents=new ArrayList<>();
 		for(Article article:articles) {
@@ -65,7 +62,7 @@ public class AdminArticleLuceneIndexes {
 		return LuceneHelper.single().createIndexs(documents)>0;
 	}
 	
-	@SysLogInfo(value="添加文章索引",action="save")
+ 
 	public boolean addIndex(Article article) {
 		//过滤html标签
 		Document document = getDocument(article);
@@ -96,15 +93,13 @@ public class AdminArticleLuceneIndexes {
 		document.add(titleField);
 		return document;
 	}
-	
-	
-	@SysLogInfo(value="删除索引",action="delete")
+ 
 	public boolean delete(Integer id) {
 		return LuceneHelper.single().deleteIndex("id", id.toString())>0;
 	 
 	}
 	
-	@SysLogInfo(value="更新索引",action="update")
+ 
 	public boolean update(Article article) {
 		return LuceneHelper.single().updateIndex("id", article.getId().toString(), getDocument(article))>0;
 	}

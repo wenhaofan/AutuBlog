@@ -1,6 +1,5 @@
 package com.autu._admin.config;
 
-import com.autu.common.annotation.SysLogInfo;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.Config;
 import com.jfinal.aop.Inject;
@@ -15,7 +14,6 @@ public class AdminConfigApi  extends BaseController {
 		renderJson(Ret.ok("config", service.get()));
 	}
 	
-	@SysLogInfo(value="编辑系统配置",action="update")
 	public void edit() {
 		renderJson(service.saveOrUpdate(getModel(Config.class,"",true)));
 	}

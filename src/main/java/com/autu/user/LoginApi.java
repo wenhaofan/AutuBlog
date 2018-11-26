@@ -2,6 +2,7 @@ package com.autu.user;
 
 import com.autu.agentUser.AgentUserService;
 import com.autu.common.controller.BaseController;
+import com.autu.common.kit.AgentUserKit;
 import com.autu.common.kit.IpKit;
 import com.jfinal.aop.Clear;
 import com.jfinal.aop.Inject;
@@ -28,7 +29,9 @@ public class LoginApi extends BaseController {
 		
 		boolean isKepp=getParaToBoolean("k",false);
 		
-		Ret ret=loginService.login(account,pwd,isKepp,ip);
+		String device=AgentUserKit.getDeviceInfo(getRequest());
+		
+		Ret ret=loginService.login(account,pwd,isKepp,ip,device);
 		
 		if(ret.isOk()) {
 			String sessionId=ret.getStr(LoginService.sessionIdName);
