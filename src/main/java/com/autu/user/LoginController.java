@@ -3,6 +3,7 @@ package com.autu.user;
 import com.autu.common.controller.BaseController;
 import com.autu.index.IndexSeoInterceptor;
 import com.jfinal.aop.Before;
+import com.jfinal.kit.PropKit;
 
 /**
  * 登录
@@ -21,7 +22,7 @@ public class LoginController extends BaseController{
 	}
 
 	public void logout() {
-		removeCookie(LoginService.sessionIdName);
+		removeCookie(LoginService.sessionIdName, "/",PropKit.get("domain"));
 		redirect("/");
 	}
 	
