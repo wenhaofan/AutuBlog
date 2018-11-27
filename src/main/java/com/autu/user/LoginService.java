@@ -29,7 +29,7 @@ public class LoginService {
 	 */
 	private static final Integer resetSessionExpiredTime=4*60*60*1000;
  
-	public Ret  login(String ukAccount,String pwd,boolean isKeep,String ip,String device) {
+	public Ret  login(String ukAccount,String pwd,String ip,String device) {
 
 		Kv vals=Kv.by("account",ukAccount);
 		SqlPara sql=dao.getSqlPara("login.login",vals);

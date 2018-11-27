@@ -26,12 +26,10 @@ public class LoginApi extends BaseController {
 		String account=getPara("ac");
 		String pwd=getPara("pwd");
 		String ip=IpKit.getRealIp(getRequest());
-		
-		boolean isKepp=getParaToBoolean("k",false);
-		
+	 
 		String device=AgentUserKit.getDeviceInfo(getRequest());
 		
-		Ret ret=loginService.login(account,pwd,isKepp,ip,device);
+		Ret ret=loginService.login(account,pwd,ip,device);
 		
 		if(ret.isOk()) {
 			String sessionId=ret.getStr(LoginService.sessionIdName);
