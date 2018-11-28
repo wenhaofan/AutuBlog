@@ -78,9 +78,8 @@ public class LoginService {
 	public User getUserWithSessionId(String sessionId) {
 		Session session=	CacheKit.get(LoginService.sessionCacheKey, sessionId);
 		
-		if(session!=null&&(session.getExpireAt()-System.currentTimeMillis())<=resetSessionExpiredTime) {
-			session.setExpireAt(System.currentTimeMillis()+24*60*60*1000);
-			session.update();
+		if(session==null) {
+			return null;
 		}
 		
 		return CacheKit.get(LoginService.loginUserKey, sessionId);
