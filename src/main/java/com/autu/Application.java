@@ -1,6 +1,7 @@
 package com.autu;
 
-import com.jfinal.core.JFinal;
+import com.autu.common._config.BlogConfig;
+import com.jfinal.server.undertow.UndertowServer;
 
 /**
  *  
@@ -9,6 +10,6 @@ import com.jfinal.core.JFinal;
  */
 public class Application {
 	public static void main(String[] args) {
-		 JFinal.start("src/main/webapp", 80, "/", 5);
+		UndertowServer.start(BlogConfig.class);
 	}
 }	

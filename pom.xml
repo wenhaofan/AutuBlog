@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.autu</groupId>
 	<artifactId>autu</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>1.0.1</version>
 	<name>autu</name>
 	<url>http://maven.apache.org</url>
@@ -84,17 +84,21 @@
 		    <artifactId>xmlrpc-client</artifactId>
 		    <version>3.1.3</version>
 		</dependency>
+		
 		<dependency>
 		    <groupId>com.jfinal</groupId>
 		    <artifactId>jfinal</artifactId>
 		    <version>3.5</version>
-		</dependency>
-		 
+		</dependency> 
 		<dependency>
-		    <groupId>com.jfinal</groupId>
-		    <artifactId>jetty-server</artifactId>
-		    <version>2018.11</version>
-		    <scope>provided</scope>
+			<groupId>com.jfinal</groupId>
+			<artifactId>jfinal-undertow</artifactId>
+			<version>1.0</version>
+		</dependency>
+ 		<dependency>
+			<groupId>com.jfinal</groupId>
+			<artifactId>cos</artifactId>
+			<version>2017.5</version>
 		</dependency>
  
   		<dependency>
@@ -125,13 +129,6 @@
 			<artifactId>druid</artifactId>
 			<version>1.0.29</version>
 		</dependency>
-		<dependency>
-			<groupId>com.jfinal</groupId>
-			<artifactId>cos</artifactId>
-			<version>2017.5</version>
-		</dependency>
-	
-
 		<!-- ueditor相关jar -->
 
 		<dependency>
@@ -151,7 +148,6 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-	
 
 		<dependency>
 			<groupId>com.qiniu</groupId>
@@ -199,6 +195,41 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
+				<!-- 
+				使用 mvn clean package 打包 
+				更多配置可参考官司方文档：http://maven.apache.org/plugins/maven-assembly-plugin/single-mojo.html
+	 		-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						
+						<configuration>
+							<!-- 打包生成的文件名 -->
+							<finalName>${project.artifactId}</finalName>
+							<!-- jar 等压缩文件在被打包进入 zip、tar.gz 时是否压缩，设置为 false 可加快打包速度 -->
+							<recompressZippedFiles>false</recompressZippedFiles>
+							<!-- 打包生成的文件是否要追加 release.xml 中定义的 id 值 -->
+							<appendAssemblyId>true</appendAssemblyId>
+							<!-- 指向打包描述文件 package.xml -->
+							<descriptors>
+								<descriptor>package.xml</descriptor>
+							</descriptors>
+							<!-- 打包结果输出的基础目录 -->
+							<outputDirectory>${project.build.directory}/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 		</plugins>
 	</build>
 </project>

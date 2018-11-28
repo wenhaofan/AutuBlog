@@ -1,0 +1,22 @@
+1：命令行进入项目根目录，然后运行 mvn clean package 即可打包
+
+2：打包完后，进入 AutuBlog/target/autu-release/autu
+   目录，windows 下双击 start.bat 启动项目， linux 下运行 start.sh 脚本启动项目，
+   运行 stop.sh 关闭项目
+
+   注意 AutuBlog/target 目录下面还会有一个 autu-release.zip 文件
+   该文件等价于对 /target/autu-release/autu 目录进行的压缩
+   方便上传到服务器上解压即部署，可通过删除 package.xml 中的 <format>zip</format>
+   项避免打出该 zip 包，具体用法在 package.xml 中有说明
+
+3：start.sh 脚本中提供了详细的说明，根据说明可选择不同的运行模式
+
+
+说明：打包部署只需在 pom.xml 中配置 maven-assembly-plugin 这一个插件，该插件用到了
+    package.xml 中的配置，整个过程已被简化到极致
+
+    start.sh、stop.sh、start.bat 这三个运行脚本在用于别的项目时，只需要修改一下
+    MAIN_CLASS 变量指向实际的启动入口类即可，例如在AutuBlog 中的配置如下：
+       MAIN_CLASS=com.autu.Application
+
+
