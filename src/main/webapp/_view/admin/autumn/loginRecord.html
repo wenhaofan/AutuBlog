@@ -1,12 +1,23 @@
 <script type="text/javascript" src="/assets/admin/js/loginRecord.js"></script>
 <table id="loginRecordTable" lay-filter="loginRecordTable"></table>
-
+<input type="hidden" name="currentSessionId" value="">
 <script type="text/html" id="tpl-device">
-  #[[ 
+#[[ 
+  {{#if ]]# (d.sessionId=="#(currentSessionId)"){}}
+	<span style="color:red;">本机</span>
+ #[[  {{#}}}
   {{#  if(!d.device){ }}
    	{{ "未知设备" }}
   {{#  } else{ }}
    	{{d.device}}
   {{# }}}
+]]#
+</script>
+
+<script type="text/html" id="tpl-operation">
+#[[
+	{{# if(d.isValid == 1){ }}
+		<button class="layui-btn layui-btn-sm login-downline " data-id="{{d.id}}">下线</button> 
+	{{# }}}
 ]]#
 </script>

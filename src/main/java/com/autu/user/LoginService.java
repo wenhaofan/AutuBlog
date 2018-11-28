@@ -24,10 +24,6 @@ public class LoginService {
 	public static final  String loginUserKey="loginUser";
 	public static final String sessionIdName="antuBlogSessionId";
 	public static final String sessionCacheKey="loginSessionCacheKey";
-	/**
-	 * 在session的失效时间小于该时间时访问系统 则失效时间重置为访问时间后的24小时
-	 */
-	private static final Integer resetSessionExpiredTime=4*60*60*1000;
  
 	public Ret  login(String ukAccount,String pwd,String ip,String device) {
 

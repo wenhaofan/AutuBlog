@@ -59,9 +59,6 @@
 #namespace("adminConfig")
 #include("/back/config.sql")
 #end
-#namespace("sysLog")
-#include("/back/sysLog.sql")
-#end
 #namespace("adminLoginRecord")
 #include("/back/loginRecord.sql")
 #end

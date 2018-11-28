@@ -1,6 +1,7 @@
 package com.autu._admin.loginRecord;
 
 import com.autu.common.controller.BaseController;
+import com.autu.user.LoginService;
 
 /**
 * @author 作者:范文皓
@@ -9,6 +10,7 @@ import com.autu.common.controller.BaseController;
 public class LoginRecordController extends BaseController {
 
 	public void index() {
+		setAttr("currentSessionId", getCookie(LoginService.sessionIdName));
 		render("loginRecord.html");
 	}
 	

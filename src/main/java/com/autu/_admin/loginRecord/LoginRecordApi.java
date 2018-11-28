@@ -22,4 +22,9 @@ public class LoginRecordApi extends BaseController {
 	public void listRecent() {
 		renderJson(Ret.ok("list", loginRecordService.listRecent(getParaToInt(0,8))));
 	}
+	
+	public void downline() {
+		boolean result=loginRecordService.downline(getParaToInt());
+		renderJson(result?Ret.ok():Ret.fail());
+	}
 }

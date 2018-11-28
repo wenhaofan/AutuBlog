@@ -7,6 +7,7 @@ package com.autu._admin.loginRecord;
 import java.util.List;
 
 import com.autu.common.model.entity.LoginRecord;
+import com.autu.common.model.entity.Session;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.SqlPara;
@@ -15,6 +16,8 @@ public class LoginRecordService {
 
 	@Inject
 	private LoginRecord loginRecordDao;
+	@Inject
+	private Session sessionDao;
 	
 	public Page<LoginRecord> page(Integer pageNum,Integer pageSize){
 		SqlPara sql=loginRecordDao.getSqlPara("adminLoginRecord.page");
@@ -26,4 +29,14 @@ public class LoginRecordService {
 		return loginRecordDao.find(sqlPara);
 	}
 	
+	public boolean downline(Integer id) {
+		LoginRecord loginRecord=loginRecordDao.findById(id);
+		loginRecord.setIsValid(false);
+
+		boolean b= loginRecord.update();
+		if(!b) {
+			return b;
+		}
+		return	sessionDao.deleteById(loginRecord.getSessionId());
+	}
 }
