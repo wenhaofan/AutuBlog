@@ -35,10 +35,7 @@ public class Arraykit {
 		String[] strArr=source.split(regex);
 		
 		Integer[] intArr=null;
-		
-		if(strArr.length<0) {
-			return new Integer[0];
-		}
+ 
 		
 		intArr=new Integer[strArr.length];
 		
