@@ -8,14 +8,16 @@
 
 ## 特性
 
-+ 全站响应式
++ 全文检索
 + 全站pjax
++ 全站响应式
++ 内置文件系统
 + 支持Markdown
-+ 整合多套前台主题， [pinghsu](https://github.com/chakhsu/pinghsu),[morning](http://www.yangqq.com/zaoan/)
 + 对接百度推送接口
 + 支持metaweblog推送
-+ 内置文件系统
-+ 全文检索
++ 内嵌undertow，无需tomcat，极速部署
++ 资源占用少，150M左右内存即可流畅运行
++ 整合多套前台主题， [pinghsu](https://github.com/chakhsu/pinghsu),[morning](http://www.yangqq.com/zaoan/)
 
 ## 技术选型
 ### 后端
@@ -38,9 +40,9 @@ jquery-multi-select，jquery-pjax，jquery-toggles，limonte-sweetalert2，
 
 ## 界面预览
 
-![antu1.png](http://pd6htjig8.bkt.clouddn.com/v2adminimg.png)
-![antu_022.png](http://pd6htjig8.bkt.clouddn.com/v2adminimg2.png)
-![antu_03.png](http://pd6htjig8.bkt.clouddn.com/v2adminimg3.png)
+![antu1.png](http://qiniu.wenhaofan.com/admibimg.png)
+![antu_022.png](http://qiniu.wenhaofan.com/v2adminimg2.png)
+![antu_03.png](http://qiniu.wenhaofan.com/v2adminimg3.png)
 更多预览可部署项目查看
 
 ## 开源协议
