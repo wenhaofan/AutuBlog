@@ -21,6 +21,9 @@ public class AgentUserKit {
 		if (m.find()) {
 			result = m.group(0);
 		}
+		if(result==null) {
+			return null;
+		}
 		Matcher m2 = r2.matcher(result);
 		if (m2.find()) {
 			result = m2.group(0);
