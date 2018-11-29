@@ -157,7 +157,7 @@ public class AdminArticleService {
 		if(StrKit.notBlank(identify)) {
 			Article tempArticle=articleService.getArticle(identify);
 			if(tempArticle!=null&&tempArticle.getId().equals(article.getId())) {
-				new MsgException("路径已存在！");
+				throw new MsgException("路径已存在！");
 			}
 		}else {
 			//默认路径为创建时间
