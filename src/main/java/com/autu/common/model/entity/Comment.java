@@ -29,7 +29,7 @@ public class Comment extends BaseComment<Comment> {
 
 	public List<Comment> getChilds() {
 		if(childs==null) {
-			childs=new Comment().find("select * from comment where parentId=?",getId());
+			childs=new Comment().find("select * from comment where parentId=? and isAduit=1",getId());
 		}
 		return childs;
 	}
