@@ -163,6 +163,10 @@ public class CommentService {
 	public String getHintEmail(String name,Comment comment) {
 		setInPageNum(comment);
 		String serverUrl=BlogContext.getProjectPath();
+		
+		if(!serverUrl.endsWith("/")) {
+			serverUrl+="/";
+		}
 		String url=serverUrl+"article/"+comment.getIdentify()+"?p="+comment.getPageNum()+"#li-comment-"+comment.getId();
 		return name+"回复了你的评论,<a href='"+url+"'>点此查看</a>";
 	}
