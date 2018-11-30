@@ -62,7 +62,12 @@ public class AdminCommentService extends BaseController {
 		comment.setName(user.getName());
 		comment.setUserId(user.getId());
 		comment.setWebsite(user.getWebsite());
-		comment.setParentId(toId);
+ 
+		Comment parentComment=get(toId);
+		if(parentComment.getParentId()!=0) {
+			comment.setParentId(parentComment.getParentId());
+		}
+		
 		comment.setToUserId(toComment.getUserId());
 		comment.setIsAduit(true);
 		comment.save();
