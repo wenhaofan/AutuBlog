@@ -33,7 +33,8 @@ public class ArticleAdminApi extends BaseController {
 		Article article = getModel(Article.class, "", true);
 		Integer metaid = getParaToInt("categoryId");
 		Integer pageNum = getParaToInt("page");
-		Integer limit = getParaToInt("limit");
+		Integer limit = getParaToInt("limit",10);
+		
 		Page<Article> articlePage = articleService.page(article, metaid, pageNum, limit);
 		Ret ret = Ret.ok("page",articlePage);
 		renderJson(ret.toJson());

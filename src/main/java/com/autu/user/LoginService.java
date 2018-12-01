@@ -74,7 +74,7 @@ public class LoginService {
 	public User getUserWithSessionId(String sessionId) {
 		Session session=	CacheKit.get(LoginService.sessionCacheKey, sessionId);
 		
-		if(session==null) {
+		if(session==null||session.isExpired()) {
 			return null;
 		}
 		
@@ -96,6 +96,7 @@ public class LoginService {
 		if(loginUser==null) {
 			return null;
 		}
+		CacheKit.put(LoginService.sessionCacheKey, session.getId(), session);
 		CacheKit.put(LoginService.loginUserKey, session.getId(), loginUser);
 		
 		return loginUser;
