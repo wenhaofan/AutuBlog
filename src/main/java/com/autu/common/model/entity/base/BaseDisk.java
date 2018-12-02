@@ -99,4 +99,13 @@ public abstract class BaseDisk<M extends BaseDisk<M>> extends Model<M> implement
 		return getStr("thumbUrl");
 	}
 
+	public M setHash(java.lang.String hash) {
+		set("hash", hash);
+		return (M)this;
+	}
+	
+	public java.lang.String getHash() {
+		return getStr("hash");
+	}
+
 }

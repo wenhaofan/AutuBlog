@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.autu.common.kit.QiniuFileUtils;
-import com.autu.common.log.SysLogActionEnum;
-import com.autu.common.log.SysLogHelper;
 import com.autu.common.model.entity.Disk;
 import com.autu.common.model.entity.QueryDisk;
 import com.jfinal.aop.Inject;
@@ -122,22 +120,19 @@ public class DiskService {
 		//如果七牛云上传失败则返回服务器资源路径
 		if(ret.isFail()){
 			fileUrl=basePath+"disk"+"/"+type+"/"+fileName;
-			
-			String data=Ret.create("fileUrl", fileUrl).toJson();
-			if(ret.getInt("code")==0){
-				SysLogHelper.saveWarnLog("七牛云未配置，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(),data);
-			}else {
-				SysLogHelper.saveErrorLog("七牛云上传失败，上传资源将仅存至服务器！", SysLogActionEnum.UPLOAD.getName(), data);
-			}
 		}else {
 			fileUrl=ret.getStr("url");
 		}
 		
+		String hash=ret.getStr("hash");
+		
 		Disk disk=new Disk();
+		
+		disk.setHash(hash);
 		disk.setName(fileName);
 		disk.setGmtCreate(new Date());
 		disk.setType(type);	
-		disk.setUrl(fileUrl  );
+		disk.setUrl(fileUrl);
 		disk.setParentId(parentId);
 		disk.setSize(uf.getFile().length());
 		disk.setType(type);

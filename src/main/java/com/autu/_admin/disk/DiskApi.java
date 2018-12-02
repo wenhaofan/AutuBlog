@@ -16,6 +16,9 @@ public class DiskApi extends BaseController{
 	@Inject
 	private DiskService service;
 	
+	@Inject
+	private QiniuFileManager qiniuFileManager;
+	
 	public void get() {
 		Disk disk=service.get(getParaToInt());
 		if(disk.getUrl().startsWith("/upload")){
@@ -63,5 +66,10 @@ public class DiskApi extends BaseController{
 	public void listFolderChain() {
 		Integer folderId=getParaToInt();
 		renderJson(Ret.ok("diskList", service.listFolderChain(folderId)));
+	}
+	
+	public void asyncQiniu() {
+		AsyncResultDTO  result=	qiniuFileManager.asyncQiniuDisk();
+		renderJson(result.IsOk()?Ret.ok("result", result):Ret.fail("result", result));
 	}
 }
