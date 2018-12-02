@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.autu.common._config.BlogContext;
+import com.google.gson.Gson;
 import com.jfinal.kit.Ret;
 import com.jfinal.log.Log;
 import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 
 
@@ -104,15 +107,17 @@ public class QiniuFileUtils {
 		// ...生成上传凭证，然后准备上传
 		Auth auth = Auth.create(accessKey, secretKey);
 		String upToken = auth.uploadToken(bucket);
-
 		try {
-			uploadManager.put(localPath, key, upToken);
-			return Ret.ok("qiniuFileName", key);
+		    Response response = uploadManager.put(localPath, key, upToken);
+		    //解析上传成功的结果
+		    DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+ 
+			return Ret.ok("qiniuFileName", key).set("hash", putRet.hash);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage(),ex);
 		}
-
+	 
 		return Ret.fail();
 	}
 
