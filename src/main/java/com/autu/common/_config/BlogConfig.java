@@ -4,6 +4,7 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.autu._admin.article.AdminArticleLuceneIndexes;
 import com.autu._admin.common.config.router.AdminRoutes;
+import com.autu.common.email.EmailTplKit;
 import com.autu.common.handle.BasePathHandler;
 import com.autu.common.interceptor.AccessLogInterceptor;
 import com.autu.common.interceptor.AgentUserInterceptor;
@@ -91,7 +92,7 @@ public class BlogConfig extends JFinalConfig {
 		me.addSharedFunction("_view/common/bootstrap.html");
 		me.addSharedFunction("_view/common/layui.html");
 		me.setSourceFactory(new FileSourceFactory());
-	
+		
 	}
 
 	@Override
@@ -117,6 +118,12 @@ public class BlogConfig extends JFinalConfig {
         arp.addSqlTemplate("all_sqls.sql");
         
 	    me.add(new EhCachePlugin());
+	    
+	    EmailTplKit emailTplKit=  new EmailTplKit(p.getBoolean("devMode", false) );
+	    emailTplKit.setBaseSqlTemplatePath(PathKit.getRootClassPath() + "/email");
+	    emailTplKit.addTemplate("all_emails.tpl");
+	    emailTplKit.parseSqlTemplate();
+	    BlogContext.emailTplKit=emailTplKit;
 	}
 
 	@Override
@@ -144,8 +151,9 @@ public class BlogConfig extends JFinalConfig {
 		AdminArticleLuceneIndexes  articleLucene=Aop.get(AdminArticleLuceneIndexes.class);
 		Config  config=configService.get();
 		BlogContext.reset(config);
-
+ 
 		articleLucene.resetArticleIndexes();
+ 
 	}
 
 

@@ -33,7 +33,7 @@ public class QiniuFileManager {
 		asyncResult.setExistNum(compareResult.getExistList().size());
 		asyncResult.setNotExistNum(notExistList.size());
 		
-		int[] arrs=Db.batchSave(notExistList, notExistList.size());
+		Db.batchSave(notExistList, notExistList.size());
 		asyncResult.setOk();
 		return asyncResult;
 	}

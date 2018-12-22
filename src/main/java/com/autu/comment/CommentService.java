@@ -13,6 +13,7 @@ import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Comment;
 import com.autu.common.model.entity.User;
 import com.jfinal.aop.Inject;
+import com.jfinal.kit.Kv;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -67,6 +68,7 @@ public class CommentService {
 		agentUser.setWebsite(comment.getWebsite());
 		agentUser.update();
 		
+		comment.setIsAduit(false);
 		comment.setUserId(agentUser.getId());
 		//如果为后台用户则直接设置为已审核
 		if(comment.getUserId()==-1) {
@@ -78,11 +80,13 @@ public class CommentService {
 		
 		comment.save();
 		
+		Article article=articleService.getArticle(comment.getIdentify());
+		
 		new Thread(()->{
 			//发送通知邮件
-			sendHintAdminEmail(comment);
+			sendHintAdminEmail(comment,article);
 			if(comment.getIsAduit()) {
-				sendReplyEmail(comment);
+				sendReplyEmail(comment,article);
 			}
 		}).start();;
 		
@@ -90,38 +94,51 @@ public class CommentService {
 	}
 
 	
-	private boolean sendHintAdminEmail(Comment comment) {
-		
-		//如果等于该值 则表示为管理员则发送回复邮件
+	private boolean sendHintAdminEmail(Comment comment,Article article) {
+		setInPageNum(comment);
+		//如果等于该值 则表示为管理员则仅发送回复邮件
 		if(comment.getUserId()==-1) {
-			sendReplyEmail(comment);
+			sendReplyEmail(comment,article);
 			return true;
 		}
-		//否则通知管理员
+		
+		//通知管理员,无后台账号则不通知
 		User adminUser=adminUserService.getAdminUser();
 		if(adminUser==null) {
 			return true;
 		}
 		
 		AgentUser user=agentUserService.get(comment.getUserId());
-		Article article=articleService.getArticle(comment.getIdentify());
+	
 		String title=null;
 		if(article!=null) {
 			title=articleService.getArticle(comment.getIdentify()).getTitle();
 		}else {
 			if(StrKit.equals(comment.getIdentify(), "links")) {
 				title="友情链接";
+			}else if(StrKit.equals(comment.getIdentify(),"about")) {
+				title="关于我";
 			}
 		}
-
-		return EmailKit.sendEmail(adminUser.getEmail(), "你收到了一条评论 by "+BlogContext.config.getTitle(),getHintEmailContent(user.getName(),title));
+		
+		String emailTitle=BlogContext.emailTplKit
+				.getContent(
+						"comment.comment_title",
+						Kv.by("config", BlogContext.config)
+						.set("title", title));
+		
+		String emailContent=BlogContext.emailTplKit
+				.getContent(
+						"comment.comment",
+						Kv.by("projectPath", BlogContext.getProjectPath())
+						.set("comment", comment)
+						.set("user", user)
+						.set("config", BlogContext.config));
+	 
+		return EmailKit.sendEmail(adminUser.getEmail(), emailTitle,emailContent);
 	}
 	
-	public String getHintEmailContent(String userName,String title) {
-		String serverUrl=BlogContext.getProjectPath();
-		return userName+"评论了《"+title+"》,<a href='"+serverUrl+"/admin'>点此前往后台查看</a>";
-	}
-	
+ 
 	public Page<Comment> page(Integer pageNum,Integer pageSize,String identify){
 		SqlPara sql=dao.getSqlPara("comment.page", identify);
 		return dao.paginate(pageNum, pageSize,sql);
@@ -144,30 +161,48 @@ public class CommentService {
 		 c.setPageNum(beforeRow/6);
 	}
 
-	public boolean sendReplyEmail(Comment comment) {
+	public boolean sendReplyEmail(Comment comment,Article article) {
 		
 		if(comment.getParentId()==null) return true ;
- 
+			
+		setInPageNum(comment);
+		
+		String title=null;
+		
+		if(article!=null) {
+			title=articleService.getArticle(comment.getIdentify()).getTitle();
+		}else {
+			if(StrKit.equals(comment.getIdentify(), "links")) {
+				title="友情链接";
+			}else if(StrKit.equals(comment.getIdentify(),"about")) {
+				title="关于我";
+			}
+		}
+		
 		//获取被回复人信息
 		AgentUser replayAgentUser=agentUserService.get(comment.getToUserId());
 		
 		//获取当前用户名称
-		String userName=agentUserService.get(comment.getUserId()).getName();
+		AgentUser user=agentUserService.get(comment.getUserId());
+		
+		String replyTitle=BlogContext.emailTplKit
+				.getContent(
+						"comment.reply_title",
+						Kv.by("title", title)
+						.set("config", BlogContext.config));
+		
+		String replyContent=BlogContext.emailTplKit.getContent(
+				"comment.reply",
+				Kv.by("comment", comment)
+				.set("projectPath", BlogContext.getProjectPath())
+				.set("config", BlogContext.config)
+				.set("user", user));
 		
 		if(replayAgentUser!=null) {
-			return EmailKit.sendEmail(replayAgentUser.getEmail(),userName+ "回复了你的评论  by "+BlogContext.config.getTitle(),getHintEmail(userName,comment));
+			return EmailKit.sendEmail(replayAgentUser.getEmail(),replyTitle,replyContent);
 		}
+		
 		return false;	 
 	}
-	
-	public String getHintEmail(String name,Comment comment) {
-		setInPageNum(comment);
-		String serverUrl=BlogContext.getProjectPath();
-		
-		if(!serverUrl.endsWith("/")) {
-			serverUrl+="/";
-		}
-		String url=serverUrl+"article/"+comment.getIdentify()+"?p="+comment.getPageNum()+"#li-comment-"+comment.getId();
-		return name+"回复了你的评论,<a href='"+url+"'>点此查看</a>";
-	}
+ 
 }

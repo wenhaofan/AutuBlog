@@ -57,12 +57,12 @@ public class AgentUserInterceptor implements Interceptor{
 				agentUser.setName(StrKit.isBlank(userName) ? "系统管理员" : userName);
 				agentUser.setEmail(c.getLoginUser().getEmail());
 			}
- 
+			
+			cookie = StrKit.getRandomUUID();
 			agentUser.setCookie(cookie);
 
 			agentUserService.saveOrUpdate(agentUser);
-			
-			cookie = StrKit.getRandomUUID();
+
 			// 设置cookie
 			c.setCookie(AgentUserService.AGENT_USER_COOKIE_KEY, cookie, AgentUserService.AGENT_USER_COOKIE_AGE); 
 		}

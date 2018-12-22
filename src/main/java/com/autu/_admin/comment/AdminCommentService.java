@@ -2,9 +2,11 @@ package com.autu._admin.comment;
 
 import java.util.List;
 
+import com.autu.article.ArticleService;
 import com.autu.comment.CommentService;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.AgentUser;
+import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Comment;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
@@ -21,6 +23,9 @@ public class AdminCommentService extends BaseController {
 	@Inject
 	private CommentService frontCommentService;
  
+	@Inject
+	private ArticleService articleService;
+	
 	/**
 	 * 分页查询评论
 	 * @param pageNumber
@@ -66,14 +71,18 @@ public class AdminCommentService extends BaseController {
 		Comment parentComment=get(toId);
 		if(parentComment.getParentId()!=0) {
 			comment.setParentId(parentComment.getParentId());
+		}else {
+			comment.setParentId(parentComment.getId());
 		}
 		
 		comment.setToUserId(toComment.getUserId());
 		comment.setIsAduit(true);
 		comment.save();
-	
+		
+		Article article =articleService.getArticle(comment.getIdentify());
+		
 		new Thread(()-> {
-			frontCommentService.sendReplyEmail(comment);
+			frontCommentService.sendReplyEmail(comment,article);
 		}).start();
 		//向被回复人发送通知邮件
 
@@ -98,9 +107,10 @@ public class AdminCommentService extends BaseController {
 		if(comment.getParentId()==null) {
 			return Ret.ok();
 		}
-
+		Article article =articleService.getArticle(comment.getIdentify());
+		
 		new Thread(()-> {
-			frontCommentService.sendReplyEmail(comment);
+			frontCommentService.sendReplyEmail(comment,article);
 		}).start();
 		
 		return Ret.ok();
