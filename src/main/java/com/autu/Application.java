@@ -10,6 +10,10 @@ import com.jfinal.server.undertow.UndertowServer;
  */
 public class Application {
 	public static void main(String[] args) {
-		UndertowServer.start(BlogConfig.class);
+		UndertowServer.create(BlogConfig.class).configWeb( builder -> {
+			// 配置 Filter
+			builder.addFilter("htmlFilter", "com.autu.common.filter.HtmlFilter");
+			builder.addFilterUrlMapping("htmlFilter", "/*");
+		}).start();
 	}
 }	
