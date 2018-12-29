@@ -156,7 +156,7 @@ public class AdminArticleService {
 		
 		if(StrKit.notBlank(identify)) {
 			Article tempArticle=articleService.getArticle(identify);
-			if(tempArticle!=null&&tempArticle.getId().equals(article.getId())) {
+			if(tempArticle!=null&&!tempArticle.getId().equals(article.getId())) {
 				throw new MsgException("路径已存在！");
 			}
 		}else {
