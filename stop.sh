@@ -1,25 +1,16 @@
-#!/bin/bash
+@echo off
 
-# ---------------------------------------------------------------------------
-#
-# 使用说明：
-#
-# 1: MAIN_CLASS 必须要与配对的 start.sh 文件中的 MAIN_CLASS 完全相同
-#
-# 2: 该脚本用于别的项目时只需要修改 MAIN_CLASS 即可使用
-#
-# 3: 注意：如果有其它项目的 MAIN_CLASS 与本项目一样则不能使用本脚本关闭服务
-#         同理同一个项目使用了不同端口启动的，也会拥有相同的 MAIN_CLASS 值
-#         也不能使用本脚本关闭服务
-#
-# ---------------------------------------------------------------------------
+if not exist "%JAVA_HOME%\bin\jps.exe" echo 请先设置您的环境变量 & EXIT /B 1
 
-# 启动入口类，该脚本文件用于别的项目时要改这里
-MAIN_CLASS=com.autu.Application
+rem 启动入口类,该脚本文件用于别的项目时要改这里
+set MAIN_CLASS=com.autu.Application
 
-# kill 命令不使用 -9 参数时，项目被正常、温和地关闭，jfinal 项目中的回调会起作用
-kill `pgrep -f ${MAIN_CLASS}` 2>/dev/null
+setlocal
 
-# 以下代码与上述代码等价
-# kill $(pgrep -f ${MAIN_CLASS}) 2>/dev/null
+set "PATH=%JAVA_HOME%\bin;%PATH%"
 
+echo killing jfinal server
+
+for /f "tokens=1" %%i in ('jps -l ^| find %MAIN_CLASS%') do ( taskkill /F /PID %%i )
+
+echo Done!
