@@ -24,7 +24,7 @@
 </script>
 <script type="text/html" id="tpl-disk-item">
 	<div class="disk-item {{type=="folder"?" disk-folder":"disk-file"}} "   data-id="{{id}}">
-		<div class="file-thumb" style="background:  url( {{ if(type=="img")}}{{url}}{{else}}/assets/admin/images/disk/{{type}}.png{{/if}}) center no-repeat;   " >
+		<div class="file-thumb" style="background: url('{{if(type=="img")}}{{url}}{{else}}/assets/admin/images/disk/{{type}}.png{{/if}}') center no-repeat;   " >
 		</div>
 		<div class="file-name">
 			<h3 class="overflow-omit" title="{{name}}">{{name}}</h3>
