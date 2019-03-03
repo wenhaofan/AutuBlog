@@ -1,3 +1,3 @@
-#namespace("comment")
-	#include("comment.tpl")
+#keys("comment")
+	#include("/comment/comment.tpl")
 #end

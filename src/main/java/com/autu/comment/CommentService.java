@@ -7,6 +7,7 @@ import com.autu.agentUser.AgentUserService;
 import com.autu.article.ArticleService;
 import com.autu.common._config.BlogContext;
 import com.autu.common.exception.MsgException;
+import com.autu.common.keys.KeyKit;
 import com.autu.common.kit.EmailKit;
 import com.autu.common.model.entity.AgentUser;
 import com.autu.common.model.entity.Article;
@@ -121,13 +122,12 @@ public class CommentService {
 			}
 		}
 		
-		String emailTitle=BlogContext.emailTplKit
-				.getContent(
+		String emailTitle=KeyKit.use().getContent(
 						"comment.comment_title",
 						Kv.by("config", BlogContext.config)
 						.set("title", title));
 		
-		String emailContent=BlogContext.emailTplKit
+		String emailContent=KeyKit.use()
 				.getContent(
 						"comment.comment",
 						Kv.by("projectPath", BlogContext.getProjectPath())
@@ -185,13 +185,13 @@ public class CommentService {
 		//获取当前用户名称
 		AgentUser user=agentUserService.get(comment.getUserId());
 		
-		String replyTitle=BlogContext.emailTplKit
+		String replyTitle=KeyKit.use()
 				.getContent(
 						"comment.reply_title",
 						Kv.by("title", title)
 						.set("config", BlogContext.config));
 		
-		String replyContent=BlogContext.emailTplKit.getContent(
+		String replyContent=KeyKit.use().getContent(
 				"comment.reply",
 				Kv.by("comment", comment)
 				.set("projectPath", BlogContext.getProjectPath())

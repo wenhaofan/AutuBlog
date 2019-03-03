@@ -36,6 +36,11 @@
 		<updatePolicy>daily</updatePolicy> </snapshots> </repository> </repositories -->
 
 	<dependencies>
+	<dependency>
+        <groupId>live.autu</groupId>
+        <artifactId>jfinal-swagger</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 		<!-- lucene 核心模块-->
 		<dependency>
 			<groupId>org.apache.lucene</groupId>

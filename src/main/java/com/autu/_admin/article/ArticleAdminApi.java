@@ -37,7 +37,7 @@ public class ArticleAdminApi extends BaseController {
 		
 		Page<Article> articlePage = articleService.page(article, metaid, pageNum, limit);
 		Ret ret = Ret.ok("page",articlePage);
-		renderJson(ret.toJson());
+		renderJson(ret);
 	}
 	
  
@@ -59,17 +59,17 @@ public class ArticleAdminApi extends BaseController {
 		article.setUserId(user.getId());
 		articleService.saveOrUpdate(article, tags, categorys);
 	
-		renderJson(Ret.ok("msg","添加成功!").set("article", article).toJson());
+		renderJson(Ret.ok("article", article));
 	}
 	
 	public void remove() {
 		Integer id =getParaToInt(0);
-		renderJson(articleService.remove(id).toJson());;
+		renderJson(articleService.remove(id));;
 	}
 
 	public void delete() {
 		Integer id =getParaToInt(0);
-		renderJson(articleService.delete(id).toJson());;
+		renderJson(articleService.delete(id));;
 	}
 	 
 	public void recover() {
