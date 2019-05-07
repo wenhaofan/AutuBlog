@@ -29,6 +29,7 @@ public class LoginService {
 
 		Kv vals=Kv.by("account",ukAccount);
 		SqlPara sql=dao.getSqlPara("login.login",vals);
+		
 		User loginUser= dao.findFirst(sql);
 		if(loginUser==null) {
 			return Ret.fail("msg", "账号密码错误!");

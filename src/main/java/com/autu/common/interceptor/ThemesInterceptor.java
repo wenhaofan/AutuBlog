@@ -15,6 +15,12 @@ public class ThemesInterceptor implements Interceptor {
 	@Override
 	public void intercept(Invocation inv) {
 			inv.invoke();
+			
+			Boolean notTheme=inv.getController().getAttr("AUTU_BLOG_NOT_THEME");
+			if(notTheme!=null&&notTheme) {
+				return;
+			}
+			
 			Render r = inv.getController().getRender();
 			if (r instanceof TemplateRender) {
 			TemplateRender render = (TemplateRender)r;

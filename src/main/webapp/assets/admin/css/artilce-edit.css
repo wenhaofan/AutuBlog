@@ -16,7 +16,9 @@
 }
 
 #dropzone{
-	height:500px;
+	height:800px;
+	background-size: contain!important;
+	background-repeat: no-repeat;
 }
 
 #dropzone-thumbImg{
@@ -35,4 +37,8 @@
 }
 .hint-msg{
 	color:red!important;
+}
+
+#meditor{
+	z-index: 1;
 }

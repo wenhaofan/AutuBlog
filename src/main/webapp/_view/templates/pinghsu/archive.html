@@ -1,0 +1,29 @@
+#include("header.html")
+<div class="main-content common-page clearfix">
+    <div class="common-item">
+    	#for(category:categorys)
+        <div class="common-title">
+           #(category.date)
+        </div>
+        <div class="post-lists">
+			<div class="post-lists-body">
+				#for(archive:category.archives)
+				<div class="post-list-item">
+					<div class="post-list-item-container     bg-green  bg-red   bg-yellow   bg-blue   bg-purple ">
+						<div class="item-label    bg-green   bg-red   bg-yellow   bg-blue  bg-purple">
+							<div class="item-title">
+								<a href="/a/#(archive.id)">#(archive.title)</a></div>
+							<div class="item-meta clearfix"> 
+								<div class="item-meta-date">  #(archive.gmtCreate) </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				#end
+			</div>
+		</div>
+		#end
+	</div>
+</div>
+
+#include("footer.html")

@@ -8,7 +8,7 @@ public class BlogContext {
 	public static  EmailConfig emailConfig;
 	public static Config config;
 	public static String CONFIG_FILE_NAME;
- 
+	
 	
 	public static String getProjectPath(){
 		return PropKit.get("projectPath");

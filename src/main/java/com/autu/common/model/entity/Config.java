@@ -1,5 +1,6 @@
 package com.autu.common.model.entity;
 
+import com.autu.common.model.dto.Social;
 import com.autu.common.model.entity.base.BaseConfig;
 
 /**
@@ -7,5 +8,16 @@ import com.autu.common.model.entity.base.BaseConfig;
  */
 @SuppressWarnings("serial")
 public class Config extends BaseConfig<Config> {
+	
+	private Social social=new Social();
+
+	public Social getSocial() {
+		return social;
+	}
+
+	public void setSocial(Social social) {
+		this.social = social;
+	}
+	
 	
 }

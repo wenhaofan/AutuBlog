@@ -4,15 +4,16 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.autu._admin.article.AdminArticleLuceneIndexes;
 import com.autu._admin.common.config.router.AdminRoutes;
+import com.autu.common.config.ConfigService;
+import com.autu.common.directive.Theme;
 import com.autu.common.handle.BasePathHandler;
 import com.autu.common.interceptor.AccessLogInterceptor;
 import com.autu.common.interceptor.AgentUserInterceptor;
 import com.autu.common.interceptor.LoginInterceptor;
 import com.autu.common.keys.KeyKit;
-import com.autu.common.lucene.LuceneHelper;
 import com.autu.common.model.entity.Config;
 import com.autu.common.model.entity._MappingKit;
-import com.autu.config.ConfigService;
+import com.autu.search.lucene.LuceneHelper;
 import com.jfinal.aop.Aop;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -94,7 +95,7 @@ public class BlogConfig extends JFinalConfig {
 		me.addSharedFunction("_view/common/bootstrap.html");
 		me.addSharedFunction("_view/common/layui.html");
 		me.setSourceFactory(new FileSourceFactory());
-
+		me.addDirective("theme", Theme.class);
 	}
 
 	@Override
@@ -115,9 +116,8 @@ public class BlogConfig extends JFinalConfig {
 		arp.setPrimaryKey("document", "mainMenu,subMenu");
 		me.add(arp);
 		arp.setShowSql(p.getBoolean("devMode", false));
-
-		arp.setBaseSqlTemplatePath(PathKit.getRootClassPath() + "/sql");
-		arp.addSqlTemplate("all_sqls.sql");
+ 
+		arp.addSqlTemplate( "/sql/all_sqls.sql");
 
 		me.add(new EhCachePlugin());
 
@@ -145,10 +145,7 @@ public class BlogConfig extends JFinalConfig {
 	}
 
 	@Override
-	public void afterJFinalStart() {
-		// TODO Auto-generated method stub
-		super.afterJFinalStart();
-
+	public void onStart() {
 		ConfigService configService = Aop.get(ConfigService.class);
 		AdminArticleLuceneIndexes articleLucene = Aop.get(AdminArticleLuceneIndexes.class);
 		Config config = configService.get();
@@ -158,12 +155,8 @@ public class BlogConfig extends JFinalConfig {
 	}
 
 	@Override
-	public void beforeJFinalStop() {
-		// TODO Auto-generated method stub
-		super.beforeJFinalStop();
-
+	public void onStop() {
 		LuceneHelper.stop();
-
 	}
 
 }

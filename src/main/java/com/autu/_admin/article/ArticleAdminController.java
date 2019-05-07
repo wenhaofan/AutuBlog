@@ -3,10 +3,10 @@ package com.autu._admin.article;
 import java.util.List;
 
 import com.autu.common.controller.BaseController;
+import com.autu.common.meta.MetaService;
+import com.autu.common.meta.MetaTypeEnum;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Meta;
-import com.autu.meta.MetaService;
-import com.autu.meta.MetaTypeEnum;
 import com.jfinal.aop.Inject;
 
 public class ArticleAdminController  extends BaseController{

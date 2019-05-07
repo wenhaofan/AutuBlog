@@ -3,6 +3,7 @@ package com.autu.common.interceptor;
 import com.autu.common.exception.MsgException;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
+import com.jfinal.core.ActionException;
 import com.jfinal.kit.Ret;
 import com.jfinal.log.Log;
 
@@ -20,6 +21,9 @@ public class ExceptionInterceptor implements Interceptor {
 			e.printStackTrace();
 			log.info(e.getMessage(), e);
 		}catch (Exception e) {
+			if(e instanceof ActionException) {
+				throw e;
+			}
 			e.printStackTrace();
 			log.error(e.getMessage(),e);
 	 

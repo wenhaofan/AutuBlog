@@ -1,13 +1,15 @@
 package com.autu.common._config;
 
-import com.autu.article.ArticleApi;
-import com.autu.article.ArticleController;
-import com.autu.comment.CommentApi;
 import com.autu.common.interceptor.ExceptionInterceptor;
 import com.autu.common.interceptor.FrontInterceptor;
 import com.autu.common.interceptor.ThemesInterceptor;
+import com.autu.common.meta.MetaApi;
+import com.autu.common.uplod.UploadApi;
+import com.autu.detail.ArticleApi;
+import com.autu.detail.ArticleController;
+import com.autu.detail.CommentApi;
+import com.autu.detail.DetailController;
 import com.autu.index.IndexController;
-import com.autu.meta.MetaApi;
 import com.autu.user.LoginApi;
 import com.autu.user.LoginController;
 import com.jfinal.config.Routes;
@@ -30,7 +32,9 @@ public class FrontRoutes extends Routes{
 		add("/api/meta", MetaApi.class,"/");
 		add("/api/article",ArticleApi.class,"/");
 		add("/comment", CommentApi.class);
+		add("/a", DetailController.class);
 		add("/",IndexController.class,"/");
+		add("/api/upload", UploadApi.class,"/");
 	}
 
 }

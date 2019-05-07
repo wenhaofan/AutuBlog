@@ -1,6 +1,6 @@
 package com.autu.user;
 
-import com.autu.agentUser.AgentUserService;
+import com.autu.common.agentUser.AgentUserService;
 import com.autu.common.controller.BaseController;
 import com.autu.common.kit.AgentUserKit;
 import com.autu.common.kit.IpKit;

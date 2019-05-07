@@ -33,4 +33,11 @@ public class Article extends BaseArticle<Article> {
 		return projectPath+"article/"+getIdentify();
 	}
 	
+	public Meta getFirstMeta() {
+		if( getMetas()==null|| getMetas().isEmpty()) {
+			return new Meta();
+		}
+		return getMetas().get(0);
+	}
+	
 }

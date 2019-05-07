@@ -1,15 +1,41 @@
-var mditor, htmlEditor;
+var meditor, htmlEditor;
 
-var markdownUtil=new $.markdownUtil();
 var attach_url = $('#attach_url').val();
 
 Dropzone.autoDiscover = false;
 
+layui.use(['form'],function(){
+	form=layui.form;
+	form.render();
+	
+	form.on('submit(publish)', function(data){
+		article.save(data.field,1);
+		return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+	
+
+	form.on('switch(isTop)', function(data){
+		 $('input[name="isTop"]').val(data.elem.checked);
+	});  
+	form.on('switch(allowComment)', function(data){
+		 $('input[name="allowComment"]').val(data.elem.checked);
+	}); 
+	form.on('switch(isOriginal)', function(data){
+		 $('input[name="isOriginal"]').val(data.elem.checked);
+	}); 
+})
+
 var article={
 	isChange:false,
+	editorType:"",
+	isInit:false,
+	turndownService : new TurndownService(),
 	init:function(){
 		this.initArticleInfo();
-		this.autoSaveCache();
+		//this.autoSaveCache();
+		this.editorType=$('#contentType').val();
+		this.initEditor();
+		this.isInit=true;
 	},getArticleId:function(){
 		return $("input[name='id']").val();
 	},editArticle:function(paras){
@@ -22,12 +48,33 @@ var article={
 				paras.success(data);
 		   }
 	   })
-	},getContent:function (){
-		var fmtType= $('#fmtType').val();
-		var content = fmtType == 'markdown' ? mditor.value : htmlEditor.summernote('code');
-		if(fmtType == 'markdown'){
-		    content=markdownUtil.toHtml(content);
+	},getContent:function (type){
+		
+		if(!this.isInit){
+			return $(".article-edit .about-content").text();
 		}
+		
+		let contentType = $('#contentType').val();
+		let content ;
+		//如果type为markdown则返回值均为markdown格式,否则为html格式,默认为contentType
+		if(!type){
+			type=contentType;
+		}
+		
+		if(type == "markdown"){
+			if(contentType == 'markdown'){
+				content = meditor.getMarkdown();
+			}else{
+				content = this.turndownService.turndown(htmlEditor.getContent());
+			}
+		}else{
+			if(contentType == 'markdown'){
+				content = meditor.getHtml();
+			}else{
+				content = htmlEditor.getContent();
+			}
+		}
+  
 		return content;
 	},setTags:function(tags){
 		if(!(tags&&tags.length>0)){
@@ -91,20 +138,138 @@ var article={
 			$("#articleForm input[name='thumbImg']").val(cacheData.thumbImg);
 			var $thumbdropzone= $('.dropzone');
 			$thumbdropzone.css('background-image', 'url('+ cacheData.thumbImg +')');
-			$thumbdropzone.css('background-size', 'cover');
              $('.dz-image').hide();
 		}
  
 		if(cacheData.tags){
 			this.setTags(cacheData.tags);
+		}else{
+			tagInit();
 		}
 		if(cacheData.categorys){
-			this.setCategorys(cacheData.categorys);
+			//this.setCategorys(cacheData.categorys);
 		}
 		
 		$(".hint-msg").text("本地存储读取成功！");
+	},initEditor(){
+		if(article.editorType=="html"){
+			htmlEditor = UE.getEditor('article-ueditor',{
+				initialFrameHeight:400,
+				initialContent :this.getContent("html")
+			});
+		}else{
+			var content=article.getContent("markdown");
+		    $('#md-container').show();
+            $('#html-container').hide();
+            $("#switch-btn").text('切换为富文本编辑器');
+            $('#contentType').val("markdown");
+            article.editorType="html";
+            meditor = editormd("meditor", {
+                width   : "100%",
+                height  : 640,
+                markdown:(content),
+                syncScrolling : "single",
+                path : '/assets/plugins/editor/lib/',
+            });
+		}
+	},changeEditor(){
+ 
+	     if (article.editorType == "html") {
+    	   //切换为html编辑器
+           $('#md-container').hide();
+           $('#html-container').show();
+           $("#switch-btn").text('切换为Markdown编辑器');
+           $('#contentType').val("html");
+           
+           article.editorType="markdown";
+        } else {
+        	let swicthEditorIndex=layer.confirm('将HTML转换为Markdown可能会丢失部分样式，是否继续？', {
+        		  btn: ['继续','算了吧'] //按钮
+            }, function(){
+				//切换为markdown编辑器
+	            var content=article.getContent("markdown");
+			    $('#md-container').show();
+	            $('#html-container').hide();
+	            $("#switch-btn").text('切换为富文本编辑器');
+	            $('#contentType').val("markdown");
+	            article.editorType="html";
+	            meditor = editormd("meditor", {
+	                width   : "100%",
+	                height  : 640,
+	                markdown:(content),
+	                syncScrolling : "single",
+	                path : '/assets/plugins/editor/lib/',
+	            });
+	            layer.close(swicthEditorIndex);
+            }, function(){
+            	layer.close(swicthEditorIndex);
+            });
+        }
+	},getSelectedTag:function(){
+		var data=[];
+	    var tags=$("#tags").val();
+	    if(fl.notBlank(tags)){
+	    	var tagArr=tags.split(",");
+	    	$.each(tagArr,function(index,item){
+	    		data.push({name:"tag["+index+"].mname",value:item});
+	    		data.push({name:"tag["+index+"].type",value:"tag"});
+	    	})
+	    }
+	    return data;
+	},getSelectedCategory:function(){
+		var data=[];
+		var categoryIds=$("#multiple-sel").select2("val");
+		var categoryVal;
+		for(var i=0,size=categoryIds.length;i<size;i++){
+			categoryVal=$("option[value='"+categoryIds[i]+"']").text();
+			data.push({name:"category["+i+"].mname",value:categoryVal});
+			data.push({name:"category["+i+"].type",value:"category"});
+		}
+		return data;
+	},
+	/**
+	 * 保存文章
+	 * @returns
+	 */
+	 save:function(fdata,state){
+		 fdata.content = this.getContent();
+		 fdata.state = state;
+		 
+		    
+		 
+		 if (fl.isBlank(fdata.title)) {
+		    fl.alertWarn('标题不能为空');
+		    return;
+	     }
+	  
+	     if (fl.isBlank(fdata.content)) {
+	    	fl.alertWarn('请输入文章内容');
+	        return;
+	     }
+	     
+	     if(fdata.state!=undefined){
+		    	$('input[name="state"]').val(state);
+		 }   
+	     
+		 fdata= fl.objectToArray(fdata);
+ 
+		 fdata=fl.mergeJson(fdata,this.getSelectedTag());
+		 fdata=fl.mergeJson(fdata,this.getSelectedCategory());
+	 
+	     article.editArticle({fdata:fdata,success:function(data){
+	    	  var time="["+new Date()+"]";
+	    	  $(".hint-msg").text((data.article.state==0?"草稿保存成功！":"发布成功！")+time);
+	    	  $("input[name='id']").val(data.article.id);
+	    	  var host=window.location.host;
+	    	  var currentUrl=window.location.protocol+"//"+host+"/admin/article/edit/"+data.article.id;
+	    	  
+	    	  if(window.location.href!=currentUrl){
+	    		  history.pushState({}, document.title, currentUrl);
+	    	  }
+	    	  
+	    	  layer.msg((data.article.state==0?"草稿保存成功！":"发布成功！"));
+	    }});
 	}
-	
 }
 
 var articleCache={
@@ -141,71 +306,11 @@ function getPlainText(content){
 
  
  
-function setSelectedTag(data){
-    var tags=$("#tags").val();
-    if(notNull(tags)){
-    	var tagArr=tags.split(",");
-    	$.each(tagArr,function(index,item){
-    		data.push({name:"tag["+index+"].mname",value:item});
-    		data.push({name:"tag["+index+"].type",value:"tag"});
-    	})
-    }
-}
-function setSelectedCategory(data){
-	var categoryIds=$("#multiple-sel").select2("val");
-	var categoryVal;
-	for(var i=0,size=categoryIds.length;i<size;i++){
-		categoryVal=$("option[value='"+categoryIds[i]+"']").text();
-		data.push({name:"category["+i+"].mname",value:categoryVal});
-		data.push({name:"category["+i+"].type",value:"category"});
-	}
-	return data;
-}
 
- 
-/**
- * 保存文章
- * @returns
- */
-function save(state){
-	var content = article.getContent();
-    var title = $('#articleForm input[name=title]').val();
-    if (title == '') {
-    	fl.alertWarn('标题不能为空');
-        return;
-    }
-  
-    if (content.length<=0) {
-    	fl.alertWarn('请输入文章内容');
-        return;
-    }
-    $("#content-editor").val(content);
-    
-    if(state!=undefined){
-    	$('input[name="state"]').val(state);
-    }
-    
-    var fdata= $("#articleForm").serializeArray();
-    
-    setSelectedTag(fdata);
-    setSelectedCategory(fdata);
-   
-    article.editArticle({fdata:fdata,success:function(data){
-    	  var time="["+new Date()+"]";
-    	  $(".hint-msg").text((data.article.state==0?"草稿保存成功！":"发布成功！")+time);
-    	  $("input[name='id']").val(data.article.id);
-    	  var host=window.location.host;
-    	  var currentUrl=window.location.protocol+"//"+host+"/admin/article/edit/"+data.article.id;
-    	  
-    	  if(window.location.href!=currentUrl){
-    		  history.pushState({}, document.title, currentUrl);
-    	  } 
-    }});
-}
 
 
 $(document).ready(function () {
- 
+
 	
 	//保存草稿
 	$("#draft").click(function(){
@@ -215,34 +320,9 @@ $(document).ready(function () {
 	$("#subArticle").click(function(){
 		save(1);
 	})
-    mditor = window.mditor = Mditor.fromTextarea(document.getElementById('md-editor'));
-    // 富文本编辑器
-    htmlEditor = $('.summernote').summernote({
-        lang: 'zh-CN',
-        height: 340,
-        placeholder: '',
-        //上传图片的接口
-        callbacks:{
-            onImageUpload: function(files) {
-            	 var uploadUtil=new $.uploadUtil();
-                 uploadUtil.setUploadServerUrl("/admin/api/upload/article");
-                 uploadUtil.uploadFile({
-                	file:files[0],
-                	success:function(data){
-            		   if(fl.isOk(data)){
-                      	 var url =data.info.url;
-                          console.log('url =>' + url);
-                          htmlEditor.summernote('insertImage', url);
-                      } else {
-                          fl.alertError(result.msg || '图片上传失败');
-                      }
-                	}
-                });
-               
-            }
-        }
-    });
-
+	
+    //mditor = window.mditor = Mditor.fromTextarea(document.getElementById('meditor'));
+	 
 	$('.modal').on('shown.bs.modal', function (e) {  
         // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零  
         $(this).css('display', 'block');  
@@ -253,57 +333,12 @@ $(document).ready(function () {
             'margin-top': modalHeight  
         });  
     });  
-   
-  
-	 var fmtType = $('#fmtType').val();
-	    // 富文本编辑器
-	    if (fmtType != 'markdown') {
-	        var this_ = $('#switch-btn');
-	        mditor.value = '';
-	        $('#md-container').hide();
-	        $('#html-container').show();
-	        this_.text('切换为Markdown编辑器');
-	        this_.attr('type', 'texteditor');
-	        $("#md-container > div > div.head > ul > i.item.fa.fa-columns.active.control").trigger("click");
-	    } else {
-	        var this_ = $('#switch-btn');
-	        $('#html-container').hide();
-	        $('#md-container').show();
-	        $('#fmtType').val('markdown');
-	        this_.attr('type', 'markdown');
-	        this_.text('切换为富文本编辑器');
-	        htmlEditor.summernote("code", "");
-	    }
+
     /*
      * 切换编辑器
      * */
     $('#switch-btn').click(function () {
-        var type = $('#fmtType').val();
-        var this_ = $(this);
-        if (type == 'markdown') {
-            // 切换为富文本编辑器
-            if($('#md-container .markdown-body').html().length > 0){
-                $('#html-container .note-editable').empty().html($('#md-container .markdown-body').html());
-                $('#html-container .note-placeholder').hide();
-
-            }
-            mditor.value = '';
-            $('#md-container').hide();
-            $('#html-container').show();
-            this_.text('切换为Markdown编辑器');
-            $('#fmtType').val('html');
-        } else {
-            // 切换为markdown编辑器
-            if($('#html-container .note-editable').html().length > 0){
-                mditor.value = '';
-                mditor.value = toMarkdown($('#html-container .note-editable').html());
-            }
-            $('#html-container').hide();
-            $('#md-container').show();
-            $('#fmtType').val('markdown');
-            this_.text('切换为富文本编辑器');
-            htmlEditor.summernote("code", "");
-        }
+       article.changeEditor();
     });
   
     $(".toggle").each(function(){
@@ -316,9 +351,6 @@ $(document).ready(function () {
             }
         });
     })
-    
- 
-
 
     var thumbdropzone = $('.dropzone');
 
@@ -339,9 +371,8 @@ $(document).ready(function () {
                 if(fl.isOk(result)){
                     var url =result.info.url;
                     thumbdropzone.css('background-image', 'url('+ url +')');
-                    thumbdropzone.css('background-size', 'cover');
                     $('.dz-image').hide();
-                    $('#thumbImg').val(url);
+                    $('input[name="thumbImg"]').val(url);
                     article.saveArticleCache();
                 }
             });
@@ -355,11 +386,12 @@ $(document).ready(function () {
 });
 
 $(function(){
-	article.init();
+ 
+	 article.init();
 	
 	 $('#tags').tagsInput({
 	        width: '100%',
-	        height: '35px',
+	        height: '26px',
 	        defaultText: '请输入文章标签',
 	        onRemoveTag:function(){
 	        	article.isChange=true;
@@ -371,7 +403,7 @@ $(function(){
 	   });
 	 
 	 $("#multiple-sel").select2({
-	        width: '100%'
+	     width: '100%'
 	 });	
 		 
 	 //监听seletc2 
@@ -383,90 +415,24 @@ $(function(){
 	    return;
 	}   
 	adminArticleIsBind=true;
-	
+ 
 	//监听input变化
 	$("body").on("input propertychange","#articleForm input",function(event){
 	     article.isChange=true;
 	});
-	//监听summernote编辑
-	 $('body').on('DOMNodeInserted',".note-editable",function(){
-		 article.isChange=true;
-	 })
+ 
 	 //监听mditor编辑
 	 $('body').on('input propertychange',".editor textarea",function(){
 		 article.isChange=true;
 	 })
-	
-	 
+ 
 	
 	if($(window).width()<=768){
 	    $(".fa-columns").trigger("click");
 	    isHideShowHtml=true;
 	}
-	
-   
  
 })
 
-function allow_comment(obj) {
-    var this_ = $(obj);
-    var on = this_.attr('on');
-    if (on == 'true') {
-        this_.attr('on', 'false');
-        $('#allowComment').val('false');
-    }else {
-        this_.attr('on', 'true');
-        $('#allowComment').val('true');
-    }
-}
-function isTop(obj){
-	var this_ = $(obj);
-    var on = this_.attr('on');
-    if (on == 'true') {
-        this_.attr('on', 'false');
-        $('#isTop').val('false');
-    }else {
-        this_.attr('on', 'true');
-        $('#isTop').val('true');
-    }
-}
 
-function allow_ping(obj) {
-    var this_ = $(obj);
-    var on = this_.attr('on');
-    if (on == 'true') {
-        this_.attr('on', 'false');
-        $('#allowPing').val('false');
-    } else {
-        this_.attr('on', 'true');
-        $('#allowPing').val('true');
-    }
-}
-
-
-function allow_feed(obj) {
-    var this_ = $(obj);
-    var on = this_.attr('on');
-    if (on == 'true') {
-        this_.attr('on', 'false');
-        $('#allowFeed').val('false');
-    } else {
-        this_.attr('on', 'true');
-        $('#allowFeed').val('true');
-    }
-}
-
-function add_thumbimg(obj) {
-    var this_ = $(obj);
-    var on = this_.attr('on');
-    console.log(on);
-    if (on == 'true') {
-        this_.attr('on', 'false');
-        $('#dropzone-container').addClass('hide');
-        $('#thumbImg').val('');
-    } else {
-        this_.attr('on', 'true');
-        $('#dropzone-container').removeClass('hide');
-        $('#dropzone-container').show();
-    }
-}
+ 

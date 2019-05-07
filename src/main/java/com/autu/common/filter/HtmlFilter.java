@@ -8,21 +8,20 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 public class HtmlFilter implements Filter {
 
  
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest req=(HttpServletRequest)request;
+		//HttpServletRequest req=(HttpServletRequest)request;
 		
-		String path=req.getServletPath();
+		//String path=req.getServletPath();
 		
-		if(path.endsWith(".html")) {
-			request.getRequestDispatcher("/_view/error/404.html").forward(request, response);
-			return;
-		} 
+//		if(path.endsWith(".html")) {
+//			request.getRequestDispatcher("/_view/error/404.html").forward(request, response);
+//			return;
+//		} 
 		
 		chain.doFilter(request, response);
 	}

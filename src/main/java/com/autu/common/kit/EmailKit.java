@@ -17,8 +17,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.autu.comment.CommentService;
 import com.autu.common._config.BlogContext;
+import com.autu.detail.CommentService;
 import com.jfinal.kit.Ret;
 import com.jfinal.log.Log;
 

@@ -1,22 +1,40 @@
-function editInfo(data){
-	data.about=htmlEditor.summernote('code');
-	fl.ajax({
-		url:"/admin/api/user/editInfo",
-		data:data,
-		type:"post",
-		success:function(data){
-				fl.alertOk({title:"修改成功！"});
+
+var blogger={
+	htmlEditor:null,
+	isInit:false,
+	init:function(){
+		this.htmlEditor= UE.getEditor('blogger-ueditor',{
+			initialFrameHeight:400,
+			initialContent :this.getContent()
+		});
+		this.isInit=true;
+	},getContent:function(){
+		
+		if(!this.isInit){
+			return $(".blogger #about-content").html();
 		}
-	})
+		
+		return this.htmlEditor.getContent();
+	},editInfo:function (data){
+		data.about=this.getContent();
+		fl.ajax({
+			url:"/admin/api/user/editInfo",
+			data:data,
+			type:"post",
+			success:function(data){
+				fl.alertOk({title:"修改成功！"});
+			}
+		})
+	}
 }
- 
+
  
 layui.use(['form','upload'],function(){
 	form=layui.form;
 	var upload = layui.upload;
 	form.render();
 	form.on("submit(submitEdit)",function(data){
-		editInfo(data.field);
+		blogger.editInfo(data.field);
 	})
 	
 	 //执行实例
@@ -33,35 +51,7 @@ layui.use(['form','upload'],function(){
   });
 }) 
 $(function(){
-	renderSummernote();
+	blogger.init();
 })
 
-function renderSummernote(){
-	 // 富文本编辑器
-    htmlEditor = $('.summernote').summernote({
-        lang: 'zh-CN',
-        height: 340,
-        placeholder: '',
-        //上传图片的接口
-        callbacks:{
-            onImageUpload: function(files) {
-            	
-            	 var uploadUtil=new $.uploadUtil();
-                 uploadUtil.setUploadServerUrl("/admin/api/upload/article");
-                 uploadUtil.uploadFile({
-                	file:files[0],
-                	success:function(data){
-            		   if(fl.isOk(data)){
-                      	 var url =data.info.url;
-                          console.log('url =>' + url);
-                          htmlEditor.summernote('insertImage', url);
-                      } else {
-                          fl.alertError(result.msg || '图片上传失败');
-                      }
-                	}
-                }); 
-            }
-        }
-    });
-	$('#html-container .note-editable').empty().html($("#tpl-content").html());
-}
+ 

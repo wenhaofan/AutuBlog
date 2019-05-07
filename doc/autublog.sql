@@ -56,7 +56,7 @@ CREATE TABLE `article`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章id',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '文章标题',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT '文章内容',
-  `htmlTitle` char(100) CHARACTER SET utf8 COLLATE utf8_bin   DEFAULT '暂使用' COMMENT '文章的静态页面名称',
+  `htmlTitle` char(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '暂使用' COMMENT '文章的静态页面名称',
   `gmtCreate` datetime(0) NOT NULL COMMENT '发表时间',
   `pv` int(11) NULL DEFAULT 1 COMMENT '阅读量',
   `thumbImg` varchar(256) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '预览图片',
@@ -70,7 +70,7 @@ CREATE TABLE `article`  (
   `userId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
-INSERT INTO `article` VALUES ('1', '第一篇文章', 0x3C6831207374796C653D22666F6E742D66616D696C793A202671756F743B4E6F746F2053616E732671756F743B2C2073616E732D73657269663B20636F6C6F723A2072676228302C20302C2030293B223EE7ACACE4B880E7AF873C2F68313E3C703E266E6273703B20266E6273703B20E4BDA0E5868DE69DA5E58699E782B9E4BB80E4B988E590A73C2F703E,null, '2018-09-30 19:11:39', 6, '/upload/thumb/jpg/520520_20181105222058.jpg', 1, 0,0, '2018-09-30 19:11:39', '20180930191139', '第一篇    你再来写点什么吧', 1, '1');
+INSERT INTO `article` VALUES ('1', '第一篇文章', 0x3C6831207374796C653D22666F6E742D66616D696C793A202671756F743B4E6F746F2053616E732671756F743B2C2073616E732D73657269663B20636F6C6F723A2072676228302C20302C2030293B223EE7ACACE4B880E7AF873C2F68313E3C703E266E6273703B20266E6273703B20E4BDA0E5868DE69DA5E58699E782B9E4BB80E4B988E590A73C2F703E, '2018-09-30 19:11:39', '6', '/upload/thumb/jpg/520520_20180930191137.jpg', '1', '0', '2018-09-30 19:11:39', '20180930191139', '第一篇    你再来写点什么吧', null, '1');
 
 -- ----------------------------
 -- Table structure for baidu_seo_config
@@ -131,7 +131,7 @@ CREATE TABLE `config`  (
   `ICPRecord` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `title` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `gmtCreate` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `emailServer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `emailServer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `fromEmail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `emailPassword` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `ico` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -144,8 +144,7 @@ CREATE TABLE `config`  (
   `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'pinghsu',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-INSERT INTO `config` VALUES ('1', 'Autu个人博客', '一款开源的个人博客', '范文皓', null, 'Autu个人博客', '2018-09-30 19:19:32',
- null, null, null, '/upload/ico/ico/520520_20180930205220.ico', '/upload/logo/png/520520_20180930205236.png',1,null, null, null, null, 'pinghsu');
+INSERT INTO `config` VALUES ('1', 'Autu个人博客', '一款开源的个人博客', '范文皓', null, 'Autu个人博客', '2018-09-30 19:19:32', null, null, null, '/upload/ico/ico/520520_20180930205220.ico', '/upload/logo/png/520520_20180930205236.png', null, null, null, null, 'pinghsu');
 
 -- ----------------------------
 -- Table structure for disk
@@ -161,7 +160,6 @@ CREATE TABLE `disk`  (
   `gmtCreate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `gmtModify` datetime(0) NULL DEFAULT NULL,
   `state` tinyint(2) NULL DEFAULT 0 COMMENT '0为正常1为假删除',
-  `hash` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `thumbUrl` varchar(248) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -304,28 +302,26 @@ CREATE TABLE `sys_log`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 460 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `name` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '姓名',
-  `pwd` varchar(64) COLLATE utf8_bin NOT NULL COMMENT '用户登录密码',
-  `age` tinyint(4) NOT NULL DEFAULT '1' COMMENT '用户年龄',
-  `gender` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1为男，0为女',
-  `email` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '用户邮箱',
-  `account` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '登录账号',
-  `gmtCreate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '用户注册时间',
-  `qq` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `abposition` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `headImg` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `about` text COLLATE utf8_bin,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户姓名，同时作为登录账号',
+  `pwd` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户登录密码',
+  `age` tinyint(4) NOT NULL DEFAULT 1 COMMENT '用户年龄',
+  `sex` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1为男，0为女',
+  `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户邮箱',
+  `level` tinyint(2) NOT NULL DEFAULT 0 COMMENT '用户等级权限,1为超级管理员,0为普通用户',
+  `account` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '登录账号',
+  `gmtCreate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '用户注册时间',
+  `qq` varchar(512) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `description` varchar(512) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `abposition` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `headImg` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `about` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', 'autu', '21232f297a57a5a743894a0e4a801fc3', '18', '1', null, 'admin', '2018-09-30 19:07:22', '2195743583', '欢迎各位加入qq群:662586079', 'java开发者', null, '北京', 0x0A3C703E3C7370616E207374796C653D22666F6E742D66616D696C793A202671756F743B48656C766574696361204E6575652671756F743B2C2048656C7665746963612C20417269616C2C2073616E732D73657269663B223E0AE8BF99E698AFE68891E79A84E4B8AAE4BABAE4BB8BE7BB8D3C2F7370616E3E3C62723E3C2F703E0A);
+SET FOREIGN_KEY_CHECKS = 1;

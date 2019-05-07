@@ -147,3 +147,6 @@ dl{
 .note-popover{
 	display: none!important;
 }
+.layui-body{
+	z-index: 1998;
+}

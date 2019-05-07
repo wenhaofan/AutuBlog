@@ -22,12 +22,12 @@ import com.autu._admin.nav.AdminNavApi;
 import com.autu._admin.nav.AdminNavController;
 import com.autu._admin.statistic.StatisticApi;
 import com.autu._admin.statistic.StatisticController;
-import com.autu._admin.themes.AdminThemesApi;
-import com.autu._admin.themes.AdminThemesController;
+import com.autu._admin.theme.AdminThemeApi;
+import com.autu._admin.theme.AdminThemeController;
 import com.autu._admin.user.AdminUserApi;
 import com.autu._admin.user.AdminUserController;
 import com.autu.common.interceptor.ExceptionInterceptor;
-import com.autu.common.uplod.FileUploadApi;
+import com.autu.common.uplod.UploadApi;
 import com.jfinal.config.Routes;
 
 /**
@@ -43,10 +43,10 @@ public class AdminRoutes extends Routes {
 	   addInterceptor(new ExceptionInterceptor());
 	   setBaseViewPath("/_view/admin/autumn/");
 	   
-	   add("/admin/api/themes",AdminThemesApi.class);
+	   add("/admin/api/themes",AdminThemeApi.class);
 	   add("/admin/api/user",AdminUserApi.class);
 	   add("/admin/api/nav", AdminNavApi.class);
-	   add("/admin/api/upload",FileUploadApi.class);
+	   add("/admin/api/upload",UploadApi.class);
 	   add("/admin/api/meta",AdminMetaApi.class);
 	   add("/admin/api/article",ArticleAdminApi.class);
 	   add("/admin/api/loginRecord", LoginRecordApi.class);
@@ -71,8 +71,9 @@ public class AdminRoutes extends Routes {
 	   add("/admin/comment", AdminCommentController.class, "/");
 	   add("/admin/nav", AdminNavController.class, "/");
 	   add("/admin/user",AdminUserController.class,"/");
-	   add("/admin/themes",AdminThemesController.class,"/");
+	   add("/admin/themes",AdminThemeController.class,"/");
 	   add("/admin/loginRecord", LoginRecordController.class,"/");
+	   //add("/admin/swagger", AdminSwaggerController.class,"/swagger");
 	}
 
 }

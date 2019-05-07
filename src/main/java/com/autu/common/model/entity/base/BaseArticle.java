@@ -81,6 +81,15 @@ public abstract class BaseArticle<M extends BaseArticle<M>> extends Model<M> imp
 		return get("isTop");
 	}
 
+	public M setIsOriginal(java.lang.Boolean isOriginal) {
+		set("isOriginal", isOriginal);
+		return (M)this;
+	}
+	
+	public java.lang.Boolean getIsOriginal() {
+		return get("isOriginal");
+	}
+	
 	public M setGmtModified(java.util.Date gmtModified) {
 		set("gmtModified", gmtModified);
 		return (M)this;

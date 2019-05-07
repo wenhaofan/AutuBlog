@@ -23,9 +23,9 @@ public class UploadService {
 	public static final UploadService me = new UploadService();
 
 	/**
-	 * 上传图片允许的最大尺寸，目前只允许 200KB
+	 * 上传图片允许的最大尺寸，目前只允许 200000KB
 	 */
-	public static final int imageMaxSize = 200 * 1024;
+	public static final int imageMaxSize = 200000 * 1024;
 
 
 	/**

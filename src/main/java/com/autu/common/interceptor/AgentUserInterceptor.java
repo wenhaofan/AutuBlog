@@ -1,6 +1,6 @@
 package com.autu.common.interceptor;
 
-import com.autu.agentUser.AgentUserService;
+import com.autu.common.agentUser.AgentUserService;
 import com.autu.common.controller.BaseController;
 import com.autu.common.model.entity.AgentUser;
 import com.jfinal.aop.Inject;
@@ -32,17 +32,17 @@ public class AgentUserInterceptor implements Interceptor{
 		
 		String cookie = c.getCookie(AgentUserService.AGENT_USER_COOKIE_KEY);
 		 
-		if(StrKit.notBlank(cookie)) {
-			if(c.getLoginUser() == null) {
+		if(StrKit.notBlank(cookie)&&agentUser==null) {
+		 
 				agentUser = agentUserService.get(cookie);
-			}
-			
-			if(agentUser==null) {
-				//cookie存在但是没有对应的用户则删掉cookie
-				c.removeCookie(AgentUserService.AGENT_USER_COOKIE_KEY);
-			}
+			 
 		} 
 		
+		if(agentUser==null) {
+			//cookie存在但是没有对应的用户则删掉cookie
+			c.removeCookie(AgentUserService.AGENT_USER_COOKIE_KEY);
+		}
+
 		if(agentUser==null) {
 			
 			if(c.getLoginUser()==null) {
@@ -66,6 +66,8 @@ public class AgentUserInterceptor implements Interceptor{
 			// 设置cookie
 			c.setCookie(AgentUserService.AGENT_USER_COOKIE_KEY, cookie, AgentUserService.AGENT_USER_COOKIE_AGE); 
 		}
+		
+		
 		
 		c.setAgentUser(agentUser);
 		inv.invoke();

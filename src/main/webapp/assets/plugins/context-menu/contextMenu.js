@@ -71,6 +71,6 @@ var $contextMenu= (function(){
 		}
 	}})();
 //隐藏所有
-$('html').on('contextmenu', function (){return false;}).click(function(){
+$('html').on('contextmenu', function (){}).click(function(){
 	$('.context-menu').hide();
 });

@@ -7,14 +7,14 @@ import java.util.List;
 import com.autu._admin.config.AdminBaiduSeoService;
 import com.autu._admin.meta.AdminMetaService;
 import com.autu._admin.metaweblog.MetaweblogHelper;
-import com.autu.article.ArticleService;
 import com.autu.common.exception.MsgException;
 import com.autu.common.kit.ListKit;
 import com.autu.common.kit.StrKit;
+import com.autu.common.meta.MetaTypeEnum;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Meta;
 import com.autu.common.safe.JsoupFilter;
-import com.autu.meta.MetaTypeEnum;
+import com.autu.detail.ArticleService;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;
@@ -164,7 +164,7 @@ public class AdminArticleService {
 			Article tempArticle=article.findById(article.getId());
 			article.setIdentify(genIdentify(tempArticle.getGmtCreate()));
 		}
-		
+		 
 		article.update();
 		
 		int articleId=article.getId();

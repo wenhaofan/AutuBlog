@@ -169,3 +169,31 @@ $.fl.prototype.ajax = function (options) {
 };
 
 
+$.fl.prototype.isBlank = function (str){
+  return( str==null||str.length==0||str==undefined);
+}
+
+$.fl.prototype.notBlank = function (str){
+	return !this.isBlank(str);
+}
+ 
+$.fl.prototype.objectToArray = function(obj){
+	var arr = []; 
+	for(var key in obj){ 
+	    if(!obj.hasOwnProperty(key)){
+	        continue;
+	    }
+	    var item = {}; 
+	    item["name"]=key;
+	    item["value"]=obj[key]; 
+	    arr.push(item); 
+	} 
+	return arr;
+}
+
+$.fl.prototype.mergeJson = function(json1,json2){
+	for(let sub in json2){
+		json1.push({"name":json2[sub].name,"value":json2[sub].value})
+	}
+	return json1;
+}

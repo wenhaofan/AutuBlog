@@ -1,12 +1,13 @@
-<script type="text/html" id="tpl-content">
-#(user.about)
-</script>
+
 <div class="layui-row ">
 	<div class="layui-col-lg12 layui-col-md12">
 		<blockquote class="page-title ">个人介绍</blockquote>
 	</div>
 </div>
-<div class="layui-row" >
+<div class="layui-row blogger" >
+<script type="text/html" id="about-content">
+#(user.about)
+</script>
 	<div class="layui-col-xs12 layui-col-md6 layui-col-lg6">
  			<form class="layui-form bloggerForm" action=""   onsubmit="return false">
 			  <div class="layui-form-item">
@@ -50,7 +51,9 @@
 				 <label class="layui-form-label">详细介绍</label>
 			    <div class="layui-input-block">
 			      	<div id="html-container" style="width:100%;">
-						<div class="summernote"></div>
+						<script id="blogger-ueditor" name="content" type="text/plain">
+        				
+    				    </script>
 					</div>
 			    </div>
 			  </div>
@@ -68,7 +71,6 @@
 	border-radius: 50%;
 }
 </style>
-	#@bootstrap()
 <link href="/assets/plugins/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="/assets/plugins/summernote/0.8.9/summernote.min.js"></script>
 <script type="text/javascript" src="/assets/js/from-util.js"></script>

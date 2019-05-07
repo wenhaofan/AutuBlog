@@ -2,12 +2,12 @@ package com.autu.index;
 
 import java.util.List;
 
-import com.autu.article.ArticleService;
-import com.autu.comment.CommentService;
 import com.autu.common.controller.BaseController;
+import com.autu.common.meta.MetaService;
 import com.autu.common.model.entity.Article;
 import com.autu.common.model.entity.Comment;
-import com.autu.meta.MetaService;
+import com.autu.detail.ArticleService;
+import com.autu.detail.CommentService;
 import com.autu.user.UserService;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;

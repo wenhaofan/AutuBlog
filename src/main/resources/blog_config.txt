@@ -1,5 +1,5 @@
 #是否使用开发者模式启动项目
-devMode=false
+devMode=true
 #配置模板是否热加载
 engineMode=true
 #数据库信息
@@ -10,4 +10,4 @@ pwd=root
 #cookie域,如果和访问地址不一致会导致登录不生效
 domain=127.0.0.1
 #项目路径 以/结尾
-projectPath=http://127.0.0.1/
+projectPath=http://127.0.0.1:8080/

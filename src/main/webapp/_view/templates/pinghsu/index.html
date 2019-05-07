@@ -1,64 +1,53 @@
 #include("header.html")
-<div class="main-content index-page clearfix  onelist-page>
+
+<div class="main-content index-page clearfix #if(theme.onelist) onelist-page #end">
 	<div class="post-lists">
 		<div class="post-lists-body">
-			#for(article:articleTopList)
-	 			<div class="post-list-item">
-					<div class="post-list-item-container">
-						 
-						<div class="item-thumb" #if(article.thumbImg!=null) style="background-image:url(#(article.thumbImg));" #end ></div>
-	            
-						<a href="/article/#(article.identify)">
-		                	<div class="item-desc">
-								<p>#(article.intro)...</p>
-							</div>
-						</a>
-						<div class="item-slant reverse-slant  bg-deepgrey"></div>
-						<div class="item-slant"></div>
-						<div class="item-label">
-							<div class="item-title"><a href="/article/#(article.identify)">#(article.title)</a></div>
-							<div class="item-meta clearfix">
-								<div class="item-meta-ico bg-ico-book" style="background: url(/_view/templates/pinghsu/static/img/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
-								<div class="item-meta-cat">
-										#set(metas=article.metas)
-										#if(metas!=null&&!metas.isEmpty())
-											<a href="/article/category/1-#(metas.get(0).id)">#(metas.get(0).mname)</a>
-										#end
-										 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			#end
 			#for(article:articlePage.list)
-	 			<div class="post-list-item">
+				#if(!article.three)
+				<div class="post-list-item">
 					<div class="post-list-item-container">
-						 
-						<div class="item-thumb" #if(article.thumbImg!=null) style="background-image:url(#(article.thumbImg));" #end ></div>
-	            
-						<a href="/article/#(article.identify)">
+					<!-- bg-green  bg-red  bg-yellow bg-blue bg-purple -->
+ 						<div class="item-thumb bg-deepgrey  " style="background-image:url(#(article.thumbImg));"></div>
+						<a href="/a/#(article.identify)">
 		                	<div class="item-desc">
-								<p>#(article.intro)...</p>
+								<p>#(article.content)</p>
 							</div>
 						</a>
 						<div class="item-slant reverse-slant  bg-deepgrey"></div>
 						<div class="item-slant"></div>
 						<div class="item-label">
-							<div class="item-title"><a href="/article/#(article.identify)">#(article.title)</a></div>
+							<div class="item-title"><a href="/a/#(article.identify)" title="#(article.title)">#(article.title)</a></div>
 							<div class="item-meta clearfix">
-								<div class="item-meta-ico bg-ico-book" style="background: url(/_view/templates/pinghsu/static/img/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
-								<div class="item-meta-cat">
-									#set(metas=article.metas)
-										#if(metas!=null&&!metas.isEmpty())
-											<a href="/article/category/1-#(metas.get(0).id)">#(metas.get(0).mname)</a>
-										#end
-										 
-								</div>
+ 								<div class="item-meta-ico bg-ico-book" style="background: url(#theme('images/bg-ico.png');) no-repeat;background-size: 40px auto;"></div>	 
 							</div>
 						</div>
 					</div>
 				</div>
+				#elseif(article.one)
+					<div class="post-onelist-item">
+						<div class="post-onelist-item-container">
+							<a href="/a/#(article.identify)">
+	 							<div class="onelist-item-thumb  bg-deepgrey " style="background-image:url(#(article.thumbImg));"></div>
+							</a>
+							<div class="onelist-item-info">
+								<div class="item-title">
+									<a href="/a/#(article.identify)">#(article.title)</a>
+								</div>
+								<div class="item-meta">
+									<time datetime="#(article.gmtCreate)" itemprop="datePublished"> Published on  #(article.gmtCreate)</time> in #(article.firstMeta.name) </a>
+								</div>
+								<div class="item-meta-hr bg-deepgrey"></div>
+								<div class="item-content">
+									<p>#(article.content)</p>
+								</div>
+								<div class="item-readmore">
+									<a href="/a/#(article.identify)"> Continue Reading → </a>
+								</div>
+							</div>
+						</div>
+					</div>
+				#end
 			#end
 		</div>
 	</div>
@@ -80,7 +69,7 @@
 		    <li class="next"><a href="/#(currentPageNum+1)">下一页</a></li>
 		    #end
 		</ol>
-  </div>
+  	</div>
 </div>
 
-#include('footer.html')
+#include("footer.html")

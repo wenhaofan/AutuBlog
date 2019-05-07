@@ -1,20 +1,29 @@
 <link href="/assets/plugins/tagsinput/jquery.tagsinput.css" rel="stylesheet">
-<link href="/assets/plugins/select2/dist/css/select2-bootstrap.css"
-	rel="stylesheet">
+ 
 <link href="/assets/plugins/toggles/toggles.css" rel="stylesheet">
  
-<link
-	href="/assets/plugins/multi-select/0.9.12/css/multi-select.min.css"
-	rel="stylesheet" />
-<link href="/assets/plugins/select2/3.4.8/select2.min.css"
-	rel="stylesheet" />
-<link href="/assets/plugins/mditor/css/mditor.min.css" rel="stylesheet" />
-<link href="/assets/plugins/summernote/0.8.9/summernote.css"
-	rel="stylesheet">
 	
 <link href="/assets/plugins/dropzone/4.3.0/min/dropzone.min.css"
 	rel="stylesheet">
 <link href="/assets/admin/css/artilce-edit.css" rel="stylesheet">
+
+<!-- 标签插件 -->
+<script type="text/javascript" src="/assets/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+<link href="/assets/plugins/tagsinput/jquery.tagsinput.css"  rel="stylesheet">
+
+<!-- 多选插件 -->
+<script type="text/javascript" src="/assets/plugins/select2/3.4.8/select2.min.js"></script>
+<link href="/assets/plugins/select2/3.4.8/select2.min.css"  rel="stylesheet">
+<link href="/assets/plugins/select2/3.4.8/select2-bootstrap.min.css"  rel="stylesheet">
+<!-- 预览图上传插件 -->
+<link href="/assets/plugins/dropzone/4.3.0/min/dropzone.min.css"  rel="stylesheet">
+<script type="text/javascript" src="/assets/plugins/dropzone/4.3.0/min/dropzone.min.js"></script>
+
+<link href="/assets/plugins/editor/css/editormd.css"  rel="stylesheet">
+
+
+<script type="text/javascript" src="/assets/plugins/editor/editormd.js"></script>
+
 
 <script type="text/javascript">
 function tagInit(){
@@ -31,164 +40,161 @@ $(document).ready(function() {
 		$(".dz-message").hide();
 	#end
 })
+ 
+</script>
+<script type="text/javascript">
+$(function(){
 
+})
 </script>
-</head>
-<body>
-<script type="text/html" id="tpl-content">
-	#(article.content ?? '')
-</script>
-<div class="layui-row">
-	<div class="layui-col-lg12 layui-col-md12">
-		<blockquote class="page-title">#(article==null?"发表文章":"修改文章")</blockquote>
+<script type="text/html" id="content">#(article.content ?? '')</script>
+<style>
+.article-edit .layui-input-block{
+    margin-left:24px;
+}
+.article-edit .select2-container-multi .select2-choices{
+    height: 34px!important;
+    border: 1px solid #D2D2D2!important;
+    background-image: none;
+}
+.article-edit .select2{
+	padding-top: 1px;
+}
+
+.article-edit .select2-container-multi .select2-choices .select2-search-choice {
+    margin: 6px 0 3px 5px!important;
+}
+
+.article-edit #[[#]]#switch-btn{
+	float: right;
+}
+</style>
+ 
+<div class="article-edit layui-form" >
+ 
+	<div class="layui-row">
+		<div class="layui-col-lg12 layui-col-md12">
+			<blockquote class="page-title">#(article==null?"发表文章":"修改文章")</blockquote>
+		</div>
 	</div>
-</div>
-	<div class="row">
-		<div class="col-md-12">
-			<form id="articleForm">
-				    <input type="hidden" name="categoryIds" id="categoryIds" /> 
-					<input type="hidden" name="content" id="content-editor"  /> 
-					<input type="hidden" name="fmtType" id="fmtType" value="" /> 
-					<input type="hidden" name="allowComment" value="#(article.allowComment??)" id="allowComment" /> 
-					<input type="hidden" name="thumbImg" id="thumbImg" value="#(article.thumbImg??)"> 
-					<input type="hidden" name="state" id="state"  value="#(article.state??0)">
-					<input type="hidden" name="id" id="id" value="#(article.id??)">
-					<input type="hidden" name="isTop" id="isTop" value="#(article.isTop??0)">
-				<div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-					<input class="form-control" placeholder="文章标题（必须）" name="title" data-rule="required;" value="#(article.title??)" />
-				</div>
-
-				<div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-					<input class="form-control"
-						placeholder="访问路径(可为空)" name="identify"
-						value="#(article.identify??)" />
-				</div>
-
-				<div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-					<input name="tags" id="tags" type="text" class="form-control" placeholder="文章标签" />
-				</div>
-
-				<div class="form-group col-md-6" style="padding: 0 10px 0 0;">
-		 
-					<select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">
-						#for(category:allCategory)
-							<option #for(aCategory:aCategorys)#if(aCategory.mid==category.id) selected  #end  #end value="#(category.id)" >#(category.mname)</option>
-						#end
-					</select>
-				</div>
-				<div class="form-group col-xs-12">
-					<div class="pull-left">
-						<span class="hint-msg"></span>
-					</div>
-					<div class="pull-right">
-						<a id="switch-btn" href="javascript:void(0)"
-							class="btn btn-purple btn-sm waves-effect waves-light switch-editor">
-							切换为富文本编辑器 </a>
-					</div>
-				</div>
-				
-				<div class="clearfix"></div>
-			
-				<div id="md-container" class="form-group col-md-12">
-					<textarea id="md-editor" class=""></textarea>
-				</div>
-				<div id="html-container" class="form-group col-md-12">
-					<div class="summernote"></div>
-				</div>
-			 	<div class="form-group col-md-4 col-sm-4 col-xs-4">
-					<label class="col-sm-4">置顶</label>
-					<div class="col-md-4 col-sm-8">
-						<div class="toggle toggle-success"
-							onclick="isTop(this);"
-							on="#(article.isTop??false)"></div>
-					</div>
-				</div>
-			 	
-				<div class="form-group col-md-3 col-sm-4 col-xs-5">
-					<label class="col-md-5 col-sm-4">评论</label>
-					<div class="col-md-4 col-sm-8">
-						<div class="toggle toggle-success allow-#(contents.allowComment ?? true)"
-							 onclick="allow_comment(this);"
-							 on="#(article.allowComment ?? true)"></div>
-					</div>
-				</div>
-				<!--  <div class="form-group col-md-3 col-sm-4">
-					<label class="col-sm-4">类型</label>
-					<div class="col-sm-8">
-						<div
-							class="select-original toggle-success allow-${contents.allowComment ?! true}"
-							onclick="allow_comment(this);"
-							on="${contents.allowComment ?! true}"></div>
-					</div>
-				</div> -->
-				<div class="form-group col-md-5 col-sm-4 form-group col-xs-10">
-					<div class="text-right">
-					<a class="btn btn-default waves-effect waves-light" href="javascript:history.go(-1)">返回</a>
-					<button type="button"
-						class="btn btn-primary waves-effect waves-light" id="subArticle">
-						发布文章</button>
-					<button type="button"
-						class="btn btn-warning waves-effect waves-light" id="draft">
-						存为草稿</button>
-				</div>
-			</div>
-				
-				<!--    <div class="form-group col-md-3 col-sm-4">
-                <label class="col-sm-4">允许Ping</label>
-                <div class="col-sm-8">
-                    <div class="toggle toggle-success allow-${contents.allowPing ?! true}"
-                         onclick="allow_ping(this);" on="${contents.allowPing ?! true}"></div>
-                </div>
-            </div>
-
-            <div class="form-group col-md-3 col-sm-4">
-                <label class="col-sm-4">允许订阅</label>
-                <div class="col-sm-8">
-                    <div class="toggle toggle-success allow-${contents.allowFeed ?! true}"
-                         onclick="allow_feed(this);" on="${contents.allowFeed ?! true}"></div>
-                </div>
-            </div>
-
-				<div class="form-group col-md-3">
-					<label class="col-sm-5">添加缩略图</label>
-					<div class="col-sm-7">
-						<div id="thumb-toggle" class="toggle toggle-success" on="false"
-							onclick="add_thumbimg(this);"></div>
-					</div>
-				</div>-->
-
-
-
-				<div class="clearfix"></div>	
-			</form>
-			<div class="clearfix"></div>	
-		 	<div class="col-xs-0 col-sm-3 col-md-2"></div>
-	 		<div id="dropzone-container"  class="form-group col-xs-12 col-sm-6 col-md-8 ">
-			<div class="dropzone dropzone-previews" id="dropzone"  >
-				<div class="dz-message">
-					<p>可以为你的文章添加一张缩略图 ;)</p>
+	<div class="layui-row" >
+		<div class="layui-col-md6">
+			<div class="layui-form-item">
+			  <div class="layui-input-block">
+			  	<input type="hidden" name="isTop" value="#(article.isTop??false)">
+			  	<input type="hidden" name="allowComment" value="#(article.allowComment??true)">
+			  	<input type="hidden" name="isOriginal" value="#(article.isOriginal??true)">
+			  	<input type="hidden" name="contentType" value="#(article.contentType??'html')" id="contentType" >
+		      	<input type="text" name="title" required  value="#(article.title??)"  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+		        <input type="hidden" name="id" value="#(article.id??)">
+		         <input type="hidden" name="thumbImg" value="#(article.thumbImg??)">
+		       </div> 
+		    </div>
+		</div>
+		<div class="layui-col-md6">
+			<div class="layui-form-item">
+			  <div class="layui-input-block">
+		      	<input type="text" name="identify" required  value="#(article.identify??)"  lay-verify="required" placeholder="请输入访问路径" autocomplete="off" class="layui-input">
+		      </div> 
+	      	</div>
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="layui-col-md6">
+		 	<div class="layui-form-item">
+			  <div class="layui-input-block">
+		      	<input type="text" name="tags" id="tags" required  lay-verify="required" placeholder="请输入标签" autocomplete="off" class="layui-input">
+		      </div> 
+	      	</div>
+		</div>
+		<div class="layui-col-md6">
+		 	<div class="layui-form-item">
+		 	 	<div class="layui-input-block">
+		 	 		<select multiple="multiple" class="select2 " lay-ignore id="multiple-sel">
+		 	 			#for(category:allCategory)
+		 	 				<option value="#(category.id)"
+		 	 				 #for(aCategory:aCategorys)
+		 	 					#if(aCategory.id==category.id)
+		 	 						selected
+		 	 					#end
+		 	 					#(aCategory.id)
+		 	 				#end>#(category.mname)</option>
+		 	 			#end
+		 	 		</select>
+		 	   </div> 
+		 	</div> 
+		</div>
+	</div>
+		<div class="layui-row">
+		<div class="layui-col-md6">
+		 	<div class="layui-form-item">
+ 		 	</div>
+		</div>
+		<div class="layui-col-md6">
+		 	<div class="layui-form-item">
+		 		<button class="layui-btn layui-btn-primary layui-btn-sm" id="switch-btn" >切换为Markdown编辑器</button>
+		 	</div>
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="layui-col-md12 "  id="html-container">
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+				 	<script id="article-ueditor" name="content" type="text/plain">
+        				
+    				</script>
+	    		</div>
+    		</div>
+		</div>
+		<div class="layui-col-md12  " id="md-container">
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+				 	<div id="meditor">
+				 	</div>
+	    		</div>
+    		</div>
+		</div>
+		<div class="layui-col-md12" >
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+				 <div class="layui-inline">
+				    <label class="layui-form-label">置顶</label>
+				    <div class="layui-input-inline" style="width: 100px;">
+					<input type="checkbox" lay-filter="isTop"    #((article==null||!article.isTop)?'':'checked') lay-skin="switch" lay-text="开启|关闭">				    </div>
+				  </div>
+				  <div class="layui-inline">
+				    <label class="layui-form-label">原创</label>
+				    <div class="layui-input-inline" style="width: 100px;">
+					<input type="checkbox" lay-filter="isOriginal"    #((article==null||!article.isOriginal)?'':'checked')  lay-skin="switch" lay-text="开启|关闭">				    </div>
+				  </div>
+				   <div class="layui-inline">
+				    <label class="layui-form-label">允许评论</label>
+				    <div class="layui-input-inline" style="width: 100px;">
+					<input type="checkbox" lay-filter="allowComment"     #((article==null||!article.allowComment)?'':'checked') lay-skin="switch" lay-text="开启|关闭">				    </div>
+				   </div>
+				  	<div class="layui-inline" style="float:right;">
+				  		<button class="layui-btn layui-btn-normal" lay-submit lay-filter="publish">发布</button>
+				  		<button class="layui-btn layui-btn-warm"   lay-filter="draft" >存为草稿</button>
+				  	</div>
 				</div>
 			</div>
-			<img id="dropzone-thumbImg"  class="hide" src="">
+		</div>
+			<div class="layui-col-md12">
+			<div class="layui-form-item">
+				<div id="dropzone-container"  class="form-group">
+					<div class="dropzone dropzone-previews" id="dropzone"  >
+						<div class="dz-message">
+							<p>可以为你的文章添加一张缩略图 ;)</p>
+						</div>
+					</div>
+					<img id="dropzone-thumbImg"  class="hide">
+				</div>
 			</div>
 		</div>
 	</div>
-	#@bootstrap()
-	<script type="text/javascript" src="/assets/common/upload.js"></script>
-	<script src="/assets/plugins/markdown/showdown.js"></script>
-	<script type="text/javascript" src="/assets/util/markdown.js"></script>
-	<script src="/assets/plugins/tagsinput/jquery.tagsinput.min.js"></script>
-	<script src="/assets/plugins/jquery-multi-select/jquery.quicksearch.js"></script>
-	<script src="/assets/plugins/mditor/js/mditor.min.js"></script>
-	<script src="/assets/plugins/wysihtml5/0.3.0/wysihtml5.min.js"></script>
-	<script src="/assets/plugins/summernote/0.8.9/summernote.js"></script>
-	<script src="/assets/plugins/summernote/0.8.9/lang/summernote-zh-CN.js"></script>
-	<script src="/assets/plugins/multi-select/0.9.12/js/jquery.multi-select.min.js"></script>
-	<script src="/assets/plugins/select2/3.4.8/select2.min.js"></script>
-	<script src="/assets/plugins/jquery-toggles/2.0.4/toggles.min.js"></script>
-	<script src="/assets/plugins/dropzone/4.3.0/min/dropzone.min.js"></script>
-	<script src="/assets/plugins/to-markdown/3.1.0/to-markdown.min.js"></script>
-	<script src="/assets/plugins/tagsinput/jquery.tagsinput.min.js"></script>
-	<script type="text/javascript" src="/assets/common/meta.js"></script>
-	<script src="/assets/js/strKit.js"></script>
-	<script src="/assets/admin/js/article-edit.js" ></script>
+	
+</div>
+
+<script src="/assets/plugins/turndown/turndown.js"></script>
+
+<script type="text/javascript" src="/assets/admin/js/article-edit.js"></script>

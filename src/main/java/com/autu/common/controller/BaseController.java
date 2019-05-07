@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import com.autu.agentUser.AgentUserService;
+import com.autu.common.agentUser.AgentUserService;
 import com.autu.common.model.entity.AgentUser;
 import com.autu.common.model.entity.User;
 import com.autu.user.LoginService;
@@ -92,5 +92,10 @@ public class BaseController extends Controller {
 			resultList.add(getModel(modelClass, modelName2, skipConvertError));
 		}
 		return resultList;
+	}
+	
+	@NotAction
+	public void notTheme() {
+		setAttr("AUTU_BLOG_NOT_THEME", true);
 	}
 }
