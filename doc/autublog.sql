@@ -56,7 +56,7 @@ CREATE TABLE `article`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章id',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '文章标题',
   `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT '文章内容',
-  `htmlTitle` char(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '暂使用' COMMENT '文章的静态页面名称',
+  
   `gmtCreate` datetime(0) NOT NULL COMMENT '发表时间',
   `pv` int(11) NULL DEFAULT 1 COMMENT '阅读量',
   `thumbImg` varchar(256) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '预览图片',
@@ -70,7 +70,7 @@ CREATE TABLE `article`  (
   `userId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
-INSERT INTO `article` VALUES ('1', '第一篇文章', 0x3C6831207374796C653D22666F6E742D66616D696C793A202671756F743B4E6F746F2053616E732671756F743B2C2073616E732D73657269663B20636F6C6F723A2072676228302C20302C2030293B223EE7ACACE4B880E7AF873C2F68313E3C703E266E6273703B20266E6273703B20E4BDA0E5868DE69DA5E58699E782B9E4BB80E4B988E590A73C2F703E, '2018-09-30 19:11:39', '6', '/upload/thumb/jpg/520520_20180930191137.jpg', '1', '0', '2018-09-30 19:11:39', '20180930191139', '第一篇    你再来写点什么吧', null, '1');
+INSERT INTO `article` VALUES ('1', '第一篇文章', 0x3C6831207374796C653D22666F6E742D66616D696C793A202671756F743B4E6F746F2053616E732671756F743B2C2073616E732D73657269663B20636F6C6F723A2072676228302C20302C2030293B223EE7ACACE4B880E7AF873C2F68313E3C703E266E6273703B20266E6273703B20E4BDA0E5868DE69DA5E58699E782B9E4BB80E4B988E590A73C2F703E, '2018-09-30 19:11:39', '6', '/upload/thumb/jpg/520520_20180930191137.jpg', '1', '0','1', '2018-09-30 19:11:39', '20180930191139', '第一篇    你再来写点什么吧', null, '1');
 
 -- ----------------------------
 -- Table structure for baidu_seo_config
@@ -131,7 +131,7 @@ CREATE TABLE `config`  (
   `ICPRecord` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `title` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `gmtCreate` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `emailServer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `emailServer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci,
   `fromEmail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `emailPassword` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `ico` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE `config`  (
   `theme` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'pinghsu',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-INSERT INTO `config` VALUES ('1', 'Autu个人博客', '一款开源的个人博客', '范文皓', null, 'Autu个人博客', '2018-09-30 19:19:32', null, null, null, '/upload/ico/ico/520520_20180930205220.ico', '/upload/logo/png/520520_20180930205236.png', null, null, null, null, 'pinghsu');
+INSERT INTO `config` VALUES ('1', 'Autu个人博客', '一款开源的个人博客', '范文皓', null, 'Autu个人博客', '2018-09-30 19:19:32', null, null,null,  '/upload/ico/ico/520520_20180930205220.ico', '/upload/logo/png/520520_20180930205236.png',1, null, null, null, null, 'pinghsu');
 
 -- ----------------------------
 -- Table structure for disk
