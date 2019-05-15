@@ -10,6 +10,7 @@ import com.autu.detail.ArticleController;
 import com.autu.detail.CommentApi;
 import com.autu.detail.DetailController;
 import com.autu.index.IndexController;
+import com.autu.resume.ResumeController;
 import com.autu.user.LoginApi;
 import com.autu.user.LoginController;
 import com.jfinal.config.Routes;
@@ -35,6 +36,7 @@ public class FrontRoutes extends Routes{
 		add("/a", DetailController.class);
 		add("/",IndexController.class,"/");
 		add("/api/upload", UploadApi.class,"/");
+		add("/resume", ResumeController.class,"/");
 	}
 
 }

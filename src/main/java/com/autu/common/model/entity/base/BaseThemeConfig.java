@@ -27,13 +27,13 @@ public abstract class BaseThemeConfig<M extends BaseThemeConfig<M>> extends Mode
 		return getStr("themeName");
 	}
 
-	public M setPtah(java.lang.String ptah) {
-		set("ptah", ptah);
+	public M setPath(java.lang.String path) {
+		set("path", path);
 		return (M)this;
 	}
 	
-	public java.lang.String getPtah() {
-		return getStr("ptah");
+	public java.lang.String getPath() {
+		return getStr("path");
 	}
 
 	public M setPattern(java.lang.String pattern) {
