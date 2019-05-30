@@ -2,7 +2,7 @@ package com.autu._admin.disk;
 
 import java.util.List;
 
-import com.autu.common.model.entity.Disk;
+import com.autu.common.model.Disk;
 
 public class CompareDiskResult {
 	private List<Disk> existList;

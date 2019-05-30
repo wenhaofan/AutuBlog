@@ -11,10 +11,10 @@ import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
-import com.autu.common.model.entity.Article;
-import com.autu.common.model.entity.Meta;
-import com.autu.common.model.entity.MetaweblogConfig;
-import com.autu.common.model.entity.MetaweblogRelevance;
+import com.autu.common.model.Article;
+import com.autu.common.model.Meta;
+import com.autu.common.model.MetaweblogConfig;
+import com.autu.common.model.MetaweblogRelevance;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;

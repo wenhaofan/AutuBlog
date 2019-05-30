@@ -3,9 +3,9 @@ package com.autu._admin.article;
 import java.util.List;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.Article;
-import com.autu.common.model.entity.Meta;
-import com.autu.common.model.entity.User;
+import com.autu.common.model.Article;
+import com.autu.common.model.Meta;
+import com.autu.common.model.User;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;

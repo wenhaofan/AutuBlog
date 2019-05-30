@@ -2,8 +2,8 @@ package com.autu.common.meta;
 
 import java.util.List;
 
-import com.autu.common.model.entity.Meta;
-import com.autu.common.model.entity.Relevancy;
+import com.autu.common.model.Meta;
+import com.autu.common.model.Relevancy;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.StrKit;

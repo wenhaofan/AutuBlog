@@ -3,7 +3,7 @@ package com.autu._admin.statistic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.autu.common.model.entity.Article;
+import com.autu.common.model.Article;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;

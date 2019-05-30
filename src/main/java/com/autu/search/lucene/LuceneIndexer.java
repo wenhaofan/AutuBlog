@@ -11,7 +11,7 @@ import org.apache.lucene.document.StoredField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexOptions;
 
-import com.autu.common.model.entity.Article;
+import com.autu.common.model.Article;
 
 public class LuceneIndexer {
 

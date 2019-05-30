@@ -1,0 +1,30 @@
+ <blockquote class="page-title  page-title">路由管理</blockquote>
+
+<div class="layui-row" >
+    <div id="demoTree">
+
+
+    </div>
+</div>
+
+<script>
+
+  layui.extend({
+    dtree: '{/}assets/frame/layui/plugins'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
+  }).use(['dtree' ], function(){
+    var dtree = layui.dtree;
+    
+    // 初始化树
+    var DemoTree = dtree.render({
+      elem: "#demoTree",
+      data: demoTree, // 使用data加载
+      url: "../json/case/demoJson.json" // 使用url加载（可与data加载同时存在）
+    });
+    
+    // 绑定节点点击
+    dtree.on("node('demoTree')" ,function(obj){
+      layer.msg(JSON.stringify(obj.param));
+    });
+  });
+
+</script>

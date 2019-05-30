@@ -2,7 +2,7 @@ package com.autu._admin.theme;
 
 import java.util.List;
 
-import com.autu.common.model.entity.ThemeConfig;
+import com.autu.common.model.ThemeConfig;
 import com.jfinal.aop.Inject;
 
 /** 

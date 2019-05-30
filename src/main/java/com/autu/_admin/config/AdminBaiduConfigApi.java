@@ -3,7 +3,7 @@ package com.autu._admin.config;
 import java.util.List;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.BaiduSeoConfig;
+import com.autu.common.model.BaiduSeoConfig;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 

@@ -3,7 +3,7 @@ package com.autu.search;
 import java.util.List;
 
 import com.autu._admin.article.AdminArticleLuceneIndexes;
-import com.autu.common.model.entity.Article;
+import com.autu.common.model.Article;
 import com.autu.detail.ArticleService;
 import com.autu.search.lucene.LuceneHelper;
 import com.jfinal.aop.Inject;

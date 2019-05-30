@@ -1,7 +1,6 @@
 package com.autu.resume;
 
 import com.autu.common.controller.BaseController;
-import com.jfinal.render.Render;
 
 /** 
 * @author 作者:范文皓

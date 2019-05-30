@@ -11,8 +11,8 @@ import com.autu.common.interceptor.AccessLogInterceptor;
 import com.autu.common.interceptor.AgentUserInterceptor;
 import com.autu.common.interceptor.LoginInterceptor;
 import com.autu.common.keys.KeyKit;
-import com.autu.common.model.entity.Config;
-import com.autu.common.model.entity._MappingKit;
+import com.autu.common.model.Config;
+import com.autu.common.model._MappingKit;
 import com.autu.search.lucene.LuceneHelper;
 import com.jfinal.aop.Aop;
 import com.jfinal.config.Constants;
@@ -22,6 +22,7 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.json.FastJsonFactory;
 import com.jfinal.json.MixedJsonFactory;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
@@ -53,6 +54,7 @@ public class BlogConfig extends JFinalConfig {
 	public void configConstant(Constants me) {
 		me.setDevMode(p.getBoolean("devMode", false));
 		me.setJsonFactory(new MixedJsonFactory());
+		me.setJsonFactory(new FastJsonFactory());
 		me.setError404View("/_view/error/404.html");
 		me.setInjectDependency(true);
 	}

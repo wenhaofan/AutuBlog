@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.autu.common.kit.QiniuFileUtils;
-import com.autu.common.model.entity.Disk;
-import com.autu.common.model.entity.QueryDisk;
+import com.autu.common.model.Disk;
+import com.autu.common.model.QueryDisk;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.PathKit;

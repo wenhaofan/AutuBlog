@@ -6,8 +6,8 @@ package com.autu._admin.loginRecord;
 
 import java.util.List;
 
-import com.autu.common.model.entity.LoginRecord;
-import com.autu.common.model.entity.Session;
+import com.autu.common.model.LoginRecord;
+import com.autu.common.model.Session;
 import com.autu.user.LoginService;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Page;

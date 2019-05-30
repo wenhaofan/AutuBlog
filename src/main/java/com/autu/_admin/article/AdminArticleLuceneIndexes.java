@@ -11,7 +11,7 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexOptions;
 
 import com.autu.common.kit.EmailKit;
-import com.autu.common.model.entity.Article;
+import com.autu.common.model.Article;
 import com.autu.common.safe.JsoupFilter;
 import com.autu.search.lucene.LuceneHelper;
 import com.jfinal.aop.Inject;

@@ -2,7 +2,7 @@ package com.autu._admin.common.config.interceptor;
 
 import com.autu._admin.user.AdminUserService;
 import com.autu.common.kit.StrKit;
-import com.autu.common.model.entity.User;
+import com.autu.common.model.User;
 import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;

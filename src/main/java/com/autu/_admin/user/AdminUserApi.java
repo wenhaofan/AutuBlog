@@ -1,7 +1,7 @@
 package com.autu._admin.user;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.User;
+import com.autu.common.model.User;
 import com.jfinal.aop.Inject;
 
 public class AdminUserApi  extends BaseController{

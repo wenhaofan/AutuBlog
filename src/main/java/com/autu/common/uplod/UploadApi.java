@@ -2,7 +2,7 @@ package com.autu.common.uplod;
 
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.dto.FileUploadInfo;
+import com.autu.common.dto.FileUploadInfo;
 import com.jfinal.kit.LogKit;
 import com.jfinal.kit.Ret;
 import com.jfinal.kit.StrKit;

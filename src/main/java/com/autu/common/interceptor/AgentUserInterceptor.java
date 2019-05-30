@@ -2,7 +2,7 @@ package com.autu.common.interceptor;
 
 import com.autu.common.agentUser.AgentUserService;
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.AgentUser;
+import com.autu.common.model.AgentUser;
 import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;

@@ -2,7 +2,7 @@ package com.autu.common.interceptor;
 
 import java.util.ArrayList;
 
-import com.autu.common.model.dto.SEO;
+import com.autu.common.dto.SEO;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;

@@ -1,7 +1,7 @@
 package com.autu.index;
 
 import com.autu.common.interceptor.BaseSeoInterceptor;
-import com.autu.common.model.entity.Config;
+import com.autu.common.model.Config;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 

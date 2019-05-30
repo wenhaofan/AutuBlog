@@ -1,8 +1,8 @@
 package com.autu.user;
 
-import com.autu.common.model.entity.LoginRecord;
-import com.autu.common.model.entity.Session;
-import com.autu.common.model.entity.User;
+import com.autu.common.model.LoginRecord;
+import com.autu.common.model.Session;
+import com.autu.common.model.User;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.Kv;

@@ -9,8 +9,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.autu.common.agentUser.AgentUserService;
-import com.autu.common.model.entity.AgentUser;
-import com.autu.common.model.entity.User;
+import com.autu.common.model.AgentUser;
+import com.autu.common.model.User;
 import com.autu.user.LoginService;
 import com.autu.user.UserService;
 import com.jfinal.aop.Aop;

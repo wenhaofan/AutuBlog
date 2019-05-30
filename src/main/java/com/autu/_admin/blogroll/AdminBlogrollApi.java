@@ -3,7 +3,7 @@ package com.autu._admin.blogroll;
 import java.util.List;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.Blogroll;
+import com.autu.common.model.Blogroll;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 

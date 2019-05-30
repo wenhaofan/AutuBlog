@@ -1,6 +1,6 @@
 package com.autu.common._config;
 
-import com.autu.common.model.entity.Config;
+import com.autu.common.model.Config;
 import com.jfinal.kit.PropKit;
 
 public class BlogContext {

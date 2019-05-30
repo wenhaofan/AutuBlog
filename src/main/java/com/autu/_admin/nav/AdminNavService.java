@@ -1,6 +1,6 @@
 package com.autu._admin.nav;
 
-import com.autu.common.model.entity.Nav;
+import com.autu.common.model.Nav;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 

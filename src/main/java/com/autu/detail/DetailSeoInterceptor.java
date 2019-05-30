@@ -3,9 +3,9 @@ package com.autu.detail;
 import java.util.List;
 
 import com.autu.common.interceptor.BaseSeoInterceptor;
-import com.autu.common.model.entity.Article;
-import com.autu.common.model.entity.Config;
-import com.autu.common.model.entity.Meta;
+import com.autu.common.model.Article;
+import com.autu.common.model.Config;
+import com.autu.common.model.Meta;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 

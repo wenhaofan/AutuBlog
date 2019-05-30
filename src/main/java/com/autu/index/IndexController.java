@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.autu.common.controller.BaseController;
 import com.autu.common.meta.MetaService;
-import com.autu.common.model.entity.Article;
-import com.autu.common.model.entity.Comment;
+import com.autu.common.model.Article;
+import com.autu.common.model.Comment;
 import com.autu.detail.ArticleService;
 import com.autu.detail.CommentService;
 import com.autu.user.UserService;

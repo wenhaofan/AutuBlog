@@ -2,7 +2,7 @@ package com.autu.common.nav;
 
 import java.util.List;
 
-import com.autu.common.model.entity.Nav;
+import com.autu.common.model.Nav;
 import com.jfinal.aop.Inject;
 
 /**

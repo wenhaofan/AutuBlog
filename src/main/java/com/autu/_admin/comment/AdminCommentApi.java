@@ -1,7 +1,7 @@
 package com.autu._admin.comment;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.Comment;
+import com.autu.common.model.Comment;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 import com.jfinal.plugin.activerecord.Page;

@@ -2,8 +2,8 @@ package com.autu.detail;
 
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.AgentUser;
-import com.autu.common.model.entity.Comment;
+import com.autu.common.model.AgentUser;
+import com.autu.common.model.Comment;
 import com.autu.common.safe.JsoupFilter;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;

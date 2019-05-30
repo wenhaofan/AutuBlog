@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.autu.common._config.BlogContext;
 import com.autu.common.kit.StrKit;
-import com.autu.common.model.entity.Disk;
+import com.autu.common.model.Disk;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Db;
 import com.qiniu.common.Zone;
@@ -15,6 +15,7 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
 
+@SuppressWarnings("deprecation")
 public class QiniuFileManager {
 
 	@Inject

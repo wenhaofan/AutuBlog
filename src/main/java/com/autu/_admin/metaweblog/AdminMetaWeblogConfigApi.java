@@ -3,7 +3,7 @@ package com.autu._admin.metaweblog;
 import java.util.List;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.MetaweblogConfig;
+import com.autu.common.model.MetaweblogConfig;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 

@@ -5,9 +5,9 @@ package com.autu.common.uplod;
 import java.io.File;
 import java.util.Date;
 
+import com.autu.common.dto.FileUploadInfo;
 import com.autu.common.kit.DateKit;
 import com.autu.common.kit.QiniuFileUtils;
-import com.autu.common.model.dto.FileUploadInfo;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Ret;
 import com.jfinal.upload.UploadFile;

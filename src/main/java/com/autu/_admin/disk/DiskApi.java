@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.autu.common._config.BlogContext;
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.Disk;
-import com.autu.common.model.entity.QueryDisk;
+import com.autu.common.model.Disk;
+import com.autu.common.model.QueryDisk;
 import com.autu.common.uplod.UploadService;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;

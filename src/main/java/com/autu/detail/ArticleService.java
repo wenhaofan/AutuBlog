@@ -3,11 +3,11 @@ package com.autu.detail;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.autu.common.dto.LastNextArticleDTO;
 import com.autu.common.meta.MetaService;
 import com.autu.common.meta.MetaTypeEnum;
-import com.autu.common.model.dto.LastNextArticleDTO;
-import com.autu.common.model.entity.Article;
-import com.autu.common.model.entity.Meta;
+import com.autu.common.model.Article;
+import com.autu.common.model.Meta;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.plugin.activerecord.Db;

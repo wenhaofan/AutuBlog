@@ -1,7 +1,7 @@
 package com.autu._admin.meta;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.Meta;
+import com.autu.common.model.Meta;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 

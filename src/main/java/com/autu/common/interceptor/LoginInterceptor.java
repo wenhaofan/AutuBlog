@@ -1,7 +1,7 @@
 package com.autu.common.interceptor;
 
 import com.autu.common.controller.BaseController;
-import com.autu.common.model.entity.User;
+import com.autu.common.model.User;
 import com.autu.user.LoginService;
 import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;

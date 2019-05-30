@@ -21,7 +21,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
 
-import com.autu.common.model.entity.Article;
+import com.autu.common.model.Article;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Model;
 
