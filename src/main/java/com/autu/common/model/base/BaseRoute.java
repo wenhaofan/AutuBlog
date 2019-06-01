@@ -81,4 +81,22 @@ public abstract class BaseRoute<M extends BaseRoute<M>> extends Model<M> impleme
 		return getInt("menuId");
 	}
 
+	public M setName(java.lang.String name) {
+		set("name", name);
+		return (M)this;
+	}
+	
+	public java.lang.String getName() {
+		return getStr("name");
+	}
+
+	public M setParentId(java.lang.Integer parentId) {
+		set("parentId", parentId);
+		return (M)this;
+	}
+	
+	public java.lang.Integer getParentId() {
+		return getInt("parentId");
+	}
+
 }

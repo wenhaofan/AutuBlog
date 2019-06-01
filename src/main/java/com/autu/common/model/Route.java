@@ -8,4 +8,7 @@ import com.autu.common.model.base.BaseRoute;
 @SuppressWarnings("serial")
 public class Route extends BaseRoute<Route> {
 	
+	public static Route dao=new Route().dao();
+ 
+ 
 }

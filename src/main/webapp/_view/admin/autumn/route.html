@@ -1,30 +1,53 @@
+   <link rel="stylesheet" href="/assets/frame/layui/plugins/dtree/dtree.css">
+  <link rel="stylesheet" href="/assets/frame/layui/plugins/dtree/font/dtreefont.css">
  <blockquote class="page-title  page-title">路由管理</blockquote>
-
+<style>
+#routeTree{
+    width: 160px;
+}
+</style>
 <div class="layui-row" >
-    <div id="demoTree">
+    <div>
+        <div id="routeTree">
+        </div>
+        <div>
 
-
+        </div>
     </div>
+  
 </div>
 
 <script>
 
-  layui.extend({
-    dtree: '{/}assets/frame/layui/plugins'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
+ var route=new Object({
+        dtreeFormatter:function(){
+            return {
+                title: function(data) { // 文字过滤，返回null,"",undefined之后，都不会改变原有的内容返回。
+                    return data.name;
+                }
+            };
+        }
+  });
+ layui.extend({
+    dtree: '{/}/assets/frame/layui/plugins/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
   }).use(['dtree' ], function(){
     var dtree = layui.dtree;
     
     // 初始化树
     var DemoTree = dtree.render({
-      elem: "#demoTree",
-      data: demoTree, // 使用data加载
-      url: "../json/case/demoJson.json" // 使用url加载（可与data加载同时存在）
+      elem: "#routeTree",
+      
+      url: "/admin/api/route/list",// 使用url加载（可与data加载同时存在）
+      formatter:route.dtreeFormatter()
     });
-    
+   
     // 绑定节点点击
     dtree.on("node('demoTree')" ,function(obj){
       layer.msg(JSON.stringify(obj.param));
     });
-  });
 
+  });
+ 
+
+ 
 </script>

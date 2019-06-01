@@ -25,17 +25,119 @@ layui.use(['form'],function(){
 	}); 
 })
 
+
+ 
+ editorSet={
+    editorArr:[],
+    currEditor:null,
+    editorType:null,
+    initSelector:"#content",
+    turndownService : new TurndownService(),
+    setEditor:function(key,editor){
+        this.editorArr[key]=editor;
+    },
+    getEditor:function(type){
+        this.currEditor= this.editorArr[type];
+        return this.getCurrentEditor();
+    },
+    getCurrentEditor:function(){
+        return this.currEditor;
+    },
+    init:function(){
+        this.initUeditor();
+        this.initEditorMd();
+    },initUeditor:function(){
+        let editor={
+            ueditor:null,
+             getEditor:function(){
+                return this.ueditor;
+            },
+            init:function(content){
+                this.ueditor=UE.getEditor('article-ueditor',{
+                    initialFrameHeight:400,
+                    initialContent :content
+                });    
+                editorSet.editorType="html";
+            }
+        };
+       this.setEditor("ueditor",editor);
+    },initEditorMd(){
+        let editor={
+            editormd:null,
+            getEditor:function(){
+                return this.editormd;
+            },
+            init:function(content){
+                this.editormd = editormd("meditor", {
+                    width   : "100%",
+                    height  : 640,
+                    markdown:content,
+                    syncScrolling : "single",
+                    path : '/assets/plugins/editor/lib/',
+                });
+
+                editorSet.editorType="markdown";
+            }
+        };
+        this.setEditor("editormd",editor);
+    },getDefaultContent:function(){
+      return $(this.initSelector).html();
+    },
+    getContent:function (type,isDefault){
+
+		if(isDefault){
+            return this.getDefaultContent();
+        }
+        
+        if(!type){
+            type=$("#contentType").val();
+        }
+
+        let currEditor=this.getCurrentEditor();
+
+        if(!currEditor){
+            return this.getDefaultContent();
+        } 
+
+        let editorContentType="html";
+        let content;
+        if(currEditor.ueditor){
+            content=currEditor.ueditor.getContent();
+        }else if(currEditor.meditor){
+            editorContentType="mardown";
+            content=currEditor.meditor.getMarkdown();
+        }
+
+        if(type=="html"){
+            if(editorContentType=="html"){
+                 return content; 
+            }else{
+                return currEditor.meditor.getHtml();
+            }
+        }else{
+            if(editorContentType=="html"){
+                return this.turndownService.turndown(content);
+            }else{
+                return content;
+            }
+        }
+ 
+	}
+};
+ 
+
 var article={
 	isChange:false,
 	editorType:"",
 	isInit:false,
-	turndownService : new TurndownService(),
+	
 	init:function(){
 		this.initArticleInfo();
 		//this.autoSaveCache();
-		this.editorType=$('#contentType').val();
-		this.initEditor();
-		this.isInit=true;
+        this.editorType=$('#contentType').val();
+ 
+        editorSet.init();
+        swicthEditorByType("ueditor");
 	},getArticleId:function(){
 		return $("input[name='id']").val();
 	},editArticle:function(paras){
@@ -48,34 +150,6 @@ var article={
 				paras.success(data);
 		   }
 	   })
-	},getContent:function (type){
-		
-		if(!this.isInit){
-			return $(".article-edit .about-content").text();
-		}
-		
-		let contentType = $('#contentType').val();
-		let content ;
-		//如果type为markdown则返回值均为markdown格式,否则为html格式,默认为contentType
-		if(!type){
-			type=contentType;
-		}
-		
-		if(type == "markdown"){
-			if(contentType == 'markdown'){
-				content = meditor.getMarkdown();
-			}else{
-				content = this.turndownService.turndown(htmlEditor.getContent());
-			}
-		}else{
-			if(contentType == 'markdown'){
-				content = meditor.getHtml();
-			}else{
-				content = htmlEditor.getContent();
-			}
-		}
-  
-		return content;
 	},setTags:function(tags){
 		if(!(tags&&tags.length>0)){
 			return;
@@ -95,7 +169,7 @@ var article={
 			this.isChange=false;
 			
 			var cacheInfo={};
-			cacheInfo.content=article.getContent();
+			cacheInfo.content=editorSet.getContent();
 			cacheInfo.title=$("#articleForm input[name='title']").val();
 			cacheInfo.tags=$("#tags").val();
 			cacheInfo.categorys=$("#multiple-sel").select2("val");
@@ -151,61 +225,7 @@ var article={
 		}
 		
 		$(".hint-msg").text("本地存储读取成功！");
-	},initEditor(){
-		if(article.editorType=="html"){
-			htmlEditor = UE.getEditor('article-ueditor',{
-				initialFrameHeight:400,
-				initialContent :this.getContent("html")
-			});
-		}else{
-			var content=article.getContent("markdown");
-		    $('#md-container').show();
-            $('#html-container').hide();
-            $("#switch-btn").text('切换为富文本编辑器');
-            $('#contentType').val("markdown");
-            article.editorType="html";
-            meditor = editormd("meditor", {
-                width   : "100%",
-                height  : 640,
-                markdown:(content),
-                syncScrolling : "single",
-                path : '/assets/plugins/editor/lib/',
-            });
-		}
-	},changeEditor(){
- 
-	     if (article.editorType == "html") {
-    	   //切换为html编辑器
-           $('#md-container').hide();
-           $('#html-container').show();
-           $("#switch-btn").text('切换为Markdown编辑器');
-           $('#contentType').val("html");
-           
-           article.editorType="markdown";
-        } else {
-        	let swicthEditorIndex=layer.confirm('将HTML转换为Markdown可能会丢失部分样式，是否继续？', {
-        		  btn: ['继续','算了吧'] //按钮
-            }, function(){
-				//切换为markdown编辑器
-	            var content=article.getContent("markdown");
-			    $('#md-container').show();
-	            $('#html-container').hide();
-	            $("#switch-btn").text('切换为富文本编辑器');
-	            $('#contentType').val("markdown");
-	            article.editorType="html";
-	            meditor = editormd("meditor", {
-	                width   : "100%",
-	                height  : 640,
-	                markdown:(content),
-	                syncScrolling : "single",
-	                path : '/assets/plugins/editor/lib/',
-	            });
-	            layer.close(swicthEditorIndex);
-            }, function(){
-            	layer.close(swicthEditorIndex);
-            });
-        }
-	},getSelectedTag:function(){
+	},  getSelectedTag:function(){
 		var data=[];
 	    var tags=$("#tags").val();
 	    if(fl.notBlank(tags)){
@@ -232,7 +252,7 @@ var article={
 	 * @returns
 	 */
 	 save:function(fdata,state){
-		 fdata.content = this.getContent();
+		 fdata.content = editorSet.getContent();
 		 fdata.state = state;
 		 
 		    
@@ -272,6 +292,56 @@ var article={
 	}
 }
 
+
+function confirmsSwicthEditorByType(type){
+   let swicthEditorIndex=layer.confirm('切换编辑器可能会丢失部分样式，是否继续？', {
+        		  btn: ['继续','算了吧'] //按钮
+    }, function(){
+     
+        swicthEditorByType(type);
+        layer.close(swicthEditorIndex);
+
+    }, function(){
+        layer.close(swicthEditorIndex);
+    });
+}
+
+function swicthEditorByType(type){
+     let  content=editorSet.getContent(type=="ueditor"?"html":"markdown")
+     let currEditor=editorSet.getEditor(type);
+     currEditor.init(content);
+
+        $("[data-editor]").removeClass("selected-editor-btn");
+        $('[data-editor="'+type+'"').addClass("selected-editor-btn");
+
+        if(type=="ueditor"){
+           
+            //切换为html编辑器
+            $('#md-container').hide();
+            $('#html-container').show();
+            
+            $('#contentType').val("html");
+            
+            article.editorType="markdown";
+            article.meditor=currEditor.getEditor();
+ 
+        }else if(type=="editormd"){
+            //切换为markdown编辑器
+          
+            $('#md-container').show();
+            $('#html-container').hide();
+            $('#contentType').val("markdown");
+            article.editorType="html";
+            article.htmlEditor=currEditor.getEditor();
+          
+        }
+}
+
+function confirmsSwicthEditor(obj){
+    confirmsSwicthEditorByType($(obj).data("editor"));
+}
+
+
 var articleCache={
 	constant:{
 		cacheKey: 'article-cache-',
@@ -302,12 +372,6 @@ function getPlainText(content){
    content=content.replace(/\s/g,''); //将空格去掉
    return content;
 }
-
-
- 
- 
-
-
 
 $(document).ready(function () {
 
@@ -431,7 +495,9 @@ $(function(){
 	    $(".fa-columns").trigger("click");
 	    isHideShowHtml=true;
 	}
- 
+    $(".switch-editor").click(function(){
+        confirmsSwicthEditor(this);
+    })
 })
 
 

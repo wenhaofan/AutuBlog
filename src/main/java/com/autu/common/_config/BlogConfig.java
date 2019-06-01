@@ -3,6 +3,7 @@ package com.autu.common._config;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.autu._admin.article.AdminArticleLuceneIndexes;
+import com.autu._admin.common.config.router.AdminApiRoutes;
 import com.autu._admin.common.config.router.AdminRoutes;
 import com.autu.common.config.ConfigService;
 import com.autu.common.directive.Theme;
@@ -65,6 +66,8 @@ public class BlogConfig extends JFinalConfig {
 		me.add(new AdminRoutes());
 		frontRoutes = new FrontRoutes();
 		me.add(frontRoutes);
+		
+		me.add(new AdminApiRoutes());
 	}
 
 	private static Prop loadConfig() {

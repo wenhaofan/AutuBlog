@@ -16,8 +16,9 @@
 }
 
 #dropzone{
-	height:800px;
-	background-size: contain!important;
+	    width: 400px;
+    height: 410px;
+	    background-size: cover;    background-position: 50% 50%;
 	background-repeat: no-repeat;
 }
 
@@ -41,4 +42,12 @@
 
 #meditor{
 	z-index: 1;
+}
+.switch-editor{
+    float: right;
+}
+.selected-editor-btn{
+    background-color: #5FB878;
+    color: white;
+    border-color: #5FB878;
 }
