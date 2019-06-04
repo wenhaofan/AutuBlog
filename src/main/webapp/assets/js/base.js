@@ -4,10 +4,8 @@
 $.extend({
     fl: function () {
     },
-    constant: function () { //常量池
+    constant: function () {  
         return {
-            ///-------文件常量----------
-            MAX_FILES: 10,//一次队列最大文件数
         }
     }
 });
@@ -197,3 +195,20 @@ $.fl.prototype.mergeJson = function(json1,json2){
 	}
 	return json1;
 }
+
+$.fn.serializeJson = function()   
+{   
+   var o = {};   
+   var a = this.serializeArray();   
+   $.each(a, function() {   
+       if (o[this.name]) {   
+           if (!o[this.name].push) {   
+               o[this.name] = [o[this.name]];   
+           }   
+           o[this.name].push(this.value || '');   
+       } else {   
+           o[this.name] = this.value || '';   
+       }   
+   });   
+   return o;   
+}; 

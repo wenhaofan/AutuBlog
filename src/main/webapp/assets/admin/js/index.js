@@ -1,20 +1,5 @@
 var fl=new $.fl();
-$.fn.serializeJson = function()   
-{   
-   var o = {};   
-   var a = this.serializeArray();   
-   $.each(a, function() {   
-       if (o[this.name]) {   
-           if (!o[this.name].push) {   
-               o[this.name] = [o[this.name]];   
-           }   
-           o[this.name].push(this.value || '');   
-       } else {   
-           o[this.name] = this.value || '';   
-       }   
-   });   
-   return o;   
-}; 
+
 $(function(){
 	
  	$(".menu-tree a").each(function(){
@@ -22,8 +7,8 @@ $(function(){
 			$(this).addClass("layui-this")
 		}
 	})
- 
-	$(document).on('pjax:start', function() { NProgress.start(); });
+    $(document).on('pjax:start', function() { NProgress.start(); });
+    
 	$(document).on('pjax:end',   function() { 
 		NProgress.done(); 
 		$(".note-popover").remove() 

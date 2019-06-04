@@ -1,27 +1,20 @@
-$(function(){
-	
-	//避免pjax重复加载js导致事件重复绑定
-	if (typeof (adminConfigIsBind) != "undefined") {
-	    return;
-	}   
-	adminConfigIsBind=true;
-	
-	$("#addBlogroll").click(function(){
-		editBlogroll({});
-	})
-	
+define(['jquery'], function($) {
+    $("body").on("click","#addBlogroll",function(){
+        editBlogroll({});
+    })
+ 
 	$("body").on("click",".update-blogroll",function(){
 		var id=$(this).data("id");
 		updateBlogroll(id);
-	})
+    })
+    
 	$("body").on("click",".delete-blogroll",function(){
 		var id=$(this).data("id");
-		deleteBlogroll(id);
-	})
-	
-})
-
-function deleteBlogroll(id){
+        deleteBlogroll(id);
+    })
+    
+    const console={
+deleteBlogroll:function (id){
 	fl.alertConfirm({title:"确认删除?",then:function(){
 		fl.ajax({
 			url:"/admin/api/blogroll/remove/"+id,
@@ -30,9 +23,8 @@ function deleteBlogroll(id){
 			}
 		})
 	}})
-}
-
-function editBlogroll(data){
+},
+editBlogroll:function (data){
 	var content=template("tpl-edit-blogroll",data);
 	
 	var width=520;
@@ -46,11 +38,11 @@ function editBlogroll(data){
 	  	  type: 1, 
 	  	  content: content //这里content是一个普通的String
   	});
-}
+},
 /**
  * 获取友链信息,并打开修改框
  */
-function updateBlogroll(id){
+updateBlogroll:function (id){
 	fl.ajax({
 		url:"/admin/api/blogroll/get/"+id,
 		type:"post",
@@ -58,10 +50,8 @@ function updateBlogroll(id){
 			editBlogroll(data.blogroll);
 		}
 	})
-}
-
-
-function setBasicForm(){
+},
+setBasicForm:function (){
 	fl.ajax({
 		url:"/admin/api/config",
 		dataType:"json",
@@ -72,8 +62,8 @@ function setBasicForm(){
 			form.val("editConfig",config)
 		}
 	})
-}
-function editConfig(data){
+},
+editConfig:function (data){
 	fl.ajax({
 		url:"/admin/api/config/edit",
 		data:data,
@@ -82,8 +72,8 @@ function editConfig(data){
 			fl.alertOk({title:"修改成功！"});
 		}
 	})
-}
-function doEditBlogroll(data){
+},
+doEditBlogroll:function (data){
 	fl.ajax({
 		url:"/admin/api/blogroll/saveOrUpdate",
 		data:data,
@@ -93,6 +83,14 @@ function doEditBlogroll(data){
 		}
 	})
 }
+    };
+
+    return {
+        "console":console
+    };
+});
+ 
+
  
 layui.use(['form', 'laytpl','table','upload'],function(){
 	form=layui.form;
