@@ -53,7 +53,7 @@
 <script type="text/htmp" id="option-tpl">
 	<option value="" selected>----<option>
 	{{ each categorys }}
-		<option value='{{ $value.id}}'>{{  $value.mname }}({{  $value.count }})<option>
+		<option value='{{ $value.id}}'>{{  $value.name }}({{  $value.count }})<option>
 	{{ /each }}
 </script>
 <script type="text/html" id="operation-tpl">
@@ -74,4 +74,11 @@
 ]]#
 </script>
 <script type="text/javascript" src="/assets/common/meta.js"></script>
-<script type="text/javascript" src="/assets/admin/js/article-list.js"></script>
+
+ <script>
+    function requireLoad(){
+      require(['articleList'],function(articleList){
+        articleList.pjaxLoad();
+     })
+    }
+ </script>

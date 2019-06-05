@@ -1,56 +1,6 @@
-var fl=new $.fl();
+ 
 
-$(function(){
-	
- 	$(".menu-tree a").each(function(){
-		if($(this).attr("href")==requestUrl){
-			$(this).addClass("layui-this")
-		}
-	})
-    $(document).on('pjax:start', function() { NProgress.start(); });
-    
-	$(document).on('pjax:end',   function() { 
-		NProgress.done(); 
-		$(".note-popover").remove() 
-	});
- 	$(document).pjax('a[pjax]', '.layui-fluid');
-	
-	$(".layui-toggle-menu").click(function(){
-		if($(this).find("i").hasClass("layui-icon-spread-left")){
-			$(this).find("i").removeClass("layui-icon-spread-left");
-			$(this).find("i").addClass("layui-icon-shrink-right");
-			$(".layui-side").show();
-			$(".layui-body").css("left","200px");
-		}else{
-			$(this).find("i").addClass("layui-icon-spread-left");
-			$(this).find("i").removeClass("layui-icon-shrink-right");
-			$(".layui-side").hide();
-			$(".layui-body").css("left","0");
-		}
-	})
-	
-	$(window).resize(function(){
-		if($(window).width()<=768){
-			$(".layui-toggle-menu i").addClass("layui-icon-spread-left");
-			$(".layui-toggle-menu i").removeClass("layui-icon-spread-right");
-			$(".layui-side").hide();
-			$(".layui-body").css("left",0);
-		}
-	})
-
-})
-
-
-$(function(){
-	if($(window).width()<=768){
-		$(".layui-toggle-menu i").addClass("layui-icon-spread-left");
-		$(".layui-side").hide();
-		$(".layui-body").css("left",0);
-	}else{
-		$(".layui-toggle-menu i").addClass("layui-icon-shrink-right");
-		$(".layui-side").show();
-	}
-})
+ 
  
 var updatePwdIndex;
 layui.use(['form','element','layer'],function(){

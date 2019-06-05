@@ -48,8 +48,8 @@
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							 <button class="layui-btn" id="submit-btn-category" onclick="changeType('category')" lay-submit lay-filter="metaForm" >添加分类</button>
-							 <button class="layui-btn" id="submit-btn-tag" onclick="changeType('tag')" lay-submit lay-filter="metaForm" >添加标签</button>
+							 <button class="layui-btn meta-changetype" id="submit-btn-category" data-type="category"   lay-submit lay-filter="metaForm" >添加分类</button>
+							 <button class="layui-btn meta-changetype" id="submit-btn-tag"  data-type="tag" lay-submit lay-filter="metaForm" >添加标签</button>
 							 <button type="reset" id="reset" class="layui-btn layui-btn-primary" >清空</button>
 						</div>
 					</div>
@@ -62,15 +62,20 @@
 <script type="text/html" id="tpl-meta-list">
 	 <li class="layui-nav-item">
 	    <a href="javascript:;">
-				{{ meta.mname}}({{meta.count}})
+				{{ meta.name}}({{meta.count}})
 <i class="fa fa-caret-down"></i>
- 
 		</a>
 	    <dl class="layui-nav-child" > <!-- 二级菜单 -->
-	      <dd><a href="javascript:void(0)" onclick="update(this,'{{type}}',{{meta.id}},'{{meta.mname}}',{{meta.sort}})" >修改</a></dd>
-	      <dd><a href="javascript:remove({{meta.id}})">删除</a></dd>
+	      <dd><a href="javascript:void(0)"  onclick="meta.update(this,'{{type}}',{{meta.id}},'{{meta.name}}',{{meta.sort}})" >修改</a></dd>
+	      <dd><a href="javascript:meta.remove({{meta.id}})">删除</a></dd>
 	    </dl>
 	 </li>		
 </script>
-<script src="/assets/admin/js/meta-list.js"></script>
-<script src="/assets/common/meta.js"></script>
+<script> 
+    function requireLoad(){
+        require(['meta'],function(me){
+            meta=me;
+            meta.pjaxLoad();
+         })
+    }
+</script>

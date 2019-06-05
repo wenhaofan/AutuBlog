@@ -1,12 +1,58 @@
 
 define([
-    
-], function( ) {
-    const articleList={
+   'jquery' ,
+   'fl',
+   'layui'
+], function($,fl,layui) {
+    let articleList={
+        $:$,
+        fl:fl,
+        form:layui.form,
+        layer:layui.layer,
+        table :layui.table,
+        form:layui.form,
         resetLayerIndex:0,
-        //渲染文章列表
+          //layui加载完成的回调
+        pjaxLoad:function(){
+            this.renderArticles();
+            this.initCategorySelect();
+        }, bind:function(){
+            let that=this;
+            $("body").on("click", ".article-remove", function() {
+               that.removeArticle(this);
+            })
+            $("body").on("click", ".article-delete", function() {
+                that.deleteArticle(this);
+            })
+            
+            $("body").on("click", ".article-recover", function() {
+                that.recoverArticle(this);
+            })
+            
+            $("body").on("click",".article-push",function(){
+                that.asyncMetaWeblog(this);
+            })
+
+            $("body").on("click",".createIndex",function(){
+                that.resetIndex();
+            })
+
+            that.form.on('select(category-select)', function(data) {
+                that.querylist($(".layui-form").serializeJson());
+            }); 
+            that.form.on('select(state-select)', function(data) {
+                that.querylist($(".layui-form").serializeJson())
+            });
+        },
+        querylist:function (data) {
+            this.table.reload('articles', {
+                url : '/admin/api/article/list',
+                where :data
+            // 设定异步数据接口的额外参数
+            });
+        },   //渲染文章列表
         renderArticles:function (){
-            fl.renderTable({
+            this.fl.renderTable({
                 page:{count:80,limit:10}
                 ,url:'/admin/api/article/list' 
                 ,elem: '#articles'
@@ -26,7 +72,8 @@ define([
          * @returns
          */
         resetIndex:function (){
-            resetLayerIndex=layer.msg('重置中', {
+            let that=this;
+            resetLayerIndex=this.layer.msg('重置中', {
                     icon: 16
                     ,shade: 0.01,
                     time: false,
@@ -34,13 +81,13 @@ define([
                             
                         }
                     }); 
-            fl.ajax({
+            that.fl.ajax({
                 url:"/admin/api/article/createIndex",
                 success:function(data){
-                    fl.alertOk({title:"重置成功！"});
-                    layer.close(resetLayerIndex);
+                    that.fl.alertOk({title:"重置成功！"});
+                    that.layer.close(resetLayerIndex);
                 },error:function(){
-                    layer.close(resetLayerIndex);
+                    that.layer.close(resetLayerIndex);
                 }
             })
         },
@@ -49,19 +96,21 @@ define([
         * @param that
         * @returns
         */
-        recoverArticle:function (that){
-            var id = $(that).data("id");
-            fl.alertConfirm({title:"是否确认恢复？",then:function(){
-                fl.ajax({
+        recoverArticle:function (obj){
+            var id = $(obj).data("id");
+            let that=this;
+            that.fl.alertConfirm({title:"是否确认恢复？",then:function(){
+                that.fl.ajax({
                     url : "/admin/api/article/recover/"+id,
                     success : function(data) {
-                        fl.alertOkAndReload(data.msg)
+                        that.fl.alertOkAndReload(data.msg)
                     }
                 })
             }})
         },
         /** 初始化分类多选 */
         initCategorySelect:function () {
+            let that=this;
             var initCategorys = {
                 type:"category",
                 callback : function(categorys) {
@@ -69,26 +118,38 @@ define([
                         "categorys" : categorys
                     });
                     $("#category-select").html(html);
-                    form.render('select');
+                    that.form.render('select');
                 }
             }
-            metaUtils.listMeta( initCategorys);
-        },
-         
-
+            this.listMeta( initCategorys);
+        }, 
+		/**根据类型查询文章元数据,为空则查询所有*/
+		listMeta:function (paras){
+             let that=this;
+			$.ajax({
+				url:"/api/meta/list/"+paras.type,
+				dataType:"json",
+				success:function(data){
+					if(that.fl.isOk(data)){
+						paras.callback(data.metas);
+					}
+				}
+			})
+		},
         /**
                 * 废弃文章
          * @param that
          * @returns
          */
-        removeArticle:function (that){
-            var id = $(that).data("id");
-            fl.alertConfirm({title:"是否确认废弃？",then:function(){
-                fl.ajax({
+        removeArticle:function (obj){
+            let that=this;
+            var id = $(obj).data("id");
+            that.fl.alertConfirm({title:"是否确认废弃？",then:function(){
+                that.fl.ajax({
                     url : "/admin/api/article/remove/"+id,
                     success : function(data) {
-                        fl.alertOk({title:data.msg});
-                        $(that).parent().parent().parent().remove();
+                        that.fl.alertOk({title:data.msg});
+                        $(obj).parent().parent().parent().remove();
                     }
                 })
             }})
@@ -100,13 +161,14 @@ define([
          * @param that
          * @returns
          */
-        deleteArticle:function (that){
-            var id = $(that).attr("data-id");
-            fl.alertConfirm({title:"是否确认删除？",text:"注意：删除后将不能恢复！",then:function(){
-                fl.ajax({
+        deleteArticle:function (obj){
+            let that=this;
+            var id = $(obj).attr("data-id");
+            that.fl.alertConfirm({title:"是否确认删除？",text:"注意：删除后将不能恢复！",then:function(){
+                that.fl.ajax({
                     url : "/admin/api/article/delete/"+id,
                     success : function(data) {
-                        fl.alertOk({title:data.msg});
+                        that.fl.alertOk({title:data.msg});
                         $(that).parent().parent().parent().remove();
                     }
                 })
@@ -118,53 +180,21 @@ define([
         * @param that
         * @returns
         */
-        asyncMetaWeblog:function (that){
-            fl.ajax({
-                url:"/admin/api/article/asyncMetaWeblog/"+$(that).data("id"),
+        asyncMetaWeblog:function (obj){
+            let that=this;
+            that.fl.ajax({
+                url:"/admin/api/article/asyncMetaWeblog/"+$(obj).data("id"),
                 success:function(data){
-                    fl.alertOk({});
+                    that.fl.alertOk({});
                 }
             })
         },
-        //layui加载完成的回调
-        layuiLoad:function(){
- 
-            form.on('select(category-select)', function(data) {
-                querylist($(".layui-form").serializeJson());
-            });
-            form.on('select(state-select)', function(data) {
-                querylist($(".layui-form").serializeJson())
-            });
-            
-            this.renderArticles();
-            this.initCategorySelect();
-        },
-        //jquery加载完成的回调
-        jqueryLoad:function(){
-            const that=this;
-            $("body").on("click", ".article-remove", function() {
-                that.removeArticle(this);
-            })
-            $("body").on("click", ".article-delete", function() {
-               that.deleteArticle(this);
-            })
-            
-            $("body").on("click", ".article-recover", function() {
-               that.recoverArticle(this);
-            })
-            
-            $("body").on("click",".article-push",function(){
-                that.asyncMetaWeblog(this);
-            })
-        
-            $("body").on("click",".createIndex",function(){
-                that.resetIndex();
-            })
-        }
+  
     };
-    return {
-        articleList:articleList
-    };
+
+    articleList.bind();
+
+    return articleList;
 });
  
 
