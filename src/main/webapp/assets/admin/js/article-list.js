@@ -1,12 +1,11 @@
-
-define([
+layui.define([
    'jquery' ,
    'fl',
    'layui'
-], function($,fl,layui) {
+], function(exports) {
     let articleList={
-        $:$,
-        fl:fl,
+        $:layui.$,
+        fl:layui.fl,
         form:layui.form,
         layer:layui.layer,
         table :layui.table,
@@ -194,7 +193,7 @@ define([
 
     articleList.bind();
 
-    return articleList;
+    exports("articleList",articleList);
 });
  
 

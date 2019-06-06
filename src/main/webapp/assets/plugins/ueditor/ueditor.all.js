@@ -1,3 +1,4 @@
+
 /*!
  * UEditor
  * version: ueditor
@@ -29563,6 +29564,8 @@ UE.registerUI('autosave', function(editor) {
 
 });
 
-
+layui.define([],function(exports){
+    exports("ueditor",{UE:UE});
+})
 
 })();

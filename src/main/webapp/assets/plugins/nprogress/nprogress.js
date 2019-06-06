@@ -1,7 +1,7 @@
 /* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
  * @license MIT */
-
-;(function(root, factory) {
+layui.define(function(exports){
+     (function(root, factory) {
 
   if (typeof define === 'function' && define.amd) {
     define(factory);
@@ -12,6 +12,7 @@
   }
 
 })(this, function() {
+
   var NProgress = {};
 
   NProgress.version = '0.2.0';
@@ -473,4 +474,6 @@
 
   return NProgress;
 });
+    exports("NProgress",this.NProgress);
+})
 

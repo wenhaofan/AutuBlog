@@ -1,12 +1,15 @@
 
-define([
+layui.define([
     'jquery',
     'fl',
     'layui'
-], function ($, fl, layui) {
+], function (exports) {
 
     const meta = {
-        pjaxLoad: function () {
+        pjaxLoad:function(){
+            this.load();
+        },
+        load: function () {
             var initCategory = {
                 type: "category",
                 callback: function (categorys) {
@@ -159,6 +162,6 @@ define([
     }
 
     meta.bind();
-    return meta;
+    exports("meta",meta);
 });
 

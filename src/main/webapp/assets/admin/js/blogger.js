@@ -1,14 +1,41 @@
-
-var blogger={
+lauyi.define([
+    'jquery',
+    'fl',
+    'ueditor',
+    'form',
+    'upload'
+], function(exports) {
+   var blogger={
 	htmlEditor:null,
-	isInit:false,
-	init:function(){
-		this.htmlEditor= UE.getEditor('blogger-ueditor',{
+    
+    bind:function(){
+       const form=layui.form;
+       const that =this;
+       form.on("submit(bloggerEdit)",function(data){
+            that.editInfo(data.field);
+        })
+    },
+    load:function(){
+        form=layui.form;
+        var upload = layui.upload;
+        form.render();
+        //执行实例
+        upload.render({
+            field:"upfile",
+            elem: '#uploadHeadImg' //绑定元素
+            ,url: '/admin/api/upload/headimg' //上传接口
+            ,done: function(res){
+                $(".avatar-img").attr("src",res.info.url);
+                $("input[name='headImg']").val(res.info.url);
+            },error: function(){
+                layui.fl.alertErro("上传失败！");
+            }
+        });
+        this.htmlEditor= layui.ueditor.UE.getEditor('blogger-ueditor',{
 			initialFrameHeight:400,
 			initialContent :this.getContent()
 		});
-		this.isInit=true;
-	},getContent:function(){
+    },getContent:function(){
 		
 		if(!this.isInit){
 			return $(".blogger #about-content").html();
@@ -27,31 +54,9 @@ var blogger={
 		})
 	}
 }
+blogger.bind();
+    exports("blogger",blogger);
+});
 
  
-layui.use(['form','upload'],function(){
-	form=layui.form;
-	var upload = layui.upload;
-	form.render();
-	form.on("submit(submitEdit)",function(data){
-		blogger.editInfo(data.field);
-	})
-	
-	 //执行实例
-   upload.render({
-	field:"upfile",
-    elem: '#uploadHeadImg' //绑定元素
-    ,url: '/admin/api/upload/headimg' //上传接口
-    ,done: function(res){
-      	$(".avatar-img").attr("src",res.info.url);
-      	$("input[name='headImg']").val(res.info.url);
-    },error: function(){
-      fl.alertErro("上传失败！");
-    }
-  });
-}) 
-$(function(){
-	blogger.init();
-})
-
  

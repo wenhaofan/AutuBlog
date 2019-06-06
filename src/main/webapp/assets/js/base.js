@@ -1,9 +1,11 @@
-define([
+layui.define([
     'jquery',
     'NProgress',
-    'layui'
-], function($,NProgress,layui) {
-    const table= layui.table;
+    'table'
+], function(exports) {
+    
+    let $=layui.$;
+
      /**
      *  fl全局函数对象   var fl = new $.fl();
      */
@@ -218,5 +220,6 @@ define([
     });   
     return o;   
     }; 
-    return  new $.fl();
+
+    exports("fl",new $.fl());
 });

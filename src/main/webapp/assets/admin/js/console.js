@@ -1,18 +1,17 @@
-define([
+layui.define([
     'jquery',
     'fl',
-    'echarts'
-], function ($, fl,echarts) {
+], function (exports) {
+ 
     const console = {
-        $:$,
-        fl:fl,
-        echarts:echarts,
-        bindLoad:function(){
+ 
+        echartsLoadTimmer:0,
+        bind:function(){
 
         },
         pjaxLoad: function () {
-            const fl=this.fl;
-            const $=this.$;
+            const fl=layui.fl;
+             
             fl.ajax({
                 url: "/admin/api/article/listHot",
                 success: function (data) {
@@ -44,12 +43,22 @@ define([
             })
 
             this.initStatistic();
-            this.renderAccessReport();
-            this.renderArticleReport();
+
+            //等待echarts加载完成再执行
+           const that=this;
+           this.echartsLoadTimmer=setInterval(() => {
+            
+                if(typeof echarts!="undefined"){
+                     this.renderAccessReport();
+                     this.renderArticleReport();
+                     clearInterval(that.echartsLoadTimmer);
+                }
+
+           }, 500);
 
         },   renderArticleReport: function () {
-            const fl=this.fl;
-            const $=this.$;
+            const fl=layui.fl;
+           
             var myChart = echarts.init(document.getElementById('bar'));
 
             fl.ajax({
@@ -137,7 +146,7 @@ define([
                 }
             })
         }, initStatistic:function(){
-            const fl=this.fl;
+            const fl=layui.fl;
             const $=this.$;
             const statistic = {
                 countByDate: function (paras) {
@@ -202,7 +211,7 @@ define([
         }
     };
 
-    return console;
+   exports("console",console);
 });
 
 

@@ -1,12 +1,13 @@
-define([
+layui.define([
     'jquery'
-], function($) {
+], function(exports) {
    /*!
  * Copyright 2012, Chris Wanstrath
  * Released under the MIT License
  * https://github.com/defunkt/jquery-pjax
  */
-
+const $=layui.$;
+exports("pjax",this);
 (function($){
 
 // When called on a container with a selector, fetches the href with

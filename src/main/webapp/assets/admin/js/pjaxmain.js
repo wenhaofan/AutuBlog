@@ -1,9 +1,10 @@
-define([
+layui.define([
     'jquery',
     'NProgress',
     'pjax'
-], function($, NProgress,pjax) {
-    return {
+], function(exports) {
+    const $=layui.$, NProgress=layui.NProgress,pjax=layui.pjax;
+    const pjaxmain= {
         $:$,
         NProgress:NProgress,
         "load":function(){
@@ -22,6 +23,7 @@ define([
             $(document).pjax('a[pjax]', '.layui-fluid');
  	   }
     };
+    exports("pjaxmain",pjaxmain);
 });
 
 
