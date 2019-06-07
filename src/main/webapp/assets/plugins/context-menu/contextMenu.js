@@ -1,4 +1,9 @@
-var $contextMenu= (function(){
+
+    
+layui.define([
+    'jquery' 
+], function(exports) {
+  var $contextMenu= (function(){
     return {
     	menuItemMap:{},
     	onlyOne:true,
@@ -69,8 +74,14 @@ var $contextMenu= (function(){
 		},getRandomStr(){
 			return Math.random().toString(36).substr(2);
 		}
-	}})();
-//隐藏所有
-$('html').on('contextmenu', function (){}).click(function(){
-	$('.context-menu').hide();
+    }})();
+
+        //隐藏所有
+    $('html').on('contextmenu', function (){}).click(function(){
+        $('.context-menu').hide();
+    });
+
+
+    exports("contextMenu",$contextMenu);
 });
+

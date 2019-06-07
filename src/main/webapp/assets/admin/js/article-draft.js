@@ -17,11 +17,14 @@ layui.define(['fl', 'jquery', 'table'], function (exports) {
                 that.asyncMetaWeblog(this);
             })
         },
-        pjaxLoad:function(){
+        pjaxLoad: function () {
+            this.load();
+        },
+        load: function () {
             this.renderArticles();
         },
         renderArticles: function () {
-            this.fl.renderTable({
+            layui.fl.renderTable({
                 where: { state: 0 }
                 , page: { count: 80, limit: 10 }
                 , url: '/admin/api/article/list'

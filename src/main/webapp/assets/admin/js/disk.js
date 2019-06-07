@@ -2,7 +2,8 @@
 layui.define([
     'jquery',
     'layer',
-    'fl'
+    'fl',
+    'contextMenu'
 ], function (exports) {
 
     const disk = {
@@ -12,16 +13,18 @@ layui.define([
         thumbImg: {
             img: ["png", "jpg"], apk: "apk", code: ["java", "js", "css", "python", "php", "vue", "class"], miss: null, exe: "exe", folder: "folder", html: "html"
             , music: "music", pdf: "pdf", txt: "txt", video: "video", word: "word", zip: "zip"
-        }
+        },
         bind: function () {
-            $(".disk-upload-button").click(function () {
+            const that=this;
+            $("body").on("click",".disk-upload-button",function () {
                 $(".disk-upload-file").trigger("click");
             })
-            $(".folder-goback a").click(function () {
-                goBackFolder();
+             $("body").on("click",".folder-goback a",function () {
+                that.goBackFolder();
             })
-            $(".disk-create-folder").click(function () {
-                createFolderItem();
+
+            $("body").on("click",".disk-create-folder",function () {
+                that.createFolderItem();
             })
 
 
@@ -535,6 +538,7 @@ layui.define([
 
     };
 
+    disk.bind();
     exports("disk", disk);
 });
 

@@ -2,11 +2,10 @@ layui.define(['layer', 'table', 'form', 'jquery'], function (exports) {
 
     const comment = {
         bind: function () {
-            layer = layui.layer;
-            table = layui.table;
+
             form = layui.form;
-            that = this;
-            renderTable();
+            const that = this;
+
 
             form.render();
             //监听提交
@@ -39,9 +38,16 @@ layui.define(['layer', 'table', 'form', 'jquery'], function (exports) {
             $("body").on("click", ".go", function () {
                 that.showComment(this);
             })
-        },submitReply: function (info) {
-            replyData = info;
-            fl=layui.fl;
+        },
+        load: function () {
+            this.renderTable();
+        },
+        pjaxLoad: function () {
+            this.load();
+        },
+        submitReply: function (replyData) {
+            fl = layui.fl;
+            layer = layui.layer;
             fl.alertConfirm({
                 title: "确认回复？", then: function () {
                     fl.ajax({
@@ -79,13 +85,14 @@ layui.define(['layer', 'table', 'form', 'jquery'], function (exports) {
                     , { templet: '#operation-tpl', title: "操作", width: 190 }
                 ]]
             });
-        },showComment: function (that) {
+        }, showComment: function (that) {
             var pageNum = $(that).data("page");
             var identify = $(that).data("identify");
             var id = $(that).data("id");
             window.open("/article/" + identify + "?p=" + pageNum + "#li-comment-" + id);
-        },deleteComment: function (that) {
-            deleteId = $(that).data("id");
+        }, deleteComment: function (obj) {
+            deleteId = $(obj).data("id");
+            const fl = layui.fl;
             fl.alertConfirm({
                 title: "确认删除！", then: function () {
                     fl.ajax({
@@ -97,27 +104,25 @@ layui.define(['layer', 'table', 'form', 'jquery'], function (exports) {
                     })
                 }
             })
-        },auditComment: function (that) {
-            var toId = $(that).data("id");
-            var aduit = $(that).data("val");
-            aduitInfo = { toId: toId, aduit: aduit }
-
-            $aduitEle = $(that);
+        }, auditComment: function (obj) {
+            var toId = $(obj).data("id");
+            var aduit = $(obj).data("val");
+            const fl = layui.fl;
             fl.alertConfirm({
                 title: ("确认" + (aduit == "0" ? "不通过？" : "通过？")), then: function () {
                     fl.ajax({
                         url: "/admin/api/comment/aduit",
-                        data: aduitInfo,
+                        data: { toId: toId, aduit: aduit },
                         success: function (data) {
                             fl.alertOkAndReload();
                         }
                     })
                 }
             })
-        }, renderReply: function (that) {
-            const layer=layui.layer;
-            var toId = $(that).data("id");
-            var content = $(that).parent().parent().prev().prev().text();
+        }, renderReply: function (obj) {
+            const layer = layui.layer;
+            var toId = $(obj).data("id");
+            var content = $(obj).parent().parent().prev().prev().text();
 
             var replyHtml = template("tpl-reply", { content: content, toId: toId });
             var width = 520;
@@ -133,7 +138,8 @@ layui.define(['layer', 'table', 'form', 'jquery'], function (exports) {
         }
     }
 
-    exports("comment",comment);
+    comment.bind();
+    exports("comment", comment);
 });
 
 

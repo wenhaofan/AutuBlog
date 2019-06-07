@@ -2,7 +2,7 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl', 'table', 'upload'], functi
     const console = {
         bind: function () {
             form = layui.form;
-           
+
             form.render();
             $("body").on("click", "#addBlogroll", function () {
                 editBlogroll({});
@@ -35,13 +35,13 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl', 'table', 'upload'], functi
             form.on("submit(editBlogroll)", function (data) {
                 doEditBlogroll(data.field);
             })
-   
+
         },
-        pjaxLoad:function(){
+        pjaxLoad: function () {
             this.load();
         },
-        load:function(){
-             upload = layui.upload;
+        load: function () {
+            upload = layui.upload;
             layui.fl.renderTable({
                 elem: '#blogrolls'
                 , url: '/admin/api/blogroll/list'
@@ -156,6 +156,6 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl', 'table', 'upload'], functi
         }
     };
     config.bind();
-exports("config",config);
+    exports("config", config);
 });
 

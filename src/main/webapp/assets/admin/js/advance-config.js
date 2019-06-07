@@ -1,7 +1,5 @@
 
-
 layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
-    $ = layui.$, layui.fl = layui.fl, form = layui.fl;
 
     const advanceConfig = {
         bind: function () {
@@ -33,10 +31,25 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
 
             layui.fl = layui.fl;
             form = layui.form;
-            table = layui.table;
+
 
             form.render();
 
+
+
+            form.on("submit(editMconfig)", function (data) {
+                that.medit(data.field);
+            })
+            form.on("submit(editBconfig)", function (data) {
+                that.bedit(data.field);
+            })
+
+            form.on("submit(pushLinks)", function (data) {
+                that.pushLinks(data.field);
+            })
+        },
+        load: function () {
+            table = layui.table;
             layui.fl.renderTable({
                 elem: '#metaweblog'
                 , url: '/admin/api/metaConfig/mList'
@@ -63,16 +76,8 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
                 ]]
             });
 
-            form.on("submit(editMconfig)", function (data) {
-                that.medit(data.field);
-            })
-            form.on("submit(editBconfig)", function (data) {
-                that.bedit(data.field);
-            })
-
-            form.on("submit(pushLinks)", function (data) {
-                that.pushLinks(data.field);
-            })
+        }, pjaxLoad: function () {
+            this.load();
         },
         mdelete: function (that) {
             deleteMid = $(that).data("id");
@@ -189,6 +194,8 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
             })
         }
     };
+
+    advanceConfig.bind();
     exports("advanceConfig", advanceConfig);
 });
 

@@ -2,16 +2,16 @@ layui.define([
     'jquery',
     'fl',
 ], function (exports) {
- 
+
     const console = {
- 
-        echartsLoadTimmer:0,
-        bind:function(){
+
+        echartsLoadTimmer: 0,
+        bind: function () {
 
         },
         pjaxLoad: function () {
-            const fl=layui.fl;
-             
+            const fl = layui.fl;
+
             fl.ajax({
                 url: "/admin/api/article/listHot",
                 success: function (data) {
@@ -45,20 +45,20 @@ layui.define([
             this.initStatistic();
 
             //等待echarts加载完成再执行
-           const that=this;
-           this.echartsLoadTimmer=setInterval(() => {
-            
-                if(typeof echarts!="undefined"){
-                     this.renderAccessReport();
-                     this.renderArticleReport();
-                     clearInterval(that.echartsLoadTimmer);
+            const that = this;
+            this.echartsLoadTimmer = setInterval(() => {
+
+                if (typeof echarts != "undefined") {
+                    this.renderAccessReport();
+                    this.renderArticleReport();
+                    clearInterval(that.echartsLoadTimmer);
                 }
 
-           }, 500);
+            }, 500);
 
-        },   renderArticleReport: function () {
-            const fl=layui.fl;
-           
+        }, renderArticleReport: function () {
+            const fl = layui.fl;
+
             var myChart = echarts.init(document.getElementById('bar'));
 
             fl.ajax({
@@ -113,6 +113,7 @@ layui.define([
                 }
             })
         }, renderAccessReport: function () {
+            const fl=layui.fl;
             fl.ajax({
                 url: "/admin/api/statistic/statisticsAccessNumDays/7",
                 success: function (data) {
@@ -145,9 +146,9 @@ layui.define([
                     });
                 }
             })
-        }, initStatistic:function(){
-            const fl=layui.fl;
-            const $=this.$;
+        }, initStatistic: function () {
+            const fl = layui.fl;
+        
             const statistic = {
                 countByDate: function (paras) {
                     $.ajax({
@@ -211,9 +212,8 @@ layui.define([
         }
     };
 
-   exports("console",console);
+    exports("console", console);
 });
 
 
 
- 

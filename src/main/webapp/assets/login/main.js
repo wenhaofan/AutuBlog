@@ -1,8 +1,5 @@
-
 (function ($) {
     "use strict";
-
-
      /*==================================================================
     [ Focus input ]*/
     $('.input100').each(function(){
@@ -15,8 +12,6 @@
             }
         })    
     })
-  
-  
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
@@ -67,7 +62,6 @@
             }
         }
     }
-
     function showValidate(input) {
         var thisAlert = $(input).parent();
 
@@ -79,7 +73,4 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-    
-    
-
 })(jQuery);
