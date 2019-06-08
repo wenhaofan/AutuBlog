@@ -18,10 +18,11 @@
      NProgress:'{/}/assets/plugins/nprogress/nprogress',
      pjax:'{/}/assets/plugins/jquery-pjax/jquery.pjax',
      ueditor:'{/}/assets/plugins/ueditor/ueditor.all',
+     contextMenu:'{/}/assets/plugins/context-menu/contextMenu'
 });
  
  
-layui.use(['admin'], function (admin){
+layui.use(['admin','element'], function (admin){
     admin.load();
 });
  

@@ -16,6 +16,7 @@ layui.define([
         },
         bind: function () {
             const that=this;
+            const contextMenu=layui.contextMenu;
             $("body").on("click",".disk-upload-button",function () {
                 $(".disk-upload-file").trigger("click");
             })
@@ -76,7 +77,7 @@ layui.define([
                     }
                 })
             })
-            $contextMenu.on(".disk-file", [
+            contextMenu.on(".disk-file", [
                 {
                     events: {
                         "click": function (element) {
@@ -107,7 +108,7 @@ layui.define([
             ]);
 
 
-            $contextMenu.on(".disk-main", [
+            contextMenu.on(".disk-main", [
                 {
                     events: {
                         "click": function (element) {
@@ -140,7 +141,7 @@ layui.define([
                 }
             ]);
 
-            $contextMenu.on(".disk-folder", [
+            contextMenu.on(".disk-folder", [
                 {
                     events: {
                         "click": function (element) {
@@ -162,17 +163,16 @@ layui.define([
                 }
             ]);
         }, load: function () {
-            listDiskItem({ parentId: currentFolderId });
+            this.listDiskItem({ parentId: currentFolderId });
 
             if (currentFolderId != 0) {
                 queryFolderNav(currentFolderId);
             }
-            var uploadUtil = new $.uploadUtil();
-            uploadUtil.setUploadServerUrl("/admin/api/disk/upload");
+          
         },
         clickFolder: function (folderId, folderName) {
             changeMenuNav(folderId, folderName);
-            listDiskItem({ parentId: folderId });
+            this.listDiskItem({ parentId: folderId });
         },
 
         share: function (id) {
@@ -277,12 +277,13 @@ layui.define([
          * @param query
          * @returns
          */
-        listDiskItem: function (query) {
+       listDiskItem: function (query) {
             $(".disk-content").empty();
             if (!query) {
                 query = {};
             }
             currentFolderId = query.parentId;
+           const  that=this;
             $.ajax({
                 url: "/admin/api/disk/list/",
                 data: query,
@@ -301,7 +302,7 @@ layui.define([
                         var folderNum = 0;
                         $.each(data.list, function () {
                             if (this.type == "folder") {
-                                addFileItem(this);
+                                that.addFileItem(this);
                                 folderNum++;
                             }
                         })
@@ -309,14 +310,14 @@ layui.define([
                         var fileNum = 0;
                         $.each(data.list, function () {
                             if (this.type != "folder") {
-                                addFileItem(this);
+                                that.addFileItem(this);
                                 fileNum++;
                             }
                         })
                         $(".disk-file-num").text(fileNum);
 
                         if ((folderNum + fileNum) == 0) {
-                            addEmptyInfo();
+                            that.addEmptyInfo();
                         }
                     } else {
                         console.log("erro----加载失败");

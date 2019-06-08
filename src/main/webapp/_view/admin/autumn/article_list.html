@@ -77,7 +77,7 @@
 
  <script>
     function requireLoad(){
-      require(['articleList'],function(articleList){
+      layui.use(['articleList'],function(articleList){
         articleList.pjaxLoad();
      })
     }

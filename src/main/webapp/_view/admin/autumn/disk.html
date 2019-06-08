@@ -94,7 +94,11 @@ var currentFolderId="#(folderId)";
 	</div>
 </div>
 
-<script type="text/javascript" src="/assets/plugins/context-menu/contextMenu.js"></script>
-<script type="text/javascript" src="/assets/common/upload.js"></script>
-<script type="text/javascript" src="/assets/admin/js/disk.js"></script>
 <script type="text/javascript" src="/assets/plugins/clipboard/clipboard.min.js"></script>
+<script>
+    function requireLoad(){
+        layui.use(['disk'],function(disk){
+            disk.load();
+        })
+    }
+</script>

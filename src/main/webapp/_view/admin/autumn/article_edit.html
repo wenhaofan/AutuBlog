@@ -199,4 +199,10 @@ $(function(){
 
 <script src="/assets/plugins/turndown/turndown.js"></script>
 
-<script type="text/javascript" src="/assets/admin/js/article-edit.js"></script>
+<script>
+    function requireLoad(){
+      layui.use(['articleEdit'],function(articleEdit){
+        articleEdit.pjaxLoad();
+     })
+    }
+</script>

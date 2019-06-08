@@ -2,7 +2,7 @@
 layui.define([
     'jquery',
     'fl',
-    'layui'
+    'form'
 ], function (exports) {
 
     const meta = {
@@ -97,7 +97,7 @@ layui.define([
 				url:"/api/meta/list/"+paras.type,
 				dataType:"json",
 				success:function(data){
-					if(fl.isOk(data)){
+					if(layui.fl.isOk(data)){
 						paras.callback(data.metas);
 					}
 				}
@@ -123,35 +123,35 @@ layui.define([
         },
 
         add: function (data) {
-            fl.ajax({
+            layui.fl.ajax({
                 url: "/admin/api/meta/add",
                 type: "post",
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    fl.alertOkAndReload(data.text);
+                    layui.fl.alertOkAndReload(data.text);
                 }
             })
         },
 
         doUpdate: function (data) {
-            fl.ajax({
+            layui.fl.ajax({
                 url: "/admin/api/meta/update",
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    fl.alertOkAndReload(data.text);
+                    layui.fl.alertOkAndReload(data.text);
                 }
             })
         }, remove: function (id) {
-            fl.alertConfirm({
+            layui.fl.alertConfirm({
                 title: '确认删除吗？',
                 then: function () {
-                    fl.ajax({
+                    layui.fl.ajax({
                         url: "/admin/api/meta/remove/" + id,
                         dataType: "json",
                         success: function (data) {
-                            fl.alertOkAndReload(data.text);
+                            layui.fl.alertOkAndReload(data.text);
                         }
                     })
                 }

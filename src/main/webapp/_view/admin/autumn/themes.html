@@ -28,4 +28,10 @@
 	</div>
 </div>
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/themes.css">
-<script type="text/javascript" src="/assets/admin/js/themes.js"></script>
+<script>
+  function requireLoad(){
+       layui.use(["themes"],function(themes){
+        themes.load();
+        });
+  }
+</script>

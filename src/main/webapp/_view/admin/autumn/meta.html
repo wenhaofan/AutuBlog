@@ -73,7 +73,7 @@
 </script>
 <script> 
     function requireLoad(){
-        require(['meta'],function(me){
+        layui.use(['meta'],function(me){
             meta=me;
             meta.pjaxLoad();
          })

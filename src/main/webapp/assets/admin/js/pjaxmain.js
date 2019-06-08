@@ -16,7 +16,9 @@ layui.define([
             $(document).on('pjax:end',   function() { 
                 NProgress.done(); 
                 $(".note-popover").remove() 
-                requireLoad();
+                if(typeof requireLoad !="undefined"){
+                    requireLoad();
+                }
             });
             
  

@@ -187,4 +187,10 @@
 </script>
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/config.css">
 <script type="text/javascript" src="/assets/js/from-util.js"></script>
-<script type="text/javascript" src="/assets/admin/js/config.js"></script>
+<script>
+    function requireLoad(){
+        layui.use(['config'],function(config){
+            config.load();
+        })
+    }
+</script>

@@ -1,15 +1,13 @@
 layui.define([
    'jquery' ,
    'fl',
-   'layui'
+   'form',
+   'layer',
+   'table',
+   'fl'
 ], function(exports) {
     let articleList={
-        $:layui.$,
-        fl:layui.fl,
-        form:layui.form,
-        layer:layui.layer,
-        table :layui.table,
-        form:layui.form,
+      
         resetLayerIndex:0,
           //layui加载完成的回调
         pjaxLoad:function(){
@@ -17,6 +15,7 @@ layui.define([
             this.initCategorySelect();
         }, bind:function(){
             let that=this;
+            const form=layui.form,table=layui.table;
             $("body").on("click", ".article-remove", function() {
                that.removeArticle(this);
             })
@@ -36,22 +35,22 @@ layui.define([
                 that.resetIndex();
             })
 
-            that.form.on('select(category-select)', function(data) {
+            form.on('select(category-select)', function(data) {
                 that.querylist($(".layui-form").serializeJson());
             }); 
-            that.form.on('select(state-select)', function(data) {
+            form.on('select(state-select)', function(data) {
                 that.querylist($(".layui-form").serializeJson())
             });
         },
         querylist:function (data) {
-            this.table.reload('articles', {
+            layui.table.reload('articles', {
                 url : '/admin/api/article/list',
                 where :data
             // 设定异步数据接口的额外参数
             });
         },   //渲染文章列表
         renderArticles:function (){
-            this.fl.renderTable({
+            layui.fl.renderTable({
                 page:{count:80,limit:10}
                 ,url:'/admin/api/article/list' 
                 ,elem: '#articles'
@@ -72,7 +71,8 @@ layui.define([
          */
         resetIndex:function (){
             let that=this;
-            resetLayerIndex=this.layer.msg('重置中', {
+            const fl=layui.fl,layer=layui.layer;
+            resetLayerIndex=layer.msg('重置中', {
                     icon: 16
                     ,shade: 0.01,
                     time: false,
@@ -80,10 +80,10 @@ layui.define([
                             
                         }
                     }); 
-            that.fl.ajax({
+            layui.fl.ajax({
                 url:"/admin/api/article/createIndex",
                 success:function(data){
-                    that.fl.alertOk({title:"重置成功！"});
+                    layui.fl.alertOk({title:"重置成功！"});
                     that.layer.close(resetLayerIndex);
                 },error:function(){
                     that.layer.close(resetLayerIndex);
@@ -98,11 +98,11 @@ layui.define([
         recoverArticle:function (obj){
             var id = $(obj).data("id");
             let that=this;
-            that.fl.alertConfirm({title:"是否确认恢复？",then:function(){
-                that.fl.ajax({
+            layui.fl.alertConfirm({title:"是否确认恢复？",then:function(){
+                layui.fl.ajax({
                     url : "/admin/api/article/recover/"+id,
                     success : function(data) {
-                        that.fl.alertOkAndReload(data.msg)
+                        layui.fl.alertOkAndReload(data.msg)
                     }
                 })
             }})
@@ -117,7 +117,7 @@ layui.define([
                         "categorys" : categorys
                     });
                     $("#category-select").html(html);
-                    that.form.render('select');
+                    layui.form.render('select');
                 }
             }
             this.listMeta( initCategorys);
@@ -129,7 +129,7 @@ layui.define([
 				url:"/api/meta/list/"+paras.type,
 				dataType:"json",
 				success:function(data){
-					if(that.fl.isOk(data)){
+					if(layui.fl.isOk(data)){
 						paras.callback(data.metas);
 					}
 				}
@@ -143,11 +143,11 @@ layui.define([
         removeArticle:function (obj){
             let that=this;
             var id = $(obj).data("id");
-            that.fl.alertConfirm({title:"是否确认废弃？",then:function(){
-                that.fl.ajax({
+            layui.fl.alertConfirm({title:"是否确认废弃？",then:function(){
+                layui.fl.ajax({
                     url : "/admin/api/article/remove/"+id,
                     success : function(data) {
-                        that.fl.alertOk({title:data.msg});
+                        layui.fl.alertOk({title:data.msg});
                         $(obj).parent().parent().parent().remove();
                     }
                 })
@@ -163,11 +163,11 @@ layui.define([
         deleteArticle:function (obj){
             let that=this;
             var id = $(obj).attr("data-id");
-            that.fl.alertConfirm({title:"是否确认删除？",text:"注意：删除后将不能恢复！",then:function(){
-                that.fl.ajax({
+            layui.fl.alertConfirm({title:"是否确认删除？",text:"注意：删除后将不能恢复！",then:function(){
+                layui.fl.ajax({
                     url : "/admin/api/article/delete/"+id,
                     success : function(data) {
-                        that.fl.alertOk({title:data.msg});
+                        layui.fl.alertOk({title:data.msg});
                         $(that).parent().parent().parent().remove();
                     }
                 })
@@ -181,10 +181,10 @@ layui.define([
         */
         asyncMetaWeblog:function (obj){
             let that=this;
-            that.fl.ajax({
+            layui.fl.ajax({
                 url:"/admin/api/article/asyncMetaWeblog/"+$(obj).data("id"),
                 success:function(data){
-                    that.fl.alertOk({});
+                    layui.fl.alertOk({});
                 }
             })
         },

@@ -136,7 +136,7 @@ layui.define([
             }
             return result;
             }
-        table.render(options);
+        layui.table.render(options);
     }
 
     /**

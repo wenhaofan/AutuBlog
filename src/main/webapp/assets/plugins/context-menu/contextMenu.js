@@ -3,7 +3,9 @@
 layui.define([
     'jquery' 
 ], function(exports) {
+     const $=this.$;
   var $contextMenu= (function(){
+
     return {
     	menuItemMap:{},
     	onlyOne:true,

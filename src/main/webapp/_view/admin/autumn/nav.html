@@ -57,4 +57,10 @@
 	<button class="layui-btn layui-btn-sm delete" data-id="{{d.id}}">删除</button> 
 ]]#
 </script>
-<script type="text/javascript" src="/assets/admin/js/nav.js"></script>
+<script>
+  function requireLoad(){
+       layui.use(["nav"],function(nav){
+        nav.load();
+        });
+  }
+</script>

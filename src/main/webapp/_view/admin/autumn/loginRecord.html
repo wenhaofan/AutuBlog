@@ -1,4 +1,3 @@
-<script type="text/javascript" src="/assets/admin/js/loginRecord.js"></script>
 <table id="loginRecordTable" lay-filter="loginRecordTable"></table>
 <input type="hidden" name="currentSessionId" value="">
 <script type="text/html" id="tpl-device">
@@ -20,4 +19,11 @@
 		<button class="layui-btn layui-btn-sm login-downline " data-id="{{d.id}}">下线</button> 
 	{{# }}}
 ]]#
+</script>
+<script>
+    function requireLoad(){
+        layui.use(['loginRecord'],function(loginRecord){
+            loginRecord.load();
+        })
+    }
 </script>

@@ -88,4 +88,10 @@
 ]]#
 </script>
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/comments.css">
-<script type="text/javascript" src="/assets/admin/js/comments.js"></script>
+<script>
+    function requireLoad(){
+        layui.use(['comment'],function(comment){
+            comment.load();
+        })
+    }
+</script>
