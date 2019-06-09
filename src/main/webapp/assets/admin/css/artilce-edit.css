@@ -1,16 +1,4 @@
-.tags_tag {
-	width: 200px !important;
-}
-
-#tags_tags input {
-	background-color: #fafafa;
-	border: 1px solid #eeeeee;
-}
-
-#tags_addTag input {
-	width: 100%;
-}
-
+ 
 .swal2-modal .swal2-spacer {
 	height: 0px;
 }
@@ -24,6 +12,9 @@
 
 #dropzone-thumbImg{
 	background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
+}
+#articleTags{
+    border: 0px;
 }
 #modal-dialog{
 	margin-top:150px!important;
@@ -50,4 +41,10 @@
     background-color: #5FB878;
     color: white;
     border-color: #5FB878;
+}
+.xm-select-dl {
+    z-index: 9999!important;
+}
+#tags{
+    width: 100%;
 }
