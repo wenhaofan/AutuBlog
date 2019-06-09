@@ -84,7 +84,7 @@ public class AdminArticleLuceneIndexes {
 	    type.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS);
 	    type.setTokenized(false);
 	    type.setStored(true);
- 
+  
 	    Field idField=new Field("id", String.valueOf(article.getId()), type);
 		Field  contentField = new TextField("content", article.getContent(), Store.YES);
 		Field  titleField = new TextField("title", article.getTitle(), Store.YES);
