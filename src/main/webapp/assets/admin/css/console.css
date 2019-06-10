@@ -97,3 +97,9 @@ cursor:pointer;
 .statistic-list dd:nth-child(2){
 	border-top: 1px solid #ddd!important;
 }
+
+#comment-list a{
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
