@@ -98,9 +98,11 @@ layui.define(['jquery','layer'],function(exports){
           that.render()
           spans ='<span><em>'+$val+'</em><button type="button" class="close">×</button></span>';
           options.elem.before(spans)
+          options.elem.val('');
+          options.done && typeof options.done === 'function' && options.done($val);
+        }else{
+            
         }
-        options.done && typeof options.done === 'function' && options.done($val);
-        options.elem.val('');
       }   
     })
   };
