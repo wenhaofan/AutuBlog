@@ -48,3 +48,7 @@
 #tags{
     width: 100%;
 }
+
+[data-editor=ueditor]:hover{
+    color:#fff;
+}

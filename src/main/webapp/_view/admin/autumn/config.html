@@ -188,9 +188,14 @@
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/config.css">
 <script type="text/javascript" src="/assets/js/from-util.js"></script>
 <script>
-    function requireLoad(){
-        layui.use(['config'],function(config){
-            config.load();
-        })
+    function pjaxLoad(){
+      layui.use(['config'],function(config){
+        config.pjaxLoad();
+      })
     }
-</script>
+    function firstLoad(){
+      layui.use(['config'],function(config){
+        
+      })
+    }
+ </script>

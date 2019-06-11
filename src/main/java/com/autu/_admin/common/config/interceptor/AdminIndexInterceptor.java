@@ -23,7 +23,7 @@ public class AdminIndexInterceptor implements Interceptor{
 		Controller c=inv.getController();
 		
 		boolean isPjax = "true".equalsIgnoreCase(c.getHeader("X-PJAX"));
-		 
+		
 		if(isPjax) {
 			return;
 		}

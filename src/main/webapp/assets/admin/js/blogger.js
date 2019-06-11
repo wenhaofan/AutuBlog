@@ -55,6 +55,7 @@ lauyi.define([
         }
     }
     blogger.bind();
+    blogger.load();
     exports("blogger", blogger);
 });
 

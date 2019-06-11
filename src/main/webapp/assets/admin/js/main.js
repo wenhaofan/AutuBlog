@@ -20,7 +20,8 @@
      ueditor:'{/}/assets/plugins/ueditor/ueditor.all',
      contextMenu:'{/}/assets/plugins/context-menu/contextMenu',
      formSelects:'{/}/assets/frame/layui/plugins/formSelectes/formSelects-v4',
-     inputTags:'{/}/assets/frame/layui/plugins/inputTags/inputTags'
+     inputTags:'{/}/assets/frame/layui/plugins/inputTags/inputTags',
+     editormd:'{/}/assets/plugins/editor/editormd'
 });
 
  

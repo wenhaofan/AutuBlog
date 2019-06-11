@@ -71,11 +71,15 @@
 	    </dl>
 	 </li>		
 </script>
-<script> 
-    function requireLoad(){
-        layui.use(['meta'],function(me){
-            meta=me;
-            meta.pjaxLoad();
-         })
+<script>
+    function pjaxLoad(){
+      layui.use(['meta'],function(meta){
+        meta.pjaxLoad();
+      })
     }
-</script>
+    function firstLoad(){
+      layui.use(['meta'],function(meta){
+        
+      })
+    }
+ </script>

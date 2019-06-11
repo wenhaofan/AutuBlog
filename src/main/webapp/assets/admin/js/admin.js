@@ -88,14 +88,11 @@ layui.define([
                 $(".layui-toggle-menu i").addClass("layui-icon-shrink-right");
                 $(".layui-side").show();
             }
-
-            const pjaxmain=layui.pjaxmain;
-
-            if(typeof requireLoad != "undefined"){
-                requireLoad();
+ 
+            if(typeof firstLoad != "undefined"){
+                firstLoad();
             } 
-
-            pjaxmain.load();
+ 
 
         }, pjaxLoad: function () {
 
@@ -126,7 +123,7 @@ layui.define([
     };
 
     admin.bind();
-
+    admin.load();
     exports("admin",admin);
 });
 

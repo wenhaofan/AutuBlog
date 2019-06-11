@@ -20,7 +20,7 @@ layui.define([
     };
     
     themes.bind();
-
+    themes.load();
     exports("themes",themes);
 });
  

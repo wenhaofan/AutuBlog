@@ -75,9 +75,14 @@
 <script src="/assets/plugins/summernote/0.8.9/summernote.min.js"></script>
 <script type="text/javascript" src="/assets/js/from-util.js"></script>
 <script>
-    function requireLoad(){
-        layui.use(['blogger'],function(blogger){
-            blogger.load();
-        })
+    function pjaxLoad(){
+      layui.use(['blogger'],function(blogger){
+        blogger.pjaxLoad();
+      })
     }
-</script>
+    function firstLoad(){
+      layui.use(['blogger'],function(blogger){
+        
+      })
+    }
+ </script>

@@ -162,6 +162,7 @@ layui.define([
     }
 
     meta.bind();
+    meta.load();
     exports("meta",meta);
 });
 

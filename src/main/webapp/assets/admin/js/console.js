@@ -212,6 +212,8 @@ layui.define([
         }
     };
 
+    console.load();
+
     exports("console", console);
 });
 

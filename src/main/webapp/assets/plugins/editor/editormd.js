@@ -10,6 +10,11 @@
  * @updateTime  2015-06-09
  */
 
+ 
+layui.define(['jquery'],function(exports){
+jQuery=layui.$;
+
+       
 ;(function(factory) {
     "use strict";
     
@@ -32,6 +37,7 @@
 	else
 	{ 
         window.editormd = factory();
+
 	}
     
 }(function() {    
@@ -4596,3 +4602,5 @@
     return editormd;
 
 }));
+exports("editormd",window.editormd);
+})

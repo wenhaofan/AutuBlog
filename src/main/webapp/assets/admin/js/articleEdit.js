@@ -2,15 +2,11 @@ layui.define([
     'jquery',
     'form',
     'formSelects',
-    'inputTags'
+    'inputTags',
+    'editormd'
 ], function (exports) {
 
-    const articleEdit = {
-        layui: layui,
-        isChange: false,
-        editorType: "",
-        isInit: false,
-        editorSet: {
+    const  editorSet=  {
             editorArr: [],
             currEditor: null,
             editorType: null,
@@ -20,7 +16,10 @@ layui.define([
                 this.editorArr[key] = editor;
             },
             getEditor: function (type) {
-                this.currEditor = this.editorArr[type];
+                return this.editorArr[type];
+            },
+            useEditor:function(type){
+                this.currEditor=this.editorArr[type];
                 return this.getCurrentEditor();
             },
             getCurrentEditor: function () {
@@ -60,7 +59,7 @@ layui.define([
                             path: '/assets/plugins/editor/lib/',
                         });
 
-                        this.editorSet.editorType = "markdown";
+                        editorSet.editorType = "markdown";
                     }
                 };
                 this.setEditor("editormd", editor);
@@ -87,9 +86,9 @@ layui.define([
                 let content;
                 if (currEditor.ueditor) {
                     content = currEditor.ueditor.getContent();
-                } else if (currEditor.meditor) {
+                } else if (currEditor.editormd) {
                     editorContentType = "mardown";
-                    content = currEditor.meditor.getMarkdown();
+                    content = currEditor.editormd.getMarkdown();
                 }
 
                 if (type == "html") {
@@ -107,12 +106,21 @@ layui.define([
                 }
 
             }
-        }, bind: function () {
-            form = this.layui.form;
+        };
+
+    const articleEdit = {
+       
+        isChange: false,
+        editorType: "",
+        isInit: false,
+        tagsContent:null,
+        bind: function () {
+            const form =  layui.form;
+            const that=this;
             form.render();
 
             form.on('submit(publish)', function (data) {
-                article.save(data.field, 1);
+                that.save(data.field, 1);
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
 
@@ -132,48 +140,99 @@ layui.define([
 
             //监听input变化
             $("body").on("input propertychange", "#articleForm input", function (event) {
-                article.isChange = true;
+                that.isChange = true;
             });
 
             //监听mditor编辑
             $('body').on('input propertychange', ".editor textarea", function () {
-                article.isChange = true;
+                that.isChange = true;
             })
 
 
 
             $("body").on("click", ".switch-editor", function () {
-                confirmsSwicthEditor(this);
+                that.confirmsSwicthEditor(this);
             })
 
-            //保存草稿
+ 
+          
+
+            var thumbdropzone = $('.dropzone');
+
+            // // 缩略图上传
+            // $("#dropzone").dropzone({
+            //     url: "/admin/api/upload/thumb",
+            //     paramName: "upfile",
+            //     filesizeBase: 1024,//定义字节算法 默认1000
+            //     maxFilesize: '10', //MB
+            //     fallback: function () {
+            //         fl.alertError('暂不支持您的浏览器上传!');
+            //     },
+            //     acceptedFiles: 'image/*',
+            //     dictFileTooBig: '您的文件超过10MB!',
+            //     dictInvalidInputType: '不支持您上传的类型',
+            //     init: function () {
+            //         this.on('success', function (files, result) {
+            //             if (fl.isOk(result)) {
+            //                 var url = result.info.url;
+            //                 thumbdropzone.css('background-image', 'url(' + url + ')');
+            //                 $('.dz-image').hide();
+            //                 $('input[name="thumbImg"]').val(url);
+            //                 article.saveArticleCache();
+            //             }
+            //         });
+            //         this.on('error', function (a, errorMessage, result) {
+            //             if (!result.success && result.msg) {
+            //                 tale.alertError(result.msg || '缩略图上传失败');
+            //             }
+            //         });
+            //     }
+            // });
+
+        },
+        pjaxLoad: function () {
+            this.load();
+
+            if(editorSet.getEditor("ueditor")){
+                editorSet.getEditor("ueditor").getEditor().render("article-ueditor");
+            }
+        },
+
+        load: function () {
+            
+            layui.formSelects.render();
+            layui.form.render();
+             $("body").on("click", ".switch-editor", function () {
+                that.confirmsSwicthEditor(this);
+            })
+
+            const that=this;
+
+            that.editorType = $('#contentType').val();
+
+            editorSet.init();
+            that.swicthEditorByType("ueditor");
+
+            var inputTags = layui.inputTags;
+            that.tagsContent=inputTags.render({
+                elem:'#articleTags',//定义输入框input对象
+                content: getInitTags(),//默认标签
+        
+                done: function(value){ //回车后的回调
+                    console.log(value)
+                }
+            }).config.content; 
+
+             //保存草稿
             $("#draft").click(function () {
-                save(0);
+                that.save(0);
             });
+
             //保存并发布
             $("#subArticle").click(function () {
-                save(1);
+                that.save(1);
             })
-
-            //mditor = window.mditor = Mditor.fromTextarea(document.getElementById('meditor'));
-
-            $('.modal').on('shown.bs.modal', function (e) {
-                // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零  
-                $(this).css('display', 'block');
-                var windowHeight = $(window).height();
-                var modalHeight2 = $('.modal').height();
-                var modalHeight = windowHeight / 2 - modalHeight2 / 2;
-                $(this).find('.modal-dialog').css({
-                    'margin-top': modalHeight
-                });
-            });
-
-            /*
-             * 切换编辑器
-             * */
-            $('#switch-btn').click(function () {
-                article.changeEditor();
-            });
+ 
 
             $(".toggle").each(function () {
                 var on = $(this).attr("on") != "false";
@@ -186,102 +245,37 @@ layui.define([
                 });
             })
 
-            var thumbdropzone = $('.dropzone');
-
-            // 缩略图上传
-            $("#dropzone").dropzone({
-                url: "/admin/api/upload/thumb",
-                paramName: "upfile",
-                filesizeBase: 1024,//定义字节算法 默认1000
-                maxFilesize: '10', //MB
-                fallback: function () {
-                    fl.alertError('暂不支持您的浏览器上传!');
-                },
-                acceptedFiles: 'image/*',
-                dictFileTooBig: '您的文件超过10MB!',
-                dictInvalidInputType: '不支持您上传的类型',
-                init: function () {
-                    this.on('success', function (files, result) {
-                        if (fl.isOk(result)) {
-                            var url = result.info.url;
-                            thumbdropzone.css('background-image', 'url(' + url + ')');
-                            $('.dz-image').hide();
-                            $('input[name="thumbImg"]').val(url);
-                            article.saveArticleCache();
-                        }
-                    });
-                    this.on('error', function (a, errorMessage, result) {
-                        if (!result.success && result.msg) {
-                            tale.alertError(result.msg || '缩略图上传失败');
-                        }
-                    });
-                }
-            });
-
-        },
-        pjaxLoad: function () {
-            this.load();
-        },
-
-        load: function () {
-      
-            this.editorType = $('#contentType').val();
-
-            this.editorSet.init();
-             this.swicthEditorByType("ueditor");
-
-            var inputTags = layui.inputTags;
-            inputTags.render({
-            elem:'#articleTags',//定义输入框input对象
-            content: getInitTags(),//默认标签
-            aldaBtn: true,//是否开启获取所有数据的按钮
-            done: function(value){ //回车后的回调
-                console.log(value)
-            }
-            })     
-
         }, getArticleId: function () {
             return $("input[name='id']").val();
         }, editArticle: function (paras) {
-            fl.ajax({
+            layui.fl.ajax({
                 url: "/admin/api/article/edit",
                 data: paras.fdata,
                 async: false,
                 success: function (data) {
-                    articleCache.removeCurrentCache();
+                   
                     paras.success(data);
                 }
             })
-        }, setTags: function (tags) {
-            if (!(tags && tags.length > 0)) {
-                return;
-            }
-            $.each(tags.split(","), function (index, item) {
-                $('#tags').addTag(item);
-            })
-        }, setCategorys: function (categorys) {
+        },setCategorys: function (categorys) {
             $.each(categorys, function (index, item) {
                 $("#multiple-sel option[value='" + item + "']").attr("selected", true)
             })
         }, initArticleInfo: function () {
 
         }, getSelectedTag: function () {
-            var data = [];
-            var tags = $("#tags").val();
-            if (fl.notBlank(tags)) {
-                var tagArr = tags.split(",");
-                $.each(tagArr, function (index, item) {
-                    data.push({ name: "tag[" + index + "].mname", value: item });
-                    data.push({ name: "tag[" + index + "].type", value: "tag" });
-                })
-            }
+           
+            var tagArr = this.tagsContent,data=new Array();
+            $.each(tagArr, function (index, item) {
+                data.push({ name: "tag[" + index + "].mname", value: item });
+                data.push({ name: "tag[" + index + "].type", value: "tag" });
+            })
+          
             return data;
         }, getSelectedCategory: function () {
-            var data = [];
-            var categoryIds = $("#multiple-sel").select2("val");
-            var categoryVal;
-            for (var i = 0, size = categoryIds.length; i < size; i++) {
-                categoryVal = $("option[value='" + categoryIds[i] + "']").text();
+            const categoryNames=layui.formSelects.value('article-edit-catgeory-select', 'name'),data=new Array(); 
+            for (var i = 0, size = categoryNames.length; i < size; i++) {
+                categoryVal =  categoryNames[i];
                 data.push({ name: "category[" + i + "].mname", value: categoryVal });
                 data.push({ name: "category[" + i + "].type", value: "category" });
             }
@@ -292,13 +286,12 @@ layui.define([
          * @returns
          */
         save: function (fdata, state) {
-
-            fdata.content = this.editorSet.getContent();
+            const fl=layui.fl;
+            fdata.content = editorSet.getContent();
 
             fdata.state = state;
 
-
-
+            
             if (fl.isBlank(fdata.title)) {
                 fl.alertWarn('标题不能为空');
                 return;
@@ -318,7 +311,7 @@ layui.define([
             fdata = fl.mergeJson(fdata, this.getSelectedTag());
             fdata = fl.mergeJson(fdata, this.getSelectedCategory());
 
-            article.editArticle({
+            this.editArticle({
                 fdata: fdata, success: function (data) {
                     var time = "[" + new Date() + "]";
                     $(".hint-msg").text((data.article.state == 0 ? "草稿保存成功！" : "发布成功！") + time);
@@ -342,11 +335,12 @@ layui.define([
             return content;
         },
         confirmsSwicthEditorByType: function (type) {
+            const that=this;
             let swicthEditorIndex = layer.confirm('切换编辑器可能会丢失部分样式，是否继续？', {
                 btn: ['继续', '算了吧'] //按钮
             }, function () {
 
-                swicthEditorByType(type);
+                that.swicthEditorByType(type);
                 layer.close(swicthEditorIndex);
 
             }, function () {
@@ -355,10 +349,11 @@ layui.define([
         },
 
         swicthEditorByType: function (type) {
-            let content = this.editorSet.getContent(type == "ueditor" ? "html" : "markdown")
-            let currEditor = this.editorSet.getEditor(type);
+            const that=this;
+            let content = editorSet.getContent(type == "ueditor" ? "html" : "markdown")
+            let currEditor = editorSet.useEditor(type);
             currEditor.init(content);
-
+            
             $("[data-editor]").removeClass("selected-editor-btn");
             $('[data-editor="' + type + '"').addClass("selected-editor-btn");
 
@@ -370,8 +365,8 @@ layui.define([
 
                 $('#contentType').val("html");
 
-                articleEdit.editorType = "markdown";
-                articleEdit.meditor = currEditor.getEditor();
+                that.editorType = "markdown";
+                that.meditor = currEditor.getEditor();
 
             } else if (type == "editormd") {
                 //切换为markdown编辑器
@@ -379,19 +374,20 @@ layui.define([
                 $('#md-container').show();
                 $('#html-container').hide();
                 $('#contentType').val("markdown");
-                article.editorType = "html";
-                article.htmlEditor = currEditor.getEditor();
+                that.editorType = "html";
+                that.htmlEditor = currEditor.getEditor();
 
             }
         },
 
         confirmsSwicthEditor: function (obj) {
-            confirmsSwicthEditorByType($(obj).data("editor"));
+            this.confirmsSwicthEditorByType($(obj).data("editor"));
         }
 
 
     };
-
+articleEdit.bind();
+    articleEdit.load();
     exports("articleEdit", articleEdit);
 });
 
@@ -399,8 +395,7 @@ layui.define([
 var meditor, htmlEditor;
 
 var attach_url = $('#attach_url').val();
-
-Dropzone.autoDiscover = false;
+ 
 
 
 var articleCache = {

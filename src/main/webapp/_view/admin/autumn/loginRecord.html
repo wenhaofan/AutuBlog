@@ -21,9 +21,14 @@
 ]]#
 </script>
 <script>
-    function requireLoad(){
-        layui.use(['loginRecord'],function(loginRecord){
-            loginRecord.load();
-        })
+    function pjaxLoad(){
+      layui.use(['loginRecord'],function(loginRecord){
+        loginRecord.pjaxLoad();
+      })
     }
-</script>
+    function firstLoad(){
+      layui.use(['loginRecord'],function(loginRecord){
+        
+      })
+    }
+ </script>

@@ -139,6 +139,7 @@ layui.define(['layer', 'table', 'form', 'jquery'], function (exports) {
     }
 
     comment.bind();
+    comment.load();
     exports("comment", comment);
 });
 

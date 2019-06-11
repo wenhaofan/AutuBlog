@@ -149,13 +149,17 @@
  	</div>
 </div>
 <script>
-     function requireLoad(){
-        layui.use(['console'],function(console){
-            console.pjaxLoad();
-        })
-     }
-
-</script>
+    function pjaxLoad(){
+      layui.use(['console'],function(console){
+        console.pjaxLoad();
+      })
+    }
+    function firstLoad(){
+      layui.use(['console'],function(console){
+        
+      })
+    }
+ </script>
 <script type="text/html" id="tpl-list-article">
 <dd><a href="/article/{{identify}}" target="_blank">{{title}}</dd>
 </script>

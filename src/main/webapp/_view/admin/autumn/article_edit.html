@@ -8,18 +8,16 @@
  
 <!-- 预览图上传插件 -->
 <link href="/assets/plugins/dropzone/4.3.0/min/dropzone.min.css"  rel="stylesheet">
-<script type="text/javascript" src="/assets/plugins/dropzone/4.3.0/min/dropzone.min.js"></script>
+
 
 <link href="/assets/plugins/editor/css/editormd.css"  rel="stylesheet">
-<script type="text/javascript" src="/assets/plugins/editor/editormd.js"></script>
+ 
 
 
 <script type="text/javascript">
 function getInitTags(){
-    let tags;
-	#for(atag:aTags)
-		 tags+='#(atag.mname)';
-    #end
+    let tags=new Array(#for(atag:aTags)  '#(atag.mname)', #end);
+   
     return tags;
 }
 
@@ -185,11 +183,15 @@ function getThumbImg(){
 </div>
 
 <script src="/assets/plugins/turndown/turndown.js"></script>
-
 <script>
-    function requireLoad(){
+    function pjaxLoad(){
       layui.use(['articleEdit'],function(articleEdit){
         articleEdit.pjaxLoad();
-     })
+      })
     }
-</script>
+    function firstLoad(){
+      layui.use(['articleEdit'],function(articleEdit){
+        
+      })
+    }
+ </script>

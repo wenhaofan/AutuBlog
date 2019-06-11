@@ -58,9 +58,14 @@
 ]]#
 </script>
 <script>
-  function requireLoad(){
-       layui.use(["nav"],function(nav){
-        nav.load();
-        });
-  }
-</script>
+    function pjaxLoad(){
+      layui.use(['nav'],function(nav){
+        nav.pjaxLoad();
+      })
+    }
+    function firstLoad(){
+      layui.use(['nav'],function(nav){
+        
+      })
+    }
+ </script>

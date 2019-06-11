@@ -67,6 +67,7 @@ layui.define([
     };
 
     nav.bind();
+    nav.load();
     exports("nav", nav);
 });
 

@@ -16,8 +16,8 @@ layui.define([
             $(document).on('pjax:end',   function() { 
                 NProgress.done(); 
                 $(".note-popover").remove() 
-                if(typeof requireLoad !="undefined"){
-                    requireLoad();
+                if(typeof pjaxLoad !="undefined"){
+                    pjaxLoad();
                 }
             });
             
@@ -25,6 +25,9 @@ layui.define([
             $(document).pjax('a[pjax]', '.layui-fluid');
  	   }
     };
+
+    pjaxmain.load();
+    
     exports("pjaxmain",pjaxmain);
 });
 

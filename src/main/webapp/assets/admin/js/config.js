@@ -156,6 +156,7 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl', 'table', 'upload'], functi
         }
     };
     config.bind();
+    config.load();
     exports("config", config);
 });
 

@@ -89,9 +89,14 @@
 </script>
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/comments.css">
 <script>
-    function requireLoad(){
-        layui.use(['comment'],function(comment){
-            comment.load();
-        })
+    function pjaxLoad(){
+      layui.use(['comment'],function(comment){
+        comment.pjaxLoad();
+      })
     }
-</script>
+    function firstLoad(){
+      layui.use(['comment'],function(comment){
+        
+      })
+    }
+ </script>

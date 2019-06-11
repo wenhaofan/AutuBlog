@@ -24,10 +24,15 @@
 ]]#
 </script>
 <script type="text/javascript" src="/assets/common/meta.js"></script>
- <script>
-    function requireLoad(){
+<script>
+    function pjaxLoad(){
       layui.use(['articleDraft'],function(articleDraft){
         articleDraft.pjaxLoad();
-     })
+      })
+    }
+    function firstLoad(){
+      layui.use(['articleDraft'],function(articleDraft){
+        
+      })
     }
  </script>

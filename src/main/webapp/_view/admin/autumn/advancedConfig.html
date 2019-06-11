@@ -121,5 +121,17 @@
 	]]#
 </script>
 <script type="text/javascript" src="/assets/js/from-util.js"></script>
-<script type="text/javascript" src="/assets/admin/js/advance-config.js"></script>
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/advance-config.css">
+
+<script>
+    function pjaxLoad(){
+      layui.use(['advancedConfig'],function(advancedConfig){
+        advancedConfig.pjaxLoad();
+      })
+    }
+    function firstLoad(){
+      layui.use(['advancedConfig'],function(advancedConfig){
+        
+      })
+    }
+ </script>

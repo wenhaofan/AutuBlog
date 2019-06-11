@@ -36,6 +36,7 @@ layui.define([
     };
 
     loginRecord.bind();
+    loginRecord.load();
     exports("loginRecord", loginRecord);
 });
 

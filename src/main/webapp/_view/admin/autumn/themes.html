@@ -29,9 +29,14 @@
 </div>
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/themes.css">
 <script>
-  function requireLoad(){
-       layui.use(["themes"],function(themes){
-        themes.load();
-        });
-  }
-</script>
+    function pjaxLoad(){
+      layui.use(['themes'],function(themes){
+        themes.pjaxLoad();
+      })
+    }
+    function firstLoad(){
+      layui.use(['themes'],function(themes){
+        
+      })
+    }
+ </script>

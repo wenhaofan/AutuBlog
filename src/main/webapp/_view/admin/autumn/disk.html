@@ -96,9 +96,14 @@ var currentFolderId="#(folderId)";
 
 <script type="text/javascript" src="/assets/plugins/clipboard/clipboard.min.js"></script>
 <script>
-    function requireLoad(){
-        layui.use(['disk'],function(disk){
-            disk.load();
-        })
+    function pjaxLoad(){
+      layui.use(['disk'],function(disk){
+        disk.pjaxLoad();
+      })
     }
-</script>
+    function firstLoad(){
+      layui.use(['disk'],function(disk){
+        
+      })
+    }
+ </script>

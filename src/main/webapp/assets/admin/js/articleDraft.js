@@ -88,7 +88,8 @@ layui.define(['fl', 'jquery', 'table'], function (exports) {
         }
 
     };
-
+    articleDraft.bind();
+    articleDraft.load();
     exports("articleDraft", articleDraft);
 })
 

@@ -196,6 +196,7 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
     };
 
     advanceConfig.bind();
+    advanceConfig.load();
     exports("advanceConfig", advanceConfig);
 });
 

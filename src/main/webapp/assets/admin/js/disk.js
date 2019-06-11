@@ -540,6 +540,7 @@ layui.define([
     };
 
     disk.bind();
+    disk.load();
     exports("disk", disk);
 });
 

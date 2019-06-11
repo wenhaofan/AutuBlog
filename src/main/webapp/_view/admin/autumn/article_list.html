@@ -75,10 +75,15 @@
 </script>
 <script type="text/javascript" src="/assets/common/meta.js"></script>
 
- <script>
-    function requireLoad(){
+<script>
+    function pjaxLoad(){
       layui.use(['articleList'],function(articleList){
         articleList.pjaxLoad();
-     })
+      })
+    }
+    function firstLoad(){
+      layui.use(['articleList'],function(articleList){
+        
+      })
     }
  </script>
