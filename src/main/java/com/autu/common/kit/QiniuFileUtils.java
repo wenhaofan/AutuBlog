@@ -51,7 +51,14 @@ public class QiniuFileUtils {
 		}
 		
 		String fileUrl=url.endsWith("/")?url+ret.getStr("qiniuFileName"):url+"/"+ret.getStr("qiniuFileName");
-		return ret.set("url",fileUrl);
+		
+		
+		return ret.set("url",fileUrl).set("title", ret.getStr("qiniuFileName"));
+		
+		
+ 
+		
+		
 	}
 	//http://p2lno0vsw.bkt.clouddn.com+"/"+lemonim-avatar.jpg
 	public static void main(String[] args) {

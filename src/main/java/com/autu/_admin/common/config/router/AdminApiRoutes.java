@@ -4,6 +4,7 @@ import com.autu._admin.article.ArticleAdminApi;
 import com.autu._admin.blogroll.AdminBlogrollApi;
 import com.autu._admin.comment.AdminCommentApi;
 import com.autu._admin.common.config.interceptor.AdminIndexInterceptor;
+import com.autu._admin.common.upload.AdminEditormdUploadApi;
 import com.autu._admin.config.AdminBaiduConfigApi;
 import com.autu._admin.config.AdminConfigApi;
 import com.autu._admin.disk.DiskApi;
@@ -42,6 +43,7 @@ public class AdminApiRoutes extends Routes{
 	   add("/admin/api/config", AdminConfigApi.class);
 	   add("/admin/api/blogroll", AdminBlogrollApi.class);
 	   add("/admin/api/route", AdminRouteApi.class);
+	   add("/admin/api/upload/editormd", AdminEditormdUploadApi.class);
 	}
 
 }

@@ -50,7 +50,11 @@ public class UploadService {
 		String absolutePath= PathKit.getWebRootPath()+pathAndFileName[0];
 		String fileName=pathAndFileName[1];
 		saveOriginalFileToTargetFile(uf.getFile(),absolutePath,fileName);
+		
 		FileUploadInfo info=new FileUploadInfo();
+		
+		info.setSize(uf.getFile().length());
+		info.setType(arr[1]);
 		info.setAbsolutePath(absolutePath);
 		info.setRelativePath(pathAndFileName[0]);
 		info.setFileName(pathAndFileName[1]);

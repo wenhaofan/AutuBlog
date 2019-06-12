@@ -113,20 +113,24 @@ function getThumbImg(){
 		<div class="layui-row">
 		<div class="layui-col-md6">
 		 	<div class="layui-form-item">
+                 <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-primary layui-btn-sm article-upload-thumb">上传封面</button>
+                    <button class="layui-btn layui-btn-primary layui-btn-sm">预览封面</button>
+                 </div>
  		 	</div>
 		</div>
 		<div class="layui-col-md6">
 		 	<div class="layui-form-item">
-                 <button class="layui-btn layui-btn-primary layui-btn-sm switch-editor" data-editor="editormd" >Markdown编辑器</button>
+                
+                <button class="layui-btn layui-btn-primary layui-btn-sm switch-editor" data-editor="editormd" >Markdown编辑器</button>
                 <button class="layui-btn layui-btn-primary layui-btn-sm switch-editor" data-editor="ueditor" >富文本编辑器</button>
-		 		
 		 	</div>
 		</div>
 	</div>
 	<div class="layui-row">
 		<div class="layui-col-md12 "  id="html-container">
 			<div class="layui-form-item">
-				<div class="layui-input-block">
+				<div class="layui-input-block" id="article-ueditor-container">
 				 	<script id="article-ueditor" name="content" type="text/plain">
         				
     				</script>
@@ -163,18 +167,6 @@ function getThumbImg(){
 				  		<button class="layui-btn layui-btn-normal" lay-submit lay-filter="publish">发布</button>
 				  		<button class="layui-btn layui-btn-warm"   lay-filter="draft" >存为草稿</button>
 				  	</div>
-				</div>
-			</div>
-		</div>
-			<div class="layui-col-md12">
-			<div class="layui-form-item">
-				<div id="dropzone-container"  class="form-group">
-					<div class="dropzone dropzone-previews" id="dropzone"  >
-						<div class="dz-message">
-							<p>可以为你的文章添加一张缩略图 ;)</p>
-						</div>
-					</div>
-					<img id="dropzone-thumbImg"  class="hide">
 				</div>
 			</div>
 		</div>

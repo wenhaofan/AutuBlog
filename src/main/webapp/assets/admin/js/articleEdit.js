@@ -3,7 +3,8 @@ layui.define([
     'form',
     'formSelects',
     'inputTags',
-    'editormd'
+    'editormd',
+    'upload'
 ], function (exports) {
 
     const  editorSet=  {
@@ -35,11 +36,36 @@ layui.define([
                     getEditor: function () {
                         return this.ueditor;
                     },
+                    setEditor:function(ue){
+                        this.ueditor=ue;
+                    },
                     init: function (content) {
-                        this.ueditor = UE.getEditor('article-ueditor', {
+
+                        const that=this;
+
+                        const editorSelector='article-ueditor';
+
+                        if(editorSet.getEditor("ueditor").getEditor()){
+                            UE.delEditor(editorSelector);
+
+                            
+
+                            editorSet.getEditor("ueditor").setEditor(null);
+                            $('#'+editorSelector+"-container").html(' 	<script id="article-ueditor" name="content" type="text/plain"></script>');
+                        }
+
+                        that.setEditor(UE.getEditor(editorSelector, {
                             initialFrameHeight: 400,
                             initialContent: content
+                        }))
+
+                        that.ueditor.ready(function() {
+                            that.ueditor.execCommand('serverparam', {
+                                'uploadType': 'article',
+                                'ueditor':true
+                            });
                         });
+
                         that.editorType = "html";
                     }
                 };
@@ -50,13 +76,27 @@ layui.define([
                     getEditor: function () {
                         return this.editormd;
                     },
+
                     init: function (content) {
+
+                        if(editorSet.getEditor("editormd").getEditor()){
+
+                            const editormd=editorSet.getEditor("editormd").getEditor();
+                            editormd.setMarkdown(content)
+
+                            return;
+                        } 
+
                         this.editormd = editormd("meditor", {
                             width: "100%",
                             height: 640,
                             markdown: content,
                             syncScrolling: "single",
                             path: '/assets/plugins/editor/lib/',
+                              saveHTMLToTextarea : true,   
+                                imageUpload : true,
+                                imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL : "/admin/api/upload/editormd",
                         });
 
                         editorSet.editorType = "markdown";
@@ -95,7 +135,7 @@ layui.define([
                     if (editorContentType == "html") {
                         return content;
                     } else {
-                        return currEditor.meditor.getHtml();
+                        return currEditor.editormd.getHTML();
                     }
                 } else {
                     if (editorContentType == "html") {
@@ -114,6 +154,19 @@ layui.define([
         editorType: "",
         isInit: false,
         tagsContent:null,
+
+        previewCover:function(){
+           const thumbImg=  $("input[name='thumbImg']").val();
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                skin: 'yourclass',
+                content: '<img src="'+thumbImg+'"/>'
+            });
+        },
+
         bind: function () {
             const form =  layui.form;
             const that=this;
@@ -153,58 +206,18 @@ layui.define([
             $("body").on("click", ".switch-editor", function () {
                 that.confirmsSwicthEditor(this);
             })
-
  
-          
-
-            var thumbdropzone = $('.dropzone');
-
-            // // 缩略图上传
-            // $("#dropzone").dropzone({
-            //     url: "/admin/api/upload/thumb",
-            //     paramName: "upfile",
-            //     filesizeBase: 1024,//定义字节算法 默认1000
-            //     maxFilesize: '10', //MB
-            //     fallback: function () {
-            //         fl.alertError('暂不支持您的浏览器上传!');
-            //     },
-            //     acceptedFiles: 'image/*',
-            //     dictFileTooBig: '您的文件超过10MB!',
-            //     dictInvalidInputType: '不支持您上传的类型',
-            //     init: function () {
-            //         this.on('success', function (files, result) {
-            //             if (fl.isOk(result)) {
-            //                 var url = result.info.url;
-            //                 thumbdropzone.css('background-image', 'url(' + url + ')');
-            //                 $('.dz-image').hide();
-            //                 $('input[name="thumbImg"]').val(url);
-            //                 article.saveArticleCache();
-            //             }
-            //         });
-            //         this.on('error', function (a, errorMessage, result) {
-            //             if (!result.success && result.msg) {
-            //                 tale.alertError(result.msg || '缩略图上传失败');
-            //             }
-            //         });
-            //     }
-            // });
 
         },
         pjaxLoad: function () {
-            this.load();
-
-            if(editorSet.getEditor("ueditor")){
-                editorSet.getEditor("ueditor").getEditor().render("article-ueditor");
-            }
+             this.load();
         },
 
         load: function () {
             
             layui.formSelects.render();
             layui.form.render();
-             $("body").on("click", ".switch-editor", function () {
-                that.confirmsSwicthEditor(this);
-            })
+            const upload=layui.upload;
 
             const that=this;
 
@@ -222,6 +235,19 @@ layui.define([
                     console.log(value)
                 }
             }).config.content; 
+
+             
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '.article-upload-thumb' //绑定元素
+                ,url: '/upload/' //上传接口
+                ,done: function(res){
+                //上传完毕回调
+                }
+                ,error: function(){
+                //请求异常回调
+                }
+            });
 
              //保存草稿
             $("#draft").click(function () {

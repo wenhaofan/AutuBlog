@@ -9,7 +9,10 @@ layui.define([
         bind: function () {
 
         },
-        pjaxLoad: function () {
+        pjaxLoad:function(){
+            this.load();
+        },
+        load: function () {
             const fl = layui.fl;
 
             fl.ajax({

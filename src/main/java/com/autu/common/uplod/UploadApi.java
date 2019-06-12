@@ -97,7 +97,10 @@ public class UploadApi extends BaseController {
 			FileUploadInfo info = service.fileUpload(uploadType, uploadFile);
 			//隐藏绝对路径
 			info.setAbsolutePath("");
-			renderJson(Ret.ok("info", info));
+			
+			 
+			renderJson(info.getUeditorRet());
+ 
 		}
 		catch(com.jfinal.upload.ExceededSizeException ex) {
 			renderJson("state", "上传图片只允许 200K 大小");
