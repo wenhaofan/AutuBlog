@@ -10,4 +10,4 @@ pwd=root
 #cookie域,如果和访问地址不一致会导致登录不生效
 domain=127.0.0.1
 #项目路径
-projectPath=http://127.0.0.1/
+projectPath=http://127.0.0.1:8080/

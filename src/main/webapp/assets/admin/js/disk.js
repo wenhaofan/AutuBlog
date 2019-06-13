@@ -3,7 +3,9 @@ layui.define([
     'jquery',
     'layer',
     'fl',
-    'contextMenu'
+    'contextMenu',
+    'clipboard',
+    'upload'
 ], function (exports) {
 
     const disk = {
@@ -17,9 +19,7 @@ layui.define([
         bind: function () {
             const that=this;
             const contextMenu=layui.contextMenu;
-            $("body").on("click",".disk-upload-button",function () {
-                $(".disk-upload-file").trigger("click");
-            })
+         
              $("body").on("click",".folder-goback a",function () {
                 that.goBackFolder();
             })
@@ -35,15 +35,13 @@ layui.define([
                 $(".copy-link-hint").text("链接已复制到您的剪切板,如未生效请手动复制！");
             });
 
-
-
             $(".folder-nav").on("click", "a", function () {
-                changeFolder(this);
+            	that.changeFolder(this);
             })
 
 
             $("body").on("click", ".confirm-rename", function () {
-                confirmRename(this);
+                that.confirmRename(this);
             })
 
             $("body").on("click", ".cancel-create-folder", function () {
@@ -57,51 +55,40 @@ layui.define([
 
             $(".disk-content").on("click", ".confirm-create-folder", function () {
                 var folderName = $(this).prev().val();
-                createFolder({ name: folderName });
+                that.createFolder({ name: folderName });
                 $(this).parent().parent().remove();
             })
             $(".disk-content").on("click", ".disk-folder", function () {
                 var id = $(this).data("id");
                 var name = $(this).find(".file-name").text();
-                clickFolder(id, name);
+                that.clickFolder(id, name);
             })
 
-            $("body").on("change", ".disk-upload-file", function () {
-                var obj = this;
-                uploadUtil.uploadFile({
-                    data: { "parentId": currentFolderId }, file: $(this), success: function (data) {
-                        alert("上传成功！")
-                        addFileItem(data.disk);
-                        //为了避免下次点击不能弹出文件选择框所以替换上传文件的input
-                        $(obj).replaceWith('<input type="file" class=" disk-upload-file " style="display:none;">');
-                    }
-                })
-            })
             contextMenu.on(".disk-file", [
                 {
                     events: {
                         "click": function (element) {
                             var id = $(element).data("id");
-                            download(id);
+                            that.download(id);
                         }
                     }, text: "下载"
                 }, {
                     events: {
                         "click": function (element) {
-                            rename(element);
+                        	 that.rename(element);
                         }
                     }, text: "重命名"
                 }, {
                     events: {
                         "click": function (element) {
-                            removeFile($(element).data("id"));
+                        	 that.removeFile($(element).data("id"));
                         }
                     }, text: "删除"
                 }, {
                     events: {
                         "click": function (element) {
                             var id = $(element).data("id");
-                            share(id);
+                            that.share(id);
                         }
                     }, text: "分享"
                 }
@@ -162,27 +149,57 @@ layui.define([
                     }, text: "删除"
                 }
             ]);
-        }, load: function () {
+        }, 
+        
+        load: function () {
+        	
+        	const that=this;
             this.listDiskItem({ parentId: currentFolderId });
 
             if (currentFolderId != 0) {
                 queryFolderNav(currentFolderId);
             }
-          
+            
+            
+            // 执行实例
+            var uploadInst = layui.upload.render({
+                elem: '.disk-upload-button' // 绑定元素
+                ,url: '/admin/api/disk/upload' // 上传接口
+                ,data:{ "parentId": currentFolderId }
+            	,accept:'file'
+            	,field:'upfile'
+                ,done: function(data){
+                	
+                	if(data.state=="ok"){
+                		layer.msg("上传成功");
+                		that.addFileItem(data.disk);
+                	}else{
+                		layer.msg(data.msg);
+                	}
+                }
+                ,error: function(){
+                	layer.msg('系统繁忙，请稍后再试');
+                }
+            });
+
+        },
+        pjaxLoad:function(){
+        	this.load();
         },
         clickFolder: function (folderId, folderName) {
-            changeMenuNav(folderId, folderName);
+            this.changeMenuNav(folderId, folderName);
             this.listDiskItem({ parentId: folderId });
         },
 
         share: function (id) {
-            layer.open({
+        	const that=this;
+            layui.layer.open({
                 type: 1,
                 area: ['320px', '170px'],
                 title: "分享链接",
                 content: $("#tpl-copy").html(),
                 success: function () {
-                    getDiskFileUrl(id);
+                    that.getDiskFileUrl(id);
                     $(".copy-btn").trigger("click");
                 }
             });
@@ -215,10 +232,11 @@ layui.define([
         }
         ,
         changeMenuNav: function (folderId, folderName) {
+        	const that=this;
             if ($(".folder-goback").hasClass("hide")) {
-                renderMenuNav(folderId);
+            	that.renderMenuNav(folderId);
             } else {
-                convertMenuNav();
+            	that.convertMenuNav();
             }
             $(".folder-nav").append("<span data-id='" + folderId + "'>" + folderName + "</span>");
         }
@@ -392,12 +410,16 @@ layui.define([
 
 
         getType: function (type) {
+        	
             const thumbImg = this.thumbImg;
+            
+            const that=this;
+            
             for (key in thumbImg) {
                 if (key == type) {
                     return key;
                 }
-                if (isArray(thumbImg[key])) {
+                if (that.isArray(thumbImg[key])) {
                     for (j = 0, len = thumbImg[key].length; j < len; j++) {
                         if (thumbImg[key][j] == type) {
                             return key;

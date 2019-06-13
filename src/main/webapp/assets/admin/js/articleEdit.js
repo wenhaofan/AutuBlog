@@ -162,11 +162,8 @@ layui.define([
         	const data=this.cache.getDate();
         	
     		// 优先读取显示本地缓存的内容
-    		if(data.content){
-    		 
-    			 editorSet.useEditor(data.contentType=="markdown"?'editormd':'ueditor').init(data.content);
-    		 	
-    			
+    		if(data&&data.content){
+    			editorSet.useEditor(data.contentType=="markdown"?'editormd':'ueditor').init(data.content);
     			this.switchEditorShowByType(data.contentType=="markdown"?'editormd':'ueditor');	
     		}else{
     			this.swicthEditorByType($('input[name="contentType"]').val()=="markdown"?'editormd':'ueditor');
@@ -238,6 +235,8 @@ layui.define([
     				
     			}
     			that.setData(newDate);
+        	},removeCurrentCache:function(){
+        		layui.lsCache.remove(this.getCacheKey());
         	}
         },
 
@@ -429,6 +428,8 @@ layui.define([
             fdata = fl.mergeJson(fdata, this.getSelectedTag());
             fdata = fl.mergeJson(fdata, this.getSelectedCategory());
 
+            this.cache.removeCurrentCache();
+            
             this.editArticle({
                 fdata: fdata, success: function (data) {
                     var time = "[" + new Date() + "]";

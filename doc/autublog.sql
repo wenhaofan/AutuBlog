@@ -160,7 +160,8 @@ CREATE TABLE `disk`  (
   `gmtCreate` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `gmtModify` datetime(0) NULL DEFAULT NULL,
   `state` tinyint(2) NULL DEFAULT 0 COMMENT '0为正常1为假删除',
-  `thumbUrl` varchar(248) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `thumbUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `hash` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
