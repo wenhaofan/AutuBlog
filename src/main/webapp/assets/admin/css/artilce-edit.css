@@ -52,3 +52,8 @@
 [data-editor=ueditor]:hover{
     color:#fff;
 }
+
+.thumb-preview{
+	    width: 420px;
+    height: 240px;
+}

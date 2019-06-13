@@ -242,14 +242,18 @@ layui.define([
 
         previewCover:function(){
            const thumbImg=  $("input[name='thumbImg']").val();
+        
             layer.open({
-                type: 1,
-                title: false,
-                closeBtn: 0,
-                shadeClose: true,
-                skin: 'yourclass',
-                content: '<img src="'+thumbImg+'"/>'
-            });
+            	  type: 1,
+            	   title: '封面预览',
+            	  closeBtn: 0,
+            	  area: '516px',
+            	  offset: '50px',
+            	  skin: 'thumb-preview', skin: 'thumb-preview',
+            	  shadeClose: true,
+            	  content: '<img src="'+thumbImg+'"/>'
+            	});
+            
         },
 
         bind: function () {
@@ -333,9 +337,17 @@ layui.define([
             var uploadInst = upload.render({
                 elem: '.article-upload-thumb' // 绑定元素
                 ,url: '/api/upload' // 上传接口
+                ,field:'upfile'
+                ,data:{uploadType:'thumb'}
                 ,done: function(res){
-                	$('input[name="thumbImg"]').val(res.info.url); 
-                	$('.article-thumb-preview').show();
+                	if(res.state=="ok"){
+                		$('input[name="thumbImg"]').val(res.info.url); 
+                    	$('.article-thumb-preview').show();
+                    	layui.layer.msg("上传成功");
+                	}else{
+                		layui.layer.msg("上传失败");
+                	}
+                	
                 }
                 ,error: function(){
                 	layer.msg('系统繁忙，请稍后再试');

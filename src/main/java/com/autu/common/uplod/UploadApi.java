@@ -28,8 +28,10 @@ public class UploadApi extends BaseController {
 			renderJson(Ret.fail());
 		}
 		
-		String uploadType=getPara(0);
+	
 		UploadFile	uf = getFile("upfile", UploadService.tempPath);
+		
+		String uploadType = getPara("uploadType");
 		FileUploadInfo info=service.fileUpload(uploadType, uf);
 		//隐藏绝对路径
 		info.setAbsolutePath("");
@@ -61,6 +63,9 @@ public class UploadApi extends BaseController {
 	 *
 	 */
 	public void ueditor() {
+		
+		// "upfile" 来自 config.json 中的 imageFieldName 配置项
+		
 		/**
 		 * ueditor 在页面加载时会向后端请求获取 config.json 内容
 		 */
@@ -95,10 +100,8 @@ public class UploadApi extends BaseController {
 			return ;
 		}
 
-		UploadFile uploadFile = null;
 		try {
-			// "upfile" 来自 config.json 中的 imageFieldName 配置项
-			uploadFile = getFile("upfile", UploadService.tempPath, UploadService.imageMaxSize);
+			UploadFile uploadFile = getFile("upfile", UploadService.tempPath, UploadService.imageMaxSize);
 			FileUploadInfo info = service.fileUpload(uploadType, uploadFile);
 			//隐藏绝对路径
 			info.setAbsolutePath("");
@@ -111,9 +114,7 @@ public class UploadApi extends BaseController {
 			renderJson("state", "上传图片只允许 200K 大小");
 		}
 		catch(Exception e) {
-			if (uploadFile != null) {
-				uploadFile.getFile().delete();
-			}
+		 
 			
 			renderJson("state", "上传图片出现未知异常，请告知管理员：" + e.getMessage());
 			LogKit.error(e.getMessage(), e);
