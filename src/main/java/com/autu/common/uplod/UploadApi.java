@@ -23,6 +23,11 @@ public class UploadApi extends BaseController {
 	 * 文件上传处理
 	 */
 	public void index() {
+		
+		if(notLogin()) {
+			renderJson(Ret.fail());
+		}
+		
 		String uploadType=getPara(0);
 		UploadFile	uf = getFile("upfile", UploadService.tempPath);
 		FileUploadInfo info=service.fileUpload(uploadType, uf);

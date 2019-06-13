@@ -1,13 +1,4 @@
-layui.define([
-    'jquery',
-    'form',
-    'formSelects',
-    'inputTags',
-    'editormd',
-    'upload'
-], function (exports) {
-
-    const  editorSet=  {
+ const  editorSet=  {
             editorArr: [],
             currEditor: null,
             editorType: null,
@@ -32,29 +23,26 @@ layui.define([
             }, initUeditor: function () {
                 const that=this;
                 let editor = {
-                    ueditor: null,
+					ueditor: null,
+					editorSelector:'article-ueditor',
                     getEditor: function () {
                         return this.ueditor;
                     },
                     setEditor:function(ue){
                         this.ueditor=ue;
-                    },
+					},
+					destory:function(){
+						UE.delEditor(this.editorSelector);
+						this.setEditor(null);
+                        $('#'+this.editorSelector+"-container").html(' 	<script id="article-ueditor" name="content" type="text/plain"></script>');
+					},
                     init: function (content) {
 
                         const that=this;
+						
+						this.destory();
 
-                        const editorSelector='article-ueditor';
-
-                        if(editorSet.getEditor("ueditor").getEditor()){
-                            UE.delEditor(editorSelector);
-
-                            
-
-                            editorSet.getEditor("ueditor").setEditor(null);
-                            $('#'+editorSelector+"-container").html(' 	<script id="article-ueditor" name="content" type="text/plain"></script>');
-                        }
-
-                        that.setEditor(UE.getEditor(editorSelector, {
+                        that.setEditor(UE.getEditor(this.editorSelector, {
                             initialFrameHeight: 400,
                             initialContent: content
                         }))
@@ -148,12 +136,110 @@ layui.define([
             }
         };
 
+layui.define([
+    'jquery',
+    'form',
+    'formSelects',
+    'inputTags',
+    'editormd',
+    'upload',
+    'lsCache'
+], function (exports) {
     const articleEdit = {
-       
-        isChange: false,
+        formLayfilter:'article-edit',
         editorType: "",
         isInit: false,
         tagsContent:null,
+        autoSaveCallback:function(){	
+        	console.log('保存成功');
+        },
+        getArticleId:function(){
+        	let id= $('input[name="id"]').val();
+        	return id?id:0;
+        },
+        initEditor:function(){
+        	
+        	const data=this.cache.getDate();
+        	
+    		// 优先读取显示本地缓存的内容
+    		if(data.content){
+    		 
+    			 editorSet.useEditor(data.contentType=="markdown"?'editormd':'ueditor').init(data.content);
+    		 	
+    			
+    			this.switchEditorShowByType(data.contentType=="markdown"?'editormd':'ueditor');	
+    		}else{
+    			this.swicthEditorByType($('input[name="contentType"]').val()=="markdown"?'editormd':'ueditor');
+    		}
+ 
+        },cache:{
+        	isStart:true,
+        	data:{},
+        	autoSaveTimmer:null,
+        	// 自动保存的时间 单位毫秒
+        	autuSaveTime:1000,
+        	getCacheKey:function(){
+        		var id=articleEdit.getArticleId();
+        		return 'article-edit-'+id;
+        	},
+        	setData:function(newdate){
+        		this.data=Object.assign({},this.data,newdate);
+        		articleEdit.autoSaveCallback(layui.lsCache.set(this.getCacheKey(this.data.id),this.data));
+        	},getDate:function(){
+        		return layui.lsCache.get(this.getCacheKey());
+        	},renderForm:function(){
+        		
+        		
+        		const data=this.getDate();
+        		
+        		if(data==null){
+        			return;
+        		}
+        		
+        		form.val(articleEdit.formLayfilter,data);
+        		
+        		if(data.tags){
+        			articleEdit.renderInputTags(data.tags);
+        		}
+	
+        	},startAutoSave:function(){
+        		if(this.autoSaveTimmer){
+        			return;
+        		}
+        		const that=this;
+        		this.autoSaveTimmer=setInterval(function(){
+        			that.saveData();
+        		},that.autuSaveTime);
+        		
+        	},stopAutoSave:function(){
+        		clearInterval(this.autoSaveTimmer);
+        		this.autoSaveTimmer=0;
+        	},saveData:function(){
+        		const that=this;
+    			
+    			const content=editorSet.getContent($('#contentType').val());
+    			
+    			var formdata = $(' div[lay-filter="'+articleEdit.formLayfilter+'"] [name]').serializeArray();
+    			var newDate={};
+    			newDate.content=content;
+    			
+    			for(var sub in formdata){
+    				const item=formdata[sub];
+    				if(!item||!item.name||!item.value){
+    					continue;
+    				}
+    			 
+    				let tempCode='newDate.'+item.name+'="'+item.value+'";';
+    				try {
+    					eval(tempCode);
+					} catch (e) {
+						 
+					}
+    				
+    			}
+    			that.setData(newDate);
+        	}
+        },
 
         previewCover:function(){
            const thumbImg=  $("input[name='thumbImg']").val();
@@ -174,7 +260,7 @@ layui.define([
 
             form.on('submit(publish)', function (data) {
                 that.save(data.field, 1);
-                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                return false; // 阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
 
 
@@ -185,23 +271,25 @@ layui.define([
             form.on('switch(allowComment)', function (data) {
                 $('input[name="allowComment"]').val(data.elem.checked);
             });
+            
             form.on('switch(isOriginal)', function (data) {
                 $('input[name="isOriginal"]').val(data.elem.checked);
-
             });
 
 
-            //监听input变化
+            // 监听input变化
             $("body").on("input propertychange", "#articleForm input", function (event) {
                 that.isChange = true;
             });
 
-            //监听mditor编辑
+            // 监听mditor编辑
             $('body').on('input propertychange', ".editor textarea", function () {
                 that.isChange = true;
             })
 
-
+            $("body").on('click','.article-thumb-preview',function(){
+            	that.previewCover();
+            })
 
             $("body").on("click", ".switch-editor", function () {
                 that.confirmsSwicthEditor(this);
@@ -212,9 +300,22 @@ layui.define([
         pjaxLoad: function () {
              this.load();
         },
-
+        renderInputTags:function(content){
+        	const that=this;
+            var inputTags = layui.inputTags;
+            that.tagsContent=inputTags.render({
+                elem:'#articleTags',// 定义输入框input对象
+                content: content,// 默认标签
+        
+                done: function(value){ // 回车后的回调
+                    console.log(value)
+                }
+            }).config.content; 
+        },
         load: function () {
             
+        	this.cache.startAutoSave();
+        	
             layui.formSelects.render();
             layui.form.render();
             const upload=layui.upload;
@@ -224,37 +325,30 @@ layui.define([
             that.editorType = $('#contentType').val();
 
             editorSet.init();
-            that.swicthEditorByType("ueditor");
-
-            var inputTags = layui.inputTags;
-            that.tagsContent=inputTags.render({
-                elem:'#articleTags',//定义输入框input对象
-                content: getInitTags(),//默认标签
-        
-                done: function(value){ //回车后的回调
-                    console.log(value)
-                }
-            }).config.content; 
-
+         
+            this.initEditor();
+            
+            that.renderInputTags(getInitTags());
              
-            //执行实例
+            // 执行实例
             var uploadInst = upload.render({
-                elem: '.article-upload-thumb' //绑定元素
-                ,url: '/upload/' //上传接口
+                elem: '.article-upload-thumb' // 绑定元素
+                ,url: '/api/upload' // 上传接口
                 ,done: function(res){
-                //上传完毕回调
+                	$('input[name="thumbImg"]').val(res.info.url); 
+                	$('.article-thumb-preview').show();
                 }
                 ,error: function(){
-                //请求异常回调
+                	layer.msg('系统繁忙，请稍后再试');
                 }
             });
 
-             //保存草稿
+             // 保存草稿
             $("#draft").click(function () {
                 that.save(0);
             });
 
-            //保存并发布
+            // 保存并发布
             $("#subArticle").click(function () {
                 that.save(1);
             })
@@ -271,8 +365,7 @@ layui.define([
                 });
             })
 
-        }, getArticleId: function () {
-            return $("input[name='id']").val();
+            this.cache.renderForm();
         }, editArticle: function (paras) {
             layui.fl.ajax({
                 url: "/admin/api/article/edit",
@@ -287,8 +380,6 @@ layui.define([
             $.each(categorys, function (index, item) {
                 $("#multiple-sel option[value='" + item + "']").attr("selected", true)
             })
-        }, initArticleInfo: function () {
-
         }, getSelectedTag: function () {
            
             var tagArr = this.tagsContent,data=new Array();
@@ -308,9 +399,10 @@ layui.define([
             return data;
         },
         /**
-                 * 保存文章
-         * @returns
-         */
+		 * 保存文章
+		 * 
+		 * @returns
+		 */
         save: function (fdata, state) {
             const fl=layui.fl;
             fdata.content = editorSet.getContent();
@@ -353,17 +445,17 @@ layui.define([
                 }
             });
         }, getPlainText: function (content) {
-            content = content.replace(/<\/?[^>]*>/g, ''); //去除HTML tag
-            content = content.replace(/[ | ]*\n/g, '\n'); //去除行尾空白
-            //str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
-            content = content.replace(/&nbsp;/ig, '');//去掉&nbsp;
-            content = content.replace(/\s/g, ''); //将空格去掉
+            content = content.replace(/<\/?[^>]*>/g, ''); // 去除HTML tag
+            content = content.replace(/[ | ]*\n/g, '\n'); // 去除行尾空白
+            // str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+            content = content.replace(/&nbsp;/ig, '');// 去掉&nbsp;
+            content = content.replace(/\s/g, ''); // 将空格去掉
             return content;
         },
         confirmsSwicthEditorByType: function (type) {
             const that=this;
             let swicthEditorIndex = layer.confirm('切换编辑器可能会丢失部分样式，是否继续？', {
-                btn: ['继续', '算了吧'] //按钮
+                btn: ['继续', '算了吧'] // 按钮
             }, function () {
 
                 that.swicthEditorByType(type);
@@ -372,20 +464,21 @@ layui.define([
             }, function () {
                 layer.close(swicthEditorIndex);
             });
-        },
-
-        swicthEditorByType: function (type) {
+        },swicthEditorByType: function (type) {
             const that=this;
             let content = editorSet.getContent(type == "ueditor" ? "html" : "markdown")
             let currEditor = editorSet.useEditor(type);
             currEditor.init(content);
             
+            this.switchEditorShowByType(type);
+        },switchEditorShowByType:function(type){
+        	 const that=this;
+        	  let currEditor = editorSet.useEditor(type);
             $("[data-editor]").removeClass("selected-editor-btn");
             $('[data-editor="' + type + '"').addClass("selected-editor-btn");
 
             if (type == "ueditor") {
-
-                //切换为html编辑器
+                // 切换为html编辑器
                 $('#md-container').hide();
                 $('#html-container').show();
 
@@ -393,17 +486,16 @@ layui.define([
 
                 that.editorType = "markdown";
                 that.meditor = currEditor.getEditor();
-
             } else if (type == "editormd") {
-                //切换为markdown编辑器
+                // 切换为markdown编辑器
 
                 $('#md-container').show();
                 $('#html-container').hide();
                 $('#contentType').val("markdown");
                 that.editorType = "html";
                 that.htmlEditor = currEditor.getEditor();
-
             }
+        	
         },
 
         confirmsSwicthEditor: function (obj) {

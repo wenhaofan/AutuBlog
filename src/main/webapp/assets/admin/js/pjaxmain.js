@@ -11,7 +11,13 @@ layui.define([
             const $=this.$;
             const NProgress=this.NProgress;
 
-            $(document).on('pjax:start', function() { NProgress.start(); });
+            $(document).on('pjax:start', function() { 
+            	if(layui.articleEdit){
+            		//停止自动保存
+            		layui.articleEdit.cache.stopAutoSave();
+            	}
+            	NProgress.start();
+            });
     
             $(document).on('pjax:end',   function() { 
                 NProgress.done(); 

@@ -21,7 +21,8 @@
      contextMenu:'{/}/assets/plugins/context-menu/contextMenu',
      formSelects:'{/}/assets/frame/layui/plugins/formSelectes/formSelects-v4',
      inputTags:'{/}/assets/frame/layui/plugins/inputTags/inputTags',
-     editormd:'{/}/assets/plugins/editor/editormd'
+     editormd:'{/}/assets/plugins/editor/editormd',
+     lsCache:'{/}/assets/frame/layui/plugins/lsCache/lsCache'
 });
 
  

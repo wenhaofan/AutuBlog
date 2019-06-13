@@ -52,7 +52,7 @@ function getThumbImg(){
 }
 </style>
  
-<div class="article-edit layui-form" >
+<div class="article-edit layui-form" lay-filter="article-edit" >
  
 	<div class="layui-row">
 		<div class="layui-col-lg12 layui-col-md12">
@@ -113,9 +113,9 @@ function getThumbImg(){
 		<div class="layui-row">
 		<div class="layui-col-md6">
 		 	<div class="layui-form-item">
-                 <div class="layui-input-block">
+                 <div class="layui-input-block"> 
                     <button class="layui-btn layui-btn-primary layui-btn-sm article-upload-thumb">上传封面</button>
-                    <button class="layui-btn layui-btn-primary layui-btn-sm">预览封面</button>
+                    <button class="layui-btn layui-btn-primary layui-btn-sm article-thumb-preview" display="#(article==null?'none':'display')" >预览封面</button>
                  </div>
  		 	</div>
 		</div>
