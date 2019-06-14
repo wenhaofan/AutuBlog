@@ -16,6 +16,10 @@ layui.define([
                     }
                 })
             })
+        },load:function(){
+        	
+        },pjaxLoad:function(){
+        	
         }
     };
     

@@ -57,3 +57,10 @@
 	    width: 420px;
     height: 240px;
 }
+
+.article-auto-save-msg{
+    line-height: 36px;
+    display: inline-block;
+    color: red;
+    font-size: 12px;
+}

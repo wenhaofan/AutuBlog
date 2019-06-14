@@ -120,13 +120,12 @@
 		<button class="layui-btn layui-btn-sm bdelete" data-id="{{d.id}}" >删除</button> 
 	]]#
 </script>
-<script type="text/javascript" src="/assets/js/from-util.js"></script>
 <link rel="stylesheet" type="text/css" href="/assets/admin/css/advance-config.css">
 
 <script>
     function pjaxLoad(){
       layui.use(['advancedConfig'],function(advancedConfig){
-        advancedConfig.pjaxLoad();
+    	  advancedConfig.pjaxLoad();
       })
     }
     function firstLoad(){

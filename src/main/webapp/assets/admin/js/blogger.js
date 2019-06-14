@@ -1,4 +1,4 @@
-lauyi.define([
+layui.define([
     'jquery',
     'fl',
     'ueditor',
@@ -14,6 +14,9 @@ lauyi.define([
             form.on("submit(bloggerEdit)", function (data) {
                 that.editInfo(data.field);
             })
+        },
+        pjaxLoad:function(){
+        	this.load();
         },
         load: function () {
             form = layui.form;
@@ -33,23 +36,20 @@ lauyi.define([
             });
             this.htmlEditor = layui.ueditor.UE.getEditor('blogger-ueditor', {
                 initialFrameHeight: 400,
-                initialContent: this.getContent()
+                initialContent:  $(".blogger #about-content").html()
             });
         }, getContent: function () {
-
-            if (!this.isInit) {
-                return $(".blogger #about-content").html();
-            }
+ 
 
             return this.htmlEditor.getContent();
         }, editInfo: function (data) {
             data.about = this.getContent();
-            fl.ajax({
+            layui.fl.ajax({
                 url: "/admin/api/user/editInfo",
                 data: data,
                 type: "post",
                 success: function (data) {
-                    fl.alertOk({ title: "修改成功！" });
+                    layui.fl.alertOk({ title: "修改成功！" });
                 }
             })
         }

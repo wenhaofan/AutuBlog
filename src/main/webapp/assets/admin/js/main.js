@@ -23,7 +23,8 @@
      inputTags:'{/}/assets/frame/layui/plugins/inputTags/inputTags',
      editormd:'{/}/assets/plugins/editor/editormd',
      lsCache:'{/}/assets/frame/layui/plugins/lsCache/lsCache',
-     clipboard:'{/}/assets/plugins/clipboard/clipboard.min'
+     clipboard:'{/}/assets/plugins/clipboard/clipboard.min',
+     echarts:'{/}/assets/echarts/echarts'
 });
 
  

@@ -1,117 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>博客后台管理</title>
- <link rel="stylesheet" href="/assets/frame/layui/css/layui.css">
-<link href="/assets/admin/css/index.css"  rel="stylesheet">
-<link href="/assets/plugins/nprogress/nprogress.css"  rel="stylesheet">
-<link href="/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.css" rel="stylesheet">
-<script src="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.js"></script>
- <script type="text/javascript" src="/assets/frame/layui/layui.js"></script>
-  <script type="text/javascript" src="/assets/admin/js/main.js"></script>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>博客后台管理</title>
+<link rel="stylesheet" href="/assets/frame/layui/css/layui.css">
+<link href="/assets/admin/css/index.css" rel="stylesheet">
+<link href="/assets/plugins/nprogress/nprogress.css" rel="stylesheet">
+<link href="/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.css"
+	rel="stylesheet">
+<script
+	src="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.js"></script>
+<script type="text/javascript" src="/assets/frame/layui/layui.js"></script>
+<script type="text/javascript" src="/assets/admin/js/main.js"></script>
 
-<script type="text/javascript" src="/assets/plugins/template/art-template.js"></script>
-<script type="text/javascript" src="/assets/js/from-util.js"></script>
- 
+<script type="text/javascript"
+	src="/assets/plugins/template/art-template.js"></script>
 <script type="text/javascript">
- 
-var requestUrl="#(requestUrl)";
-
+	var requestUrl = "#(requestUrl)";
 </script>
- <!-- 配置文件 -->
-<script type="text/javascript" src="/assets/plugins/ueditor/ueditor.config.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript"
+	src="/assets/plugins/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
-<script type="text/javascript" src="/assets/plugins/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="/assets/plugins/ueditor/ueditor.all.js"></script>
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-  <div class="layui-header">
-  	<div class="layui-toggle-menu">
-  		<i class="layui-icon"></i>
-  	</div>
-    <div class="layui-logo">博客管理</div>
-    <!-- 头部区域（可配合layui已有的水平导航） -->
- 
-    <ul class="layui-nav layui-layout-right">
-      <li class="layui-nav-item">
-        <a href="javascript:;">
-          
-         	欢迎你,#(adminUser.name)
-        </a>
-        <dl class="layui-nav-child">
-           <dd id="updateInfo"><a href="javascript:void(0)">修改个人信息</a></dd>
-      	   <dd id="updatePwd"><a href="javascript:void(0)">修改密码</a></dd>
-      	   <dd><a href="/">前台</a></dd>
-           <dd><a href="/login/logout">退出</a></dd>
-        </dl>
-      </li>
- 
-    </ul>
-  </div>
-  
-    <div class="layui-side layui-bg-black">
-    <div class="layui-side-scroll">
-    <ul class="layui-nav layui-nav-tree menu-tree">
-         <li class="layui-nav-item"><a href="/admin/" pjax > <i class="layui-icon layui-icon-console"></i><span>控制台</span></a></li>
-	     <li class="layui-nav-item  layui-nav-itemed">
-          <a class="" href="javascript:;">文章管理</a>
-          <dl class="layui-nav-child">
-            	<dd><a href="/admin/article/edit"  pjax ><i class="fa fa-pencil-square-o"></i><span>发表文章</span></a></dd>
-            	<dd><a href="/admin/article/list"  pjax ><i class="fa fa-list"></i><span>文章列表</span></a></dd>
-            	<dd><a href="/admin/article/draft"  pjax ><i class="fa fa-archive"></i><span>草稿箱</span></a></dd>
-            	<dd><a href="/admin/meta/list"  pjax ><i class="fa fa-tags"></i><span>分类管理</span></a></dd>
-           		<dd><a href="/admin/comment" pjax ><i class="layui-icon layui-icon-reply-fill"></i><span>评论管理</span></a></dd>
-          </dl>
-        </li>	
-      	<li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">文件管理</a>
-          <dl class="layui-nav-child">
-          	   <dd><a href="/admin/disk" pjax ><i class="fa fa-cloud-upload"></i><span>文件管理</span></a></dd>
-          </dl>
-         </li>	
-         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">网站设置</a>
-          <dl class="layui-nav-child">
-          	    <dd><a href="/admin/user/edit" pjax ><i class="layui-icon layui-icon-about"></i><span>个人介绍</span></a></dd>
-     			<dd><a href="/admin/themes" pjax ><i class="layui-icon layui-icon-theme"></i><span>主题配置</span></a></dd>
-       	      	<dd><a href="/admin/nav" pjax ><i class="fa fa-navicon"></i><span>导航管理</span></a></dd>
-       	      	<dd><a href="/admin/loginRecord" pjax ><i class="fa fa-list-alt"></i><span>登录日志</span></a></dd>
- 
-          </dl>
-         </li>	
-           <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">页面设置</a>
-          <dl class="layui-nav-child">
-          	    <dd><a href="/admin/route" pjax ><i class="layui-icon layui-icon-about"></i><span>页面列表</span></a></dd>
- 
-          </dl>
-         </li>	
- 		 <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">配置</a>
-          <dl class="layui-nav-child">
-       	    	<dd ><a href="/admin/config" pjax ><i class="layui-icon  layui-icon-set"></i><span>网站设置</span></a></dd>
-   				<dd ><a href="/admin/advancedConfig" pjax ><i class="layui-icon  layui-icon-set"></i><span>高级配置</span></a></dd>
-          </dl>
-          </li>	
-      </ul>
-    </div>
-  </div>
- 
-  
-  <div class="layui-body">
-    <!-- 内容主体区域 -->
-    <div style="padding: 15px;" class=" site-block">
-    	<main class="layui-fluid site-block">
-    		 #render(includeUrl)
-    	</main>	
-    </div>
-  </div>
- 
-</div>
-<script type="text/html" id="tpl-update-pwd">
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header">
+			<div class="layui-toggle-menu">
+				<i class="layui-icon"></i>
+			</div>
+			<div class="layui-logo">博客管理</div>
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item"><a href="javascript:;">
+
+						欢迎你,#(adminUser.name) </a>
+					<dl class="layui-nav-child">
+						<dd id="updateInfo">
+							<a href="javascript:void(0)">修改个人信息</a>
+						</dd>
+						<dd id="updatePwd">
+							<a href="javascript:void(0)">修改密码</a>
+						</dd>
+						<dd>
+							<a href="/">前台</a>
+						</dd>
+						<dd>
+							<a href="/login/logout">退出</a>
+						</dd>
+					</dl></li>
+
+			</ul>
+		</div>
+
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<ul class="layui-nav layui-nav-tree menu-tree">
+					<li class="layui-nav-item"><a href="/admin/" pjax> <i
+							class="layui-icon layui-icon-console"></i><span>控制台</span></a></li>
+					<li class="layui-nav-item  layui-nav-itemed"><a class=""
+						href="javascript:;">文章管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/admin/article/edit" pjax><i
+									class="fa fa-pencil-square-o"></i><span>发表文章</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/article/list" pjax><i class="fa fa-list"></i><span>文章列表</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/article/draft" pjax><i
+									class="fa fa-archive"></i><span>草稿箱</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/meta/list" pjax><i class="fa fa-tags"></i><span>分类管理</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/comment" pjax><i
+									class="layui-icon layui-icon-reply-fill"></i><span>评论管理</span></a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">文件管理</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/admin/disk" pjax><i class="fa fa-cloud-upload"></i><span>文件管理</span></a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">网站设置</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/admin/user/edit" pjax><i
+									class="layui-icon layui-icon-about"></i><span>个人介绍</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/themes" pjax><i
+									class="layui-icon layui-icon-theme"></i><span>主题配置</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/nav" pjax><i class="fa fa-navicon"></i><span>导航管理</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/loginRecord" pjax><i class="fa fa-list-alt"></i><span>登录日志</span></a>
+							</dd>
+
+						</dl></li>
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">页面设置</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/admin/route" pjax><i
+									class="layui-icon layui-icon-about"></i><span>页面列表</span></a>
+							</dd>
+
+						</dl></li>
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">配置</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/admin/config" pjax><i
+									class="layui-icon  layui-icon-set"></i><span>网站设置</span></a>
+							</dd>
+							<dd>
+								<a href="/admin/advancedConfig" pjax><i
+									class="layui-icon  layui-icon-set"></i><span>高级配置</span></a>
+							</dd>
+						</dl></li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="layui-body">
+			<!-- 内容主体区域 -->
+			<div style="padding: 15px;" class=" site-block">
+				<main class="layui-fluid site-block"> #render(includeUrl) </main>
+			</div>
+		</div>
+
+	</div>
+	<script type="text/html" id="tpl-update-pwd">
 <div style="width:290px;padding:10px;">
 	<form class="layui-form update-pwd-from" onsubmit="return false;">
 		 <div class="layui-form-item layui-form-text">
@@ -132,7 +169,7 @@ var requestUrl="#(requestUrl)";
 </form>
 </div>
 </script>
-<script type="text/html" id="tpl-update-info">
+	<script type="text/html" id="tpl-update-info">
 <div style="width:290px;padding:10px;">
 	<form class="layui-form update-info-from" onsubmit="return false;">
 		<div class="layui-form-item layui-form-text">
@@ -160,4 +197,3 @@ var requestUrl="#(requestUrl)";
 </script>
 </body>
 </html>
-      

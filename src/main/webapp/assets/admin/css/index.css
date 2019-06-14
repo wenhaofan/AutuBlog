@@ -110,7 +110,7 @@ bottom: 0px;
 	display: none;
 }
 .layui-side,.layui-header{
-	z-index: 1!important;
+	    z-index: 1999!important;
 }
 .select2-hidden-accessible{
 	display: none!important;
@@ -123,9 +123,7 @@ bottom: 0px;
     background-color: #fff!important;
 }
 
-.layui-side, .layui-header {
-    z-index: 1000!important;
-}
+ 
 
 .layui-header .layui-nav-more{
 	border-top-color: #337ab7 !important;
@@ -153,4 +151,7 @@ dl{
 }
 .layui-body{
 	z-index: 1998;
+}
+.layui-anim-upbit .layui-this{
+	color:#fff;
 }

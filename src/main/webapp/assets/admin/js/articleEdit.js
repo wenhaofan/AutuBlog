@@ -4,6 +4,10 @@
             editorType: null,
             initSelector: "#content",
             turndownService: new TurndownService(),
+            clear:function(){
+            	this.currEditor=null;
+            	this.editorArr={};
+            },
             setEditor: function (key, editor) {
                 this.editorArr[key] = editor;
             },
@@ -151,7 +155,7 @@ layui.define([
         isInit: false,
         tagsContent:null,
         autoSaveCallback:function(){	
-        	console.log('保存成功');
+        	$('.article-auto-save-msg').text("本地保存成功："+new Date());
         },
         getArticleId:function(){
         	let id= $('input[name="id"]').val();
@@ -179,9 +183,9 @@ layui.define([
         		var id=articleEdit.getArticleId();
         		return 'article-edit-'+id;
         	},
-        	setData:function(newdate){
-        		this.data=Object.assign({},this.data,newdate);
-        		articleEdit.autoSaveCallback(layui.lsCache.set(this.getCacheKey(this.data.id),this.data));
+        	setData:function(key,newdate){
+        		this.data=Object.assign({},this.getDate(),newdate);
+        		articleEdit.autoSaveCallback(layui.lsCache.set(key,this.data));
         	},getDate:function(){
         		return layui.lsCache.get(this.getCacheKey());
         	},renderForm:function(){
@@ -193,12 +197,17 @@ layui.define([
         			return;
         		}
         		
-        		form.val(articleEdit.formLayfilter,data);
+        		delete data.id;
+        		
+        		layui.form.val(articleEdit.formLayfilter,data);
         		
         		if(data.tags){
         			articleEdit.renderInputTags(data.tags);
         		}
 	
+        		if($('input[name="thumbImg"]').val()){
+        			$('.article-thumb-preview').show();
+        		}
         	},startAutoSave:function(){
         		if(this.autoSaveTimmer){
         			return;
@@ -214,9 +223,12 @@ layui.define([
         	},saveData:function(){
         		const that=this;
     			
+        		const key=this.getCacheKey();
+
+    			var formdata = $(' div[lay-filter="'+articleEdit.formLayfilter+'"] [name]').serializeArray();
+        		
     			const content=editorSet.getContent($('#contentType').val());
     			
-    			var formdata = $(' div[lay-filter="'+articleEdit.formLayfilter+'"] [name]').serializeArray();
     			var newDate={};
     			newDate.content=content;
     			
@@ -234,7 +246,7 @@ layui.define([
 					}
     				
     			}
-    			that.setData(newDate);
+    			that.setData(key,newDate);
         	},removeCurrentCache:function(){
         		layui.lsCache.remove(this.getCacheKey());
         	}
@@ -251,7 +263,7 @@ layui.define([
             	  offset: '50px',
             	  skin: 'thumb-preview', skin: 'thumb-preview',
             	  shadeClose: true,
-            	  content: '<img src="'+thumbImg+'"/>'
+            	  content: '<img src="'+thumbImg+'" style="width: 516px; height: 300px;"/>'
             	});
             
         },
@@ -298,6 +310,11 @@ layui.define([
                 that.confirmsSwicthEditor(this);
             })
  
+            $(document).on('pjax:start', function() { 
+            	that.cache.stopAutoSave();
+            	editorSet.clear();
+            });
+            
 
         },
         pjaxLoad: function () {

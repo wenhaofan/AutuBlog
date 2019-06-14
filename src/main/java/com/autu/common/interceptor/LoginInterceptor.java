@@ -54,7 +54,7 @@ public class LoginInterceptor implements Interceptor{
 			if(c.isAjax()) {
 				c.renderJson(Ret.fail("msg", "请登录后访问！"));
 			}else {
-				c.renderError(404);
+				c.redirect("/login");
 			}
 			
 		}

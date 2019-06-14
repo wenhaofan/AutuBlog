@@ -7,14 +7,14 @@
 </div>
 <div class="site-block">
 	<form class="layui-form" method="post">
-	   	<button class="layui-btn layui-btn-sm add" type="button">添加</button>
+	   	<button class="layui-btn layui-btn-sm nav-add" type="button">添加</button>
 	</form>
 </div>
 <div>
-	<table class="layui-hide" id="comments"></table>
+	<table class="layui-hide" id="navs"></table>
 </div>
 
-<script type="text/html" id="tpl-edit">
+<script type="text/html" id="tpl-nav-edit">
 <div style="width:350px;padding:10px;margin:0 auto;padding-left:0px;">
 	<form class="layui-form" onsubmit="return add();">
 		<input type="hidden" name="id" value="{{id}}">
@@ -38,7 +38,7 @@
   		</div>
 		 <div class="layui-form-item">
 		    <div class="layui-input-block">
-		    <button class="layui-btn" type="submit" lay-submit lay-filter="{{method}}">立即提交</button>
+		    <button class="layui-btn" type="button" lay-submit lay-filter="nav-{{method}}">立即提交</button>
 		 </div>
 	  </div>
 	</form>
@@ -53,8 +53,8 @@
 <script type="text/html" id="operation-tpl">
 #[[ 
  
-	<button class="layui-btn layui-btn-sm update" data-id="{{d.id}}">修改</button>
-	<button class="layui-btn layui-btn-sm delete" data-id="{{d.id}}">删除</button> 
+	<button class="layui-btn layui-btn-sm nav-update" data-id="{{d.id}}">修改</button>
+	<button class="layui-btn layui-btn-sm nav-delete" data-id="{{d.id}}">删除</button> 
 ]]#
 </script>
 <script>

@@ -6,10 +6,10 @@ layui.define([
     const admin = {
 
         bind: function () {
-
-            form = layui.form;
-            layer = layui.layer;
-           
+        	const form = layui.form;
+        	const layer = layui.layer;
+        	const that=this;
+        	const fl=layui.fl;
             var element = layui.element;
             //监听提交
             form.on('submit(updatePwd)', function (data) {
@@ -18,7 +18,7 @@ layui.define([
                     data: data.field,
                     success: function (data) {
                         fl.alertOk({ title: "密码修改成功！" });
-                        layer.close(updatePwdIndex);
+                        layer.close(that.updatePwdIndex);
                     }
                 })
                 return false;
@@ -32,17 +32,17 @@ layui.define([
                     data: data.field,
                     success: function (data) {
                         fl.alertOk({ title: "修改成功！" });
-                        layer.close(updatePwdIndex);
+                        layer.close(that.updatePwdIndex);
                     }
                 })
                 return false;
             });
 
             $("#updatePwd").click(function () {
-                updatePwd();
+                that.updatePwd();
             });
             $("#updateInfo").click(function () {
-                updateInfo();
+            	that.updateInfo();
             });
             $(".layui-layout-right").click(function () {
                 $(this).trigger("mouseover");
@@ -97,24 +97,24 @@ layui.define([
         }, pjaxLoad: function () {
 
         }, updatePwd: function () {
-            updatePwdIndex = layer.open({
+            this.updatePwdIndex = layer.open({
                 title: "修改密码",
                 area: ['340px', '215px'],
                 type: 1,
                 content: $("#tpl-update-pwd").html(),
                 success: function () {
-                    form.render();
+                    layui.form.render();
                 }
             });
         },
         updateInfo: function () {
-            updatePwdIndex = layer.open({
+            this.updatePwdIndex = layer.open({
                 title: "修改个人信息",
                 area: ['340px', '265px'],
                 type: 1,
                 content: $("#tpl-update-info").html(),
                 success: function () {
-                    form.render();
+                    layui.form.render();
                 }
             });
         }

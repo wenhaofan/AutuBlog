@@ -1,21 +1,21 @@
-layui.define(['jquery', 'layui.fl', 'form', 'laytpl', 'table', 'upload'], function (exports) {
-    const console = {
+layui.define(['jquery', 'fl', 'form', 'laytpl', 'table', 'upload'], function (exports) {
+    const config = {
         bind: function () {
             form = layui.form;
-
+            const that=this;
             form.render();
             $("body").on("click", "#addBlogroll", function () {
-                editBlogroll({});
+            	that.editBlogroll({});
             })
 
             $("body").on("click", ".update-blogroll", function () {
                 var id = $(this).data("id");
-                updateBlogroll(id);
+                that.updateBlogroll(id);
             })
 
             $("body").on("click", ".delete-blogroll", function () {
                 var id = $(this).data("id");
-                deleteBlogroll(id);
+                that.deleteBlogroll(id);
             })
 
 
@@ -28,12 +28,12 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl', 'table', 'upload'], functi
                         data.field.isAuditComment = 0;
                     }
                 }
-                editConfig(data.field);
+                that.editConfig(data.field);
                 return false;
             })
 
             form.on("submit(editBlogroll)", function (data) {
-                doEditBlogroll(data.field);
+            	that.doEditBlogroll(data.field);
             })
 
         },
@@ -114,11 +114,12 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl', 'table', 'upload'], functi
          * 获取友链信息,并打开修改框
          */
         updateBlogroll: function (id) {
+        	const that=this;
             layui.fl.ajax({
                 url: "/admin/api/blogroll/get/" + id,
                 type: "post",
                 success: function (data) {
-                    editBlogroll(data.blogroll);
+                	that.editBlogroll(data.blogroll);
                 }
             })
         },

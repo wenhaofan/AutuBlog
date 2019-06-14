@@ -1,7 +1,7 @@
 layui.define([
     'table',
     'jquery',
-    'f;'
+    'fl'
 ], function (exports) {
     const loginRecord = {
         bind: function () {
@@ -14,6 +14,9 @@ layui.define([
                     }
                 })
             })
+        },
+        pjaxLoad:function(){
+        	this.load();
         },
         load: function () {
             template.defaults.imports.currentSessionId = $("input[name='currentSessionId']").val();

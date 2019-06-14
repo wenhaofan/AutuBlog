@@ -1,6 +1,7 @@
 layui.define([
     'jquery',
     'fl',
+    'echarts'
 ], function (exports) {
 
     const console = {
@@ -11,6 +12,9 @@ layui.define([
         },
         pjaxLoad:function(){
             this.load();
+            
+            const $=layui.$;
+            $('.console-statistic-box').html($('#tpl-console-statistic'));
         },
         load: function () {
             const fl = layui.fl;
@@ -49,15 +53,10 @@ layui.define([
 
             //等待echarts加载完成再执行
             const that = this;
-            this.echartsLoadTimmer = setInterval(() => {
-
-                if (typeof echarts != "undefined") {
+          
                     this.renderAccessReport();
                     this.renderArticleReport();
-                    clearInterval(that.echartsLoadTimmer);
-                }
-
-            }, 500);
+        
 
         }, renderArticleReport: function () {
             const fl = layui.fl;

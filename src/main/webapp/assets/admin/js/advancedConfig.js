@@ -1,7 +1,7 @@
 
-layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
+layui.define(['jquery','fl', 'form', 'laytpl'], function (exports) {
 
-    const advanceConfig = {
+    const advancedConfig = {
         bind: function () {
             const that = this;
             $("body").on("click", ".privacy", function () {
@@ -59,7 +59,7 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
                     , { field: 'website', title: "网站", width: 100 }
                     , { field: 'url', title: "接口路径" }
                     , { field: 'userName', title: "账号", width: 100 }
-                    , { templet: '#tpl-mprivacy', title: "密码", width: 150 }
+                    , { templet: '#tpl-mprivacy', title: "密码",  }
                     , { templet: '#tpl-moperation', title: "操作", width: 150 }
                 ]]
             });
@@ -195,9 +195,9 @@ layui.define(['jquery', 'layui.fl', 'form', 'laytpl'], function (exports) {
         }
     };
 
-    advanceConfig.bind();
-    advanceConfig.load();
-    exports("advanceConfig", advanceConfig);
+    advancedConfig.bind();
+    advancedConfig.load();
+    exports("advancedConfig", advancedConfig);
 });
 
 
