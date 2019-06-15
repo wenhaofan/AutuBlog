@@ -87,9 +87,9 @@ layui.define([
                 url: "/admin/api/article/createIndex",
                 success: function (data) {
                     layui.fl.alertOk({ title: "重置成功！" });
-                    that.layer.close(resetLayerIndex);
+                    layui.layer.close(resetLayerIndex);
                 }, error: function () {
-                    that.layer.close(resetLayerIndex);
+                	layui.layer.close(resetLayerIndex);
                 }
             })
         },

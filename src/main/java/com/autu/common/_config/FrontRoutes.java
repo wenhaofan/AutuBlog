@@ -6,11 +6,11 @@ import com.autu.common.interceptor.ThemesInterceptor;
 import com.autu.common.meta.MetaApi;
 import com.autu.common.uplod.UploadApi;
 import com.autu.detail.ArticleApi;
-import com.autu.detail.ArticleController;
 import com.autu.detail.CommentApi;
 import com.autu.detail.DetailController;
 import com.autu.index.IndexController;
-import com.autu.resume.ResumeController;
+import com.autu.search.SearchController;
+import com.autu.timeline.TimelineController;
 import com.autu.user.LoginApi;
 import com.autu.user.LoginController;
 import com.jfinal.config.Routes;
@@ -29,14 +29,17 @@ public class FrontRoutes extends Routes{
 		addInterceptor(new FrontInterceptor());
 		add("/api/login", LoginApi.class,"/");
 		add("/login",LoginController.class,"/");
-		add("/article",ArticleController.class,"/");
+	 
 		add("/api/meta", MetaApi.class,"/");
 		add("/api/article",ArticleApi.class,"/");
 		add("/comment", CommentApi.class);
 		add("/a", DetailController.class);
+		add("/search", SearchController.class,"/");
 		add("/",IndexController.class,"/");
 		add("/api/upload", UploadApi.class,"/");
-		add("/resume", ResumeController.class,"/");
+		
+		add("/timeline", TimelineController.class,"/");
+	
 	}
 
 }

@@ -32,13 +32,13 @@ document.oncopy = addLink;
 			#(article.title)
 		</h1>
 		<div class="post-data">
-			<time datetime="#(article.gmtCreate)" itemprop="datePublished">Published on #(article.gmtCreate)</time> in   with #(commentPage.totalRow) <a href="#comments">comments </a>
+			<time datetime="#(article.gmtCreate)" itemprop="datePublished">发布于 #(article.gmtCreate)</time> / <a href="#comments">#(commentPage.totalRow) 条评论   </a> / #(article.pv)人阅读
 		</div>
 	</div>
 	<div id="post-content" class="post-content" itemprop="articleBody">
         <p class="post-tags">
         	#for(category:acategorys)
-        		<a href="/article/category/1-#(category.id)" >#(category.mname)</a>
+        		<a href="/c/1-#(category.id)" >#(category.mname)</a>
         	#end
         </p>
 		#(article.content)
@@ -56,7 +56,9 @@ document.oncopy = addLink;
 			<span class="bottom-bar-item bottom-bar-twitter"><a href="javascript:shareTwitter()" target="_blank" title="分享至Twitter" rel="nofollow">Twitter</a></span>
 			<span class="bottom-bar-item bottom-bar-weibo"><a href="javascript:shareWeibo()" target="_blank" title="分享至微博" rel="nofollow">Weibo</a></span>
 		</div>
- 
+		
+	 
+		
 		<div class="bottom-bar-items right">
 		 	#if(lastNextArticle.lastArticle!=null)
 			<span class="bottom-bar-item"><a title="#(lastNextArticle.lastArticle.title)" href="/article/#(lastNextArticle.lastArticle.identify)">←</a></span>

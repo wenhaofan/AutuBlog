@@ -10,6 +10,7 @@ import com.autu.common.model.Comment;
 import com.autu.common.model.Meta;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
+import com.jfinal.core.ActionKey;
 import com.jfinal.plugin.activerecord.Page;
 
 /** 
@@ -25,6 +26,11 @@ public class DetailController extends BaseController {
 	private MetaService metaService;
 	@Inject
 	private CommentService commentService;
+	
+	@ActionKey("/article")
+	public void article() {
+		index();
+	}
 	
 	public void index() {
 		String identify=getPara();
@@ -59,7 +65,7 @@ public class DetailController extends BaseController {
 		setAttr("atags",atags);
 		setAttr("article", article);
 		setAttr("identify", identify);
-		render("post.html");
+		render("detail.html");
 	}
 	
 }

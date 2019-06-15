@@ -6,6 +6,7 @@ import com.autu.common.controller.BaseController;
 import com.autu.common.meta.MetaService;
 import com.autu.common.model.Article;
 import com.autu.common.model.Comment;
+import com.autu.common.model.Meta;
 import com.autu.detail.ArticleService;
 import com.autu.detail.CommentService;
 import com.autu.user.UserService;
@@ -32,18 +33,71 @@ public class IndexController extends BaseController {
 	private UserService userService;
 	
 	public void index() {
-		Integer pageNum = getParaToInt(0,1);
 		Integer limit=getParaToInt("limit", 12);
-		Page<Article> articlePage=articleService.page(pageNum, limit,null,false);
+		Page<Article> articlePage=articleService.page(1, limit,null,false);
 		List<Article> topArticleList=articleService.listTop();
  
 		setAttr("articlePage",articlePage);
-		setAttr("currentPageNum", pageNum);
+		setAttr("currentPageNum", 1);
 		setAttr("articleTopList", topArticleList);
 		render("index.html");
 	}
 
+	/**
+	 * 分页
+	 */
+	public void p() {
+		Integer limit=getParaToInt("limit", 12);
+		Integer pageNum=getParaToInt(0);
+		
+		if(pageNum==null) {
+			renderError(404);
+			return;
+		}
+		
+		if(pageNum==1) {
+			index();
+			return;
+		}
+		
+		Page<Article> articlePage=articleService.page(pageNum, limit,null,false);
+		 
  
+		setAttr("articlePage",articlePage);
+ 
+		render("index.html");
+	}
+ 
+	
+	/**
+	  *  分类
+	 *  /category/{pageNum}-{id}-{limit}
+	 */
+	public void c() {
+		Integer pageNum=getParaToInt(0);
+		
+		Integer id=getParaToInt(1);
+	 
+		if(pageNum==null||id==null) {
+			renderError(404);
+			return;
+		}
+		
+		Integer limit=getParaToInt(2, 24);
+		
+		Page<Article> articlePage=articleService.page(pageNum, limit,id,null);
+		
+		Meta category=metaService.get(id);
+		
+		setAttr("category", category);
+		setAttr("articlePage",articlePage);
+ 
+		render("page-category.html");
+	}
+ 
+	
+ 
+	
 	public void profiles() {
 		render("profiles/profiles.html");
 	}
@@ -51,10 +105,7 @@ public class IndexController extends BaseController {
 	public void about() {
 		render("about.html");
 	}
-	
-	public void search() {
-		render("search.html");
-	}
+ 
 	
 	public void links() {
 		Page<Comment> commentPage=commentService.page(getParaToInt("p",1),8, "links");

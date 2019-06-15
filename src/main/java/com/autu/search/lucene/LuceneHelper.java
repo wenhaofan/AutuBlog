@@ -260,7 +260,12 @@ public class LuceneHelper {
 				article = new Article();
 
 				if (StrKit.isBlank(intro)) {
-					intro = document.get("content").substring(0, 100);
+					if(document.get("content").length()>100) {
+						intro = document.get("content").substring(0, 200);
+					}else {
+						intro = document.get("content");
+					}
+					
 				}
 				if (StrKit.isBlank(title)) {
 					title = document.get("title");
