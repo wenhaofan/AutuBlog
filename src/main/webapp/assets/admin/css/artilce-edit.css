@@ -32,7 +32,7 @@
 }
 
 #meditor{
-	z-index: 1;
+	z-index: 199;
 }
 .switch-editor{
     float: right;
@@ -43,10 +43,10 @@
     border-color: #5FB878;
 }
 .xm-select-dl {
-    z-index: 9999!important;
+       z-index: 1100!important;
 }
 #tags{
-    width: 100%;
+     z-index: 199;
 }
 
 [data-editor=ueditor]:hover{
@@ -63,4 +63,9 @@
     display: inline-block;
     color: red;
     font-size: 12px;
+}
+ 
+ 
+.editormd{
+	z-index: 1999;
 }

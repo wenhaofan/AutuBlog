@@ -109,9 +109,7 @@ bottom: 0px;
 .layui-nav-bar{
 	display: none;
 }
-.layui-side,.layui-header{
-	    z-index: 1999!important;
-}
+
 .select2-hidden-accessible{
 	display: none!important;
 }

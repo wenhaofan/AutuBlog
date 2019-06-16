@@ -11,8 +11,8 @@ public class Metabuilder extends MetaBuilder {
 
 	@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 	private List<String> tables=new ArrayList(){{
-		add("route_menu");
 		add("route");
+		add("article");
 	}};
 	
 	public Metabuilder(DataSource dataSource) {

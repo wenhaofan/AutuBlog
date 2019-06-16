@@ -62,5 +62,8 @@
 #namespace("adminLoginRecord")
 #include("back/loginRecord.sql")
 #end
+#namespace("route")
+#include("back/route.sql")
+#end
 加载通用sql组件
 #include("common.sql");

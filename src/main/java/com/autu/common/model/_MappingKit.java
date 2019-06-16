@@ -36,7 +36,7 @@ public class _MappingKit {
 		arp.addMapping("config", "id",Config.class);
  		arp.addMapping("theme_config", "pkId", ThemeConfig.class);
 		arp.addMapping("route", "id", Route.class);
-		arp.addMapping("route_menu", "id", RouteMenu.class);
+	 
 		arp.addMapping("seo", "id", Seo.class);
 	}
 

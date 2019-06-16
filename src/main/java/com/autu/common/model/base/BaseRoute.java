@@ -72,15 +72,6 @@ public abstract class BaseRoute<M extends BaseRoute<M>> extends Model<M> impleme
 		return get("gmtModified");
 	}
 
-	public M setMenuId(java.lang.Integer menuId) {
-		set("menuId", menuId);
-		return (M)this;
-	}
-	
-	public java.lang.Integer getMenuId() {
-		return getInt("menuId");
-	}
-
 	public M setName(java.lang.String name) {
 		set("name", name);
 		return (M)this;
@@ -90,13 +81,31 @@ public abstract class BaseRoute<M extends BaseRoute<M>> extends Model<M> impleme
 		return getStr("name");
 	}
 
-	public M setParentId(java.lang.Integer parentId) {
-		set("parentId", parentId);
+	public M setCommentId(java.lang.Integer commentId) {
+		set("commentId", commentId);
 		return (M)this;
 	}
 	
-	public java.lang.Integer getParentId() {
-		return getInt("parentId");
+	public java.lang.Integer getCommentId() {
+		return getInt("commentId");
+	}
+
+	public M setIsUsing(java.lang.Boolean isUsing) {
+		set("isUsing", isUsing);
+		return (M)this;
+	}
+	
+	public java.lang.Boolean getIsUsing() {
+		return get("isUsing");
+	}
+
+	public M setPv(java.lang.Integer pv) {
+		set("pv", pv);
+		return (M)this;
+	}
+	
+	public java.lang.Integer getPv() {
+		return getInt("pv");
 	}
 
 }

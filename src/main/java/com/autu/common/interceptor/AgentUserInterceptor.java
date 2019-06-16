@@ -42,7 +42,6 @@ public class AgentUserInterceptor implements Interceptor{
 			//cookie存在但是没有对应的用户则删掉cookie
 			c.removeCookie(AgentUserService.AGENT_USER_COOKIE_KEY);
 		}
-
 		if(agentUser==null) {
 			
 			if(c.getLoginUser()==null) {
@@ -53,7 +52,7 @@ public class AgentUserInterceptor implements Interceptor{
 					agentUser = new AgentUser();
 				}
 				String userName = c.getLoginUser().getName();
-				agentUser.setId(-1);
+			 
 				agentUser.setName(StrKit.isBlank(userName) ? "系统管理员" : userName);
 				agentUser.setEmail(c.getLoginUser().getEmail());
 			}
@@ -67,6 +66,8 @@ public class AgentUserInterceptor implements Interceptor{
 			c.setCookie(AgentUserService.AGENT_USER_COOKIE_KEY, cookie, AgentUserService.AGENT_USER_COOKIE_AGE); 
 		}
 		
+
+
 		
 		
 		c.setAgentUser(agentUser);

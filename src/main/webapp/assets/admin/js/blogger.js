@@ -19,7 +19,8 @@ layui.define([
         	this.load();
         },
         load: function () {
-            form = layui.form;
+            const form = layui.form;
+            const that=this;
             var upload = layui.upload;
             form.render();
             //执行实例
@@ -34,10 +35,18 @@ layui.define([
                     layui.fl.alertErro("上传失败！");
                 }
             });
-            this.htmlEditor = layui.ueditor.UE.getEditor('blogger-ueditor', {
+            that.htmlEditor = layui.ueditor.UE.getEditor('blogger-ueditor', {
                 initialFrameHeight: 400,
                 initialContent:  $(".blogger #about-content").html()
             });
+            
+            that.htmlEditor.ready(function() {
+                that.htmlEditor.execCommand('serverparam', {
+                    'uploadType': 'blogger',
+                    'ueditor':true,
+                });
+            });
+            
         }, getContent: function () {
  
 

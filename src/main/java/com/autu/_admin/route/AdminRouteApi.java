@@ -1,6 +1,7 @@
 package com.autu._admin.route;
 
 import com.autu.common.controller.BaseController;
+import com.autu.common.model.Route;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
 
@@ -10,10 +11,15 @@ public class AdminRouteApi extends BaseController {
 	private AdminRouteService routeService;
 	
 	public void list() {
-		renderJson(Ret.ok("status", 
-				Ret.create("code",200).set("message","操作成功")
-				).set("data", routeService.listAll()));
+		Route query = getModel(Route.class, "", true);
+	 
+		Integer pageNum = getParaToInt("page");
+		Integer pageSize = getParaToInt("limit",10);
+		
+		renderJson(Ret.ok("page", routeService.page(pageNum, pageSize, query)));
 	}
 	
-	
+	public void delete() {
+		renderJson(routeService.delete(getParaToInt())?Ret.ok():Ret.fail());
+	}
 }

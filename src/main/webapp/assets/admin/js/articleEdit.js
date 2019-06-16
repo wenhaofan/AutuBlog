@@ -2,7 +2,10 @@
             editorArr: [],
             currEditor: null,
             editorType: null,
-            initSelector: "#content",
+            config:{
+                initSelector: "#content",
+                ueditorContainer:'article-ueditor'
+            },
             turndownService: new TurndownService(),
             clear:function(){
             	this.currEditor=null;
@@ -24,11 +27,11 @@
             init: function () {
                 this.initUeditor();
                 this.initEditorMd();
-            }, initUeditor: function () {
+            }, initUeditor: function (conf) {
                 const that=this;
                 let editor = {
 					ueditor: null,
-					editorSelector:'article-ueditor',
+					editorSelector:that.config.ueditorContainer,
                     getEditor: function () {
                         return this.ueditor;
                     },
@@ -36,7 +39,12 @@
                         this.ueditor=ue;
 					},
 					destory:function(){
-						UE.delEditor(this.editorSelector);
+						try {
+							UE.delEditor(this.editorSelector);
+						} catch (e) {
+							// TODO: handle exception
+						}
+						
 						this.setEditor(null);
                         $('#'+this.editorSelector+"-container").html(' 	<script id="article-ueditor" name="content" type="text/plain"></script>');
 					},
@@ -48,13 +56,14 @@
 
                         that.setEditor(UE.getEditor(this.editorSelector, {
                             initialFrameHeight: 400,
-                            initialContent: content
+                            initialContent: content, zIndex: 19999,
                         }))
 
                         that.ueditor.ready(function() {
                             that.ueditor.execCommand('serverparam', {
                                 'uploadType': 'article',
-                                'ueditor':true
+                                'ueditor':true,
+                               
                             });
                         });
 
@@ -96,7 +105,7 @@
                 };
                 this.setEditor("editormd", editor);
             }, getDefaultContent: function () {
-                return $(this.initSelector).html();
+                return $(this.config.initSelector).html();
             },
             getContent: function (type, isDefault) {
 
@@ -166,7 +175,7 @@ layui.define([
         	const data=this.cache.getDate();
         	
     		// 优先读取显示本地缓存的内容
-    		if(data&&data.content){
+    		if(data&&data.contentType){
     			editorSet.useEditor(data.contentType=="markdown"?'editormd':'ueditor').init(data.content);
     			this.switchEditorShowByType(data.contentType=="markdown"?'editormd':'ueditor');	
     		}else{
