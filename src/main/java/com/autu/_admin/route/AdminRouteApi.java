@@ -12,7 +12,7 @@ public class AdminRouteApi extends BaseController {
 	
 	public void list() {
 		Route query = getModel(Route.class, "", true);
-	 
+ 
 		Integer pageNum = getParaToInt("page");
 		Integer pageSize = getParaToInt("limit",10);
 		
@@ -21,5 +21,13 @@ public class AdminRouteApi extends BaseController {
 	
 	public void delete() {
 		renderJson(routeService.delete(getParaToInt())?Ret.ok():Ret.fail());
+	}
+	
+	public void bindArticle() {
+		Integer articleId=getParaToInt("articleId");
+		Integer routeId=getParaToInt();
+		
+		
+		renderJson(routeService.bindArticle(articleId, routeId)?Ret.ok():Ret.fail());
 	}
 }

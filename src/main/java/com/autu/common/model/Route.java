@@ -8,7 +8,27 @@ import com.autu.common.model.base.BaseRoute;
 @SuppressWarnings("serial")
 public class Route extends BaseRoute<Route> {
 	
-	public static Route dao=new Route().dao();
- 
- 
+	private static Article articleDao=new Article().dao();
+	
+	public Article article;
+
+	public Article getArticle() {
+		if(article!=null) {
+			return article;
+		}
+		
+		if(getArticleId()==null) {
+			return null;
+		}
+		
+		setArticle(articleDao.findById(getArticleId()));
+		
+		return article;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+	
+	
 }

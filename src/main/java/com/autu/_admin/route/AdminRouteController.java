@@ -5,10 +5,14 @@ import com.autu.common.controller.BaseController;
 public class AdminRouteController extends BaseController{
 
 	public void list() {
-		render("route.html");
+		render("routeList.html");
 	}
 	
 	public void edit() {
-		
+		set("id", getPara());
+		render("edit.html");
 	}
+	
+	
+	
 }
