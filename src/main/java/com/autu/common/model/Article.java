@@ -15,6 +15,12 @@ public class Article extends BaseArticle<Article> {
 	public static Integer STATE_PUBLISH=1;
 	public static Integer STATE_DISCARD=2;
 
+	public String url;
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	private List<Meta> metas;
 
 	public List<Meta> getMetas() {

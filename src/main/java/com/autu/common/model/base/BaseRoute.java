@@ -81,13 +81,13 @@ public abstract class BaseRoute<M extends BaseRoute<M>> extends Model<M> impleme
 		return getStr("name");
 	}
 
-	public M setCommentId(java.lang.Integer commentId) {
-		set("commentId", commentId);
+	public M setArticleId(java.lang.Integer articleId) {
+		set("articleId", articleId);
 		return (M)this;
 	}
 	
-	public java.lang.Integer getCommentId() {
-		return getInt("commentId");
+	public java.lang.Integer getArticleId() {
+		return getInt("articleId");
 	}
 
 	public M setIsUsing(java.lang.Boolean isUsing) {
@@ -99,13 +99,13 @@ public abstract class BaseRoute<M extends BaseRoute<M>> extends Model<M> impleme
 		return get("isUsing");
 	}
 
-	public M setPv(java.lang.Integer pv) {
-		set("pv", pv);
+	public M setRemark(java.lang.String remark) {
+		set("remark", remark);
 		return (M)this;
 	}
 	
-	public java.lang.Integer getPv() {
-		return getInt("pv");
+	public java.lang.String getRemark() {
+		return getStr("remark");
 	}
 
 }

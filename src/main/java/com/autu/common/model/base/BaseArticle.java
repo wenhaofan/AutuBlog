@@ -72,6 +72,15 @@ public abstract class BaseArticle<M extends BaseArticle<M>> extends Model<M> imp
 		return getInt("state");
 	}
 
+	public M setIsOriginal(java.lang.Boolean isOriginal) {
+		set("isOriginal", isOriginal);
+		return (M)this;
+	}
+	
+	public java.lang.Boolean getIsOriginal() {
+		return get("isOriginal");
+	}
+
 	public M setIsTop(java.lang.Boolean isTop) {
 		set("isTop", isTop);
 		return (M)this;
@@ -81,15 +90,6 @@ public abstract class BaseArticle<M extends BaseArticle<M>> extends Model<M> imp
 		return get("isTop");
 	}
 
-	public M setIsOriginal(java.lang.Boolean isOriginal) {
-		set("isOriginal", isOriginal);
-		return (M)this;
-	}
-	
-	public java.lang.Boolean getIsOriginal() {
-		return get("isOriginal");
-	}
-	
 	public M setGmtModified(java.util.Date gmtModified) {
 		set("gmtModified", gmtModified);
 		return (M)this;
@@ -133,6 +133,15 @@ public abstract class BaseArticle<M extends BaseArticle<M>> extends Model<M> imp
 	
 	public java.lang.Integer getUserId() {
 		return getInt("userId");
+	}
+
+	public M setIsCustom(java.lang.Boolean isCustom) {
+		set("isCustom", isCustom);
+		return (M)this;
+	}
+	
+	public java.lang.Boolean getIsCustom() {
+		return get("isCustom");
 	}
 
 }

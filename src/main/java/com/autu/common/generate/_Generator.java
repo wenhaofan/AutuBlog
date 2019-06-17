@@ -1,5 +1,5 @@
 
-package com.autu.common.model;
+package com.autu.common.generate;
 
 import com.autu.common._config.BlogConfig;
 import com.jfinal.kit.PathKit;

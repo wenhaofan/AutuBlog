@@ -1,4 +1,4 @@
-package com.autu.common.model;
+package com.autu.common.generate;
 
 import java.util.ArrayList;
 import java.util.List;
