@@ -22,7 +22,6 @@ import com.qiniu.util.Auth;
  * @author fwh
  *
  */
-@SuppressWarnings("deprecation")
 public class QiniuFileUtils {
 
 	private static Log log=Log.getLog(QiniuFileUtils.class);

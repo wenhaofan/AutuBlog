@@ -10,7 +10,7 @@ import com.autu._admin.index.IndexAdminController;
 import com.autu._admin.loginRecord.LoginRecordController;
 import com.autu._admin.meta.CategoryRouter;
 import com.autu._admin.nav.AdminNavController;
-import com.autu._admin.route.AdminRouteController;
+import com.autu._admin.page.AdminPageController;
 import com.autu._admin.statistic.StatisticController;
 import com.autu._admin.theme.AdminThemeController;
 import com.autu._admin.user.AdminUserController;
@@ -47,7 +47,7 @@ public class AdminRoutes extends Routes {
 	   add("/admin/themes",AdminThemeController.class,"/");
 	   add("/admin/loginRecord", LoginRecordController.class,"/");
 	  
-	   add("/admin/route", AdminRouteController.class,"/");
+	   add("/admin/page", AdminPageController.class,"/");
 	}
 
 }

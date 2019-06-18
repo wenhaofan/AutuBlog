@@ -62,6 +62,13 @@ layui.define([
                 }
             })
 
+        
+            $('.layui-layout-right').hover(function(){  
+            	 $('.layui-header').css('z-index',1999);
+            	 console.log('置顶头部');
+            },function(){  
+            	$('.layui-header').css('z-index','auto');
+            })  
         }, load: function () {
 
             $(".menu-tree a").each(function () {

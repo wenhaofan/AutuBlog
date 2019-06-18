@@ -1,4 +1,4 @@
-package com.autu.detail;
+package com.autu.diy;
 
 import java.util.List;
 
@@ -8,51 +8,32 @@ import com.autu.common.meta.MetaService;
 import com.autu.common.model.Article;
 import com.autu.common.model.Comment;
 import com.autu.common.model.Meta;
-import com.jfinal.aop.Before;
+import com.autu.common.model.Page;
+import com.autu.detail.ArticleService;
+import com.autu.detail.CommentService;
 import com.jfinal.aop.Inject;
-import com.jfinal.core.ActionKey;
-import com.jfinal.plugin.activerecord.Page;
 
-/** 
-* @author 作者:范文皓
-* @createDate 创建时间：2019年4月1日-下午7:47:20 
-*/
-@Before(DetailSeoInterceptor.class)
-public class DetailController extends BaseController {
+public class DiyPageController extends BaseController{
 
 	@Inject
 	private ArticleService articleService;
-	@Inject
-	private MetaService metaService;
+	
 	@Inject
 	private CommentService commentService;
 	
-	@ActionKey("/article")
-	public void article() {
-		index();
-	}
+	@Inject
+	private MetaService metaService;
 	
-	public void index() {
-		String identify=getPara();
+	public void page() {
+		Page page=(Page) getRequest().getAttribute("page");
+		notTheme();
 		
-		Article article=null;
-		
-		if(getLoginUser()!=null) {
-			article=articleService.getArticle(identify);
-		}else {
-			article=articleService.getPublishArticle(identify);
-		}
-		
-		
-		if(article==null) {
-			renderError(404);
-			return;
-		}
-	
-		articleService.addReadNum(identify);
+		Article article=articleService.get(page.getArticleId());
+  
+		articleService.addReadNum(article.getIdentify());
 		List<Meta> categorys=metaService.listByCId(article.getId(), "category");
 		List<Meta> atags=metaService.listByCId(article.getId(), "tag");
-		Page<Comment> commentPage=commentService.page(getParaToInt("p",1),6, article.getIdentify());
+		com.jfinal.plugin.activerecord.Page<Comment> commentPage=commentService.page(getParaToInt("p",1),6, article.getIdentify());
  
 		LastNextArticleDTO lastNextArticle=articleService.lastNextArticle(article);
 		setAttr("lastNextArticle", lastNextArticle);
@@ -64,10 +45,9 @@ public class DetailController extends BaseController {
 		setAttr("acategorys",categorys);
 		setAttr("atags",atags);
 		setAttr("article", article);
-		setAttr("identify", identify);
-		
-		
-		render("detail.html");
+	 
+ 
+		render(page.getPath());
 	}
 	
 }

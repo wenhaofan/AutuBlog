@@ -8,6 +8,7 @@ import com.autu.common.uplod.UploadApi;
 import com.autu.detail.ArticleApi;
 import com.autu.detail.CommentApi;
 import com.autu.detail.DetailController;
+import com.autu.diy.DiyPageController;
 import com.autu.index.IndexController;
 import com.autu.search.SearchController;
 import com.autu.timeline.TimelineController;
@@ -37,7 +38,7 @@ public class FrontRoutes extends Routes{
 		add("/search", SearchController.class,"/");
 		add("/",IndexController.class,"/");
 		add("/api/upload", UploadApi.class,"/");
-		
+		add("/diy", DiyPageController.class,"");
 		add("/timeline", TimelineController.class,"/");
 	
 	}

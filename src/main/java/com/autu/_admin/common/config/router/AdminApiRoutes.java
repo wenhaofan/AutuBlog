@@ -12,7 +12,7 @@ import com.autu._admin.loginRecord.LoginRecordApi;
 import com.autu._admin.meta.AdminMetaApi;
 import com.autu._admin.metaweblog.AdminMetaWeblogConfigApi;
 import com.autu._admin.nav.AdminNavApi;
-import com.autu._admin.route.AdminRouteApi;
+import com.autu._admin.page.AdminPageApi;
 import com.autu._admin.statistic.StatisticApi;
 import com.autu._admin.theme.AdminThemeApi;
 import com.autu._admin.user.AdminUserApi;
@@ -42,7 +42,7 @@ public class AdminApiRoutes extends Routes{
 	   add("/admin/api/baiduConfig",AdminBaiduConfigApi.class);
 	   add("/admin/api/config", AdminConfigApi.class);
 	   add("/admin/api/blogroll", AdminBlogrollApi.class);
-	   add("/admin/api/route", AdminRouteApi.class);
+	   add("/admin/api/page", AdminPageApi.class);
 	   add("/admin/api/upload/editormd", AdminEditormdUploadApi.class);
 	}
 

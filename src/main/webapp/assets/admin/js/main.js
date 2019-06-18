@@ -1,17 +1,5 @@
 /** 基础js加载类 */
-
- 
-(function(){
-    var head= document.getElementsByTagName('head')[0]; 
-	var script= document.createElement('script'); 
-	script.type= 'text/javascript'; 
- 
-	script.src= '/assets/echarts/echarts.js'; 
-    head.appendChild(script); 
-})();
-
-
- layui.config({
+layui.config({
         base: '/assets/admin/js/'//模块存放的目录
 }).extend({ //设定模块别名
      fl: '{/}/assets/js/base',// {/}的意思即代表采用自有路径，即不跟随 base 路径
@@ -27,7 +15,11 @@
      echarts:'{/}/assets/echarts/echarts'
 });
 
- 
+
+const config={
+	pjaxContainer:'.layui-fluid'
+};
+
 layui.use(['admin','element'], function (admin){
     admin.load();
 });

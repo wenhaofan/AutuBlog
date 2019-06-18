@@ -26,7 +26,7 @@
 		</div>
 		<div class="layui-form-item">
 		    <div class="layui-input-block">
-		     <a href="/admin/article/edit" pjax><button type="button" class="layui-btn"  >新增</button></a>
+		     <a href="/admin/page/edit" pjax><button type="button" class="layui-btn"  >新增</button></a>
 		 </div>
 	</form>
 </div>
@@ -38,12 +38,12 @@
 <script type="text/javascript">
  
 function pjaxLoad(){
-  layui.use(['routeList'],function(routeList){
-	  routeList.pjaxLoad();
+  layui.use(['pageList'],function(pageList){
+	  pageList.pjaxLoad();
   })
 }
 function firstLoad(){
-  layui.use(['routeList'],function(routeList){
+  layui.use(['pageList'],function(pageList){
     
   })
 }

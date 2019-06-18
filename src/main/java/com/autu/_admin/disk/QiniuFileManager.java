@@ -15,7 +15,6 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
 
-@SuppressWarnings("deprecation")
 public class QiniuFileManager {
 
 	@Inject

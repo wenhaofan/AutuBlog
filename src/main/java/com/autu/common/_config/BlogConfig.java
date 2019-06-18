@@ -1,5 +1,7 @@
 package com.autu.common._config;
 
+import java.io.File;
+
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.autu._admin.article.AdminArticleLuceneIndexes;
@@ -10,6 +12,7 @@ import com.autu.common.directive.Theme;
 import com.autu.common.handle.BasePathHandler;
 import com.autu.common.interceptor.AccessLogInterceptor;
 import com.autu.common.interceptor.AgentUserInterceptor;
+import com.autu.common.interceptor.DiyPageInterceptor;
 import com.autu.common.interceptor.LoginInterceptor;
 import com.autu.common.keys.KeyKit;
 import com.autu.common.model.Config;
@@ -44,11 +47,9 @@ import com.mysql.jdbc.Connection;
 public class BlogConfig extends JFinalConfig {
 
 	public static Prop p = loadConfig();
-
-	public static Plugins plugins = null;
-
-	public static FrontRoutes frontRoutes;
-
+ 
+	public static String PAGE_DIY_PATH;
+	
 	private WallFilter wallFilter;
 
 	@Override
@@ -58,15 +59,16 @@ public class BlogConfig extends JFinalConfig {
 		me.setJsonFactory(new FastJsonFactory());
 		me.setError404View("/_view/error/404.html");
 		me.setInjectDependency(true);
+		
+		
+		BlogConfig.PAGE_DIY_PATH=File.separator+"_view"+File.separator+"diy"+File.separator+"page"+File.separator;
 	}
 
 	@Override
 	public void configRoute(Routes me) {
 		// 配置路由
-		me.add(new AdminRoutes());
-		frontRoutes = new FrontRoutes();
-		me.add(frontRoutes);
-		
+		me.add(new AdminRoutes()); 
+		me.add(new FrontRoutes());
 		me.add(new AdminApiRoutes());
 	}
 
@@ -104,8 +106,7 @@ public class BlogConfig extends JFinalConfig {
 
 	@Override
 	public void configPlugin(Plugins me) {
-		plugins = me;
-
+	 
 		DruidPlugin druidPlugin = getDruidPlugin();
 		wallFilter = new WallFilter(); // 加强数据库安全
 		wallFilter.setDbType("mysql");
@@ -137,6 +138,7 @@ public class BlogConfig extends JFinalConfig {
 	public void configInterceptor(Interceptors me) {
 		// 全局配置拦截器
 		// me.add(new InitInterceptor());
+		me.add(new DiyPageInterceptor());	
 		me.add(new LoginInterceptor());
 		me.add(new AgentUserInterceptor());
 		me.add(new SessionInViewInterceptor());
@@ -156,6 +158,13 @@ public class BlogConfig extends JFinalConfig {
 		BlogContext.reset(config);
 
 		articleLucene.resetArticleIndexes();
+		
+		File diyDir=new File(PathKit.getWebRootPath()+BlogConfig.PAGE_DIY_PATH);
+		
+		if(!diyDir.exists()) {
+			diyDir.mkdirs(); 
+		}
+		
 	}
 
 	@Override

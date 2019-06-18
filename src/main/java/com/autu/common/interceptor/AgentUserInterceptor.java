@@ -66,10 +66,7 @@ public class AgentUserInterceptor implements Interceptor{
 			c.setCookie(AgentUserService.AGENT_USER_COOKIE_KEY, cookie, AgentUserService.AGENT_USER_COOKIE_AGE); 
 		}
 		
-
-
-		
-		
+ 
 		c.setAgentUser(agentUser);
 		inv.invoke();
 	}

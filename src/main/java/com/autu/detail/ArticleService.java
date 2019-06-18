@@ -132,4 +132,10 @@ public class ArticleService {
 	public Article getArtcileInfo(Integer id) {
 		return dao.findFirst("select identify,thumbImg,pv,gmtCreate,isTop   from article where state=1 and id=? ",id);
 	}
+	
+	public Article get(Integer id) {
+		
+		return dao.findById(id);
+	}
+	
 }

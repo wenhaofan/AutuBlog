@@ -35,7 +35,7 @@ public class _MappingKit {
 		arp.addMapping("metaweblog_relevance", "id", MetaweblogRelevance.class);
 		arp.addMapping("config", "id",Config.class);
  		arp.addMapping("theme_config", "pkId", ThemeConfig.class);
-		arp.addMapping("route", "id", Route.class);
+		arp.addMapping("page", "id", Page.class);
 	 
 		arp.addMapping("seo", "id", Seo.class);
 	}

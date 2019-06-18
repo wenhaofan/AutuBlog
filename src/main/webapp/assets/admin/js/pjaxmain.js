@@ -24,7 +24,7 @@ layui.define([
             });
             
  
-            $(document).pjax('a[pjax]', '.layui-fluid');
+            $(document).pjax('a[pjax]', config.pjaxContainer);
  	   }
     };
 

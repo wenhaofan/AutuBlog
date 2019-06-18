@@ -1,0 +1,94 @@
+ 
+<script type="text/html" id="content">#(page.content ?? '')</script>
+ <style type="text/css">
+   .layui-input-block{
+    margin-left:24px;
+}
+  </style>
+  
+ 
+<div class="page-edit layui-form" lay-filter="page-edit" >
+ 
+	<div class="layui-row">
+		<div class="layui-col-lg12 layui-col-md12">
+			<blockquote class="page-title">#(page==null?"新增页面":"修改页面")</blockquote>
+		</div>
+	</div>
+	<div class="layui-row" >
+		<div class="layui-col-md6">
+			<div class="layui-form-item">
+			  <div class="layui-input-block">
+		      	<input type="text" name="pattern" required  value="#(page.pattern??)"  lay-verify="required" placeholder="请输入访问路径（支持正则）" autocomplete="off" class="layui-input">
+		      	<input type="hidden" name="id"  value="#(page.id??)">
+		       </div> 
+		    </div>
+		</div>
+		<div class="layui-col-md6">
+			<div class="layui-form-item">
+			  <div class="layui-input-block">
+		      	<input type="text" name="name" required  value="#(page.name??)"  lay-verify="required" placeholder="请输入页面名称" autocomplete="off" class="layui-input">
+		      </div> 
+	      	</div>
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="layui-col-md6">
+		 	<div class="layui-form-item">
+			  <div class="layui-input-block">    
+                    <input type="text" class="layui-input" name="remark"   placeholder="请输入备注" autocomplete="off" value="#(page.remark??)">
+		      </div> 
+	      	</div>
+		</div>
+		<div class="layui-col-md6">
+		 	<div class="layui-form-item">
+		 	 	<div class="layui-input-block">
+		 	 		 <input type="text" class="layui-input" name="articleId" value="#(page.articleId??)"   placeholder="请输入绑定的文章ID" autocomplete="off">
+		 	   </div> 
+		 	</div> 
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="layui-col-md6">
+		 	<div class="layui-form-item">
+                 <div class="layui-input-block"> 
+                    <button class="layui-btn layui-btn-primary layui-btn-sm  page-edit-article">编辑文章</button>
+                 </div>
+ 		 	</div>
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="layui-col-md12 "  id="html-container">
+			<div class="layui-form-item">
+				<div class="layui-input-block" id="page-ueditor-container">
+				 	<script id="page-ueditor" name="content" type="text/plain">
+        				
+    				</script>
+	    		</div>
+    		</div>
+		</div>
+		<div class="layui-col-md12" >
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+				 
+				  	<div class="layui-inline" style="float:right;">
+				  		<button class="layui-btn layui-btn-normal" lay-submit lay-filter="pageSubmit">保存</button>
+				  	</div>
+				 
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<script>
+    function pjaxLoad(){
+      layui.use(['pageEdit'],function(pageEdit){
+    	  pageEdit.pjaxLoad();
+      })
+    }
+    function firstLoad(){
+      layui.use(['pageEdit'],function(pageEdit){
+        
+      })
+    }
+ </script>
