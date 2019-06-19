@@ -36,4 +36,8 @@ public class AdminPageApi extends BaseController {
 		
 		renderJson(pageService.addOrUpdate(page)?Ret.ok("page",page):Ret.fail());
 	}
+	
+	public void content() {
+		renderJson(Ret.ok("content", pageService.getContent(getParaToInt())));
+	}
 }

@@ -105,10 +105,12 @@ public class AdminPageService {
 			
 			String str;
 			while ((str=br.readLine())!=null) {
-				 sb.append(str);
+				 sb.append(str+'\n');
+				 
 			}
+		 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return sb.toString();
@@ -142,13 +144,20 @@ public class AdminPageService {
 	
 	public Page get(Integer id) {
 		Page page= pageDao.findById(id);
-		
 		if(page==null) {
-			return null;
+			return page;
 		}
 		
-		page.setContent(getPageContent(page));
+		String content=getPageContent(page);
+		content=content.replaceAll("<", "&lt;");
+		content=content.replaceAll(">", "&gt;");
+		page.setContent(content);
 		return page;
+	}
+	
+	public String getContent(Integer id) {
+		Page page= pageDao.findById(id);
+		return getPageContent(page);
 	}
 	
 }

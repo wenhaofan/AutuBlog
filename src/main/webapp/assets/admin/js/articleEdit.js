@@ -98,6 +98,7 @@
                                 imageUpload : true,
                                 imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                                 imageUploadURL : "/admin/api/upload/editormd",
+                                emoji : true,
                         });
 
                         editorSet.editorType = "markdown";
@@ -343,6 +344,10 @@ layui.define([
         },
         load: function () {
             
+        	ctrlsEvent(function() {
+				$('button[lay-filter="publish"]').trigger('click');
+			});
+        	
         	this.cache.startAutoSave();
         	
             layui.formSelects.render();

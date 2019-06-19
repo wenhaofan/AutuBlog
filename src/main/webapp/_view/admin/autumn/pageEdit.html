@@ -1,9 +1,17 @@
+  
+<link href="/assets/plugins/editor/css/editormd.css"  rel="stylesheet">
  
-<script type="text/html" id="content">#(page.content ?? '')</script>
  <style type="text/css">
    .layui-input-block{
     margin-left:24px;
 }
+#page-editor{
+	width:100%;
+	height:400px;
+}
+
+.editormd{
+z-index: 1;}
   </style>
   
  
@@ -52,6 +60,7 @@
 		 	<div class="layui-form-item">
                  <div class="layui-input-block"> 
                     <button class="layui-btn layui-btn-primary layui-btn-sm  page-edit-article">编辑文章</button>
+                    <button class="layui-btn layui-btn-primary layui-btn-sm fullscreen" >全屏编辑 (Press F11 into, ESC exit)</button>
                  </div>
  		 	</div>
 		</div>
@@ -60,9 +69,10 @@
 		<div class="layui-col-md12 "  id="html-container">
 			<div class="layui-form-item">
 				<div class="layui-input-block" id="page-ueditor-container">
-				 	<script id="page-ueditor" name="content" type="text/plain">
-        				
-    				</script>
+				 	<div id="page-editor">
+				 	
+				 	
+				 	</div>
 	    		</div>
     		</div>
 		</div>
@@ -79,7 +89,10 @@
 	</div>
 	
 </div>
-
+<script type="text/html" id="page-content">
+ #(page.content??)
+ </script>
+ 
 <script>
     function pjaxLoad(){
       layui.use(['pageEdit'],function(pageEdit){

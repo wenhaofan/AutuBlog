@@ -17,7 +17,7 @@ layui.define([ 'table','fl','form','layer'], function(exports) {
 				$("body").on('click','.page-edit-data',function(){
 					const id=$(this).data("id");
 					if(id){
-						$.pjax({url: '/admin/article/edit'+id, container: config.pjaxContainer})
+						$.pjax({url: '/admin/article/edit/'+id, container: config.pjaxContainer})
 					}else{
 						layer.msg("请先绑定文章");
 					}
@@ -62,9 +62,9 @@ layui.define([ 'table','fl','form','layer'], function(exports) {
 	                    	}
 	                    
 	                    	if(d.isDeleted){
-	                    		tpl+=	'<button type="bbutton" class="layui-btn layui-btn-xs page-recover" data=id="'+d.id+'">恢复</button>';
+	                    		tpl+=	' <button type="bbutton" class="layui-btn layui-btn-xs page-recover" data=id="'+d.id+'">恢复</button>';
 	                    	}else{
-	                    		tpl+=	'<button type="bbutton" class="layui-btn layui-btn-xs page-remove" data=id="'+d.id+'">删除</button>';
+	                    		tpl+=	' <button type="bbutton" class="layui-btn layui-btn-xs page-remove" data=id="'+d.id+'">删除</button>';
 	                    	}
 	                    	
 	                    	return tpl;

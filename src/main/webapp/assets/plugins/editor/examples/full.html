@@ -125,8 +125,9 @@
             var testEditor;
             
             $(function() {
-			md="test";
-                      testEditor = editormd("test-editormd", {
+                
+                $.get('test.md', function(md){
+                    testEditor = editormd("test-editormd", {
                         width: "90%",
                         height: 740,
                         path : '../lib/',
@@ -168,6 +169,7 @@
                             //this.resize("100%", 640);
                         }
                     });
+                });
                 
                 $("#goto-line-btn").bind("click", function(){
                     testEditor.gotoLine(90);

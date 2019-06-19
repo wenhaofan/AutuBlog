@@ -45,7 +45,7 @@ public class DiyPageController extends BaseController{
 		setAttr("acategorys",categorys);
 		setAttr("atags",atags);
 		setAttr("article", article);
-	 
+		
  
 		render(page.getPath());
 	}
