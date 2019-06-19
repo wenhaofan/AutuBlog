@@ -1,11 +1,11 @@
 <style type="text/css">
-.route-state-select-box{
+.page-state-select-box{
 	width:100px;
 }
-.route-list-query .layui-form-item {
+.page-list-query .layui-form-item {
     display: inline-block;
 }
-.route-list-query .layui-form-item {
+.page-list-query .layui-form-item {
     margin-bottom: 0px;
 }
  .layui-table-cell{ height:auto; overflow:visible; text-overflow:inherit; white-space:normal; } 
@@ -13,11 +13,11 @@
 
 <blockquote class="page-title  page-title">页面管理</blockquote>
 <div class="site-block">
-	<form class="layui-form route-list-query" method="post" >
+	<form class="layui-form page-list-query" method="post" >
 		<div class="layui-form-item">
 			<label class="layui-form-label">状态:</label>
-			<div class="layui-input-block route-state-select-box">
-				<select name="state" id="route-state-select" lay-filter="route-state-select">
+			<div class="layui-input-block page-state-select-box">
+				<select name="state" id="page-state-select" lay-filter="page-state-select">
 					<option value=" ">不限</option>
 					<option value="0">未删除</option>
 					<option value="1">已删除</option>		
@@ -31,7 +31,7 @@
 	</form>
 </div>
 <div style="width:100%;overflow:auto;">
-	<table class="layui-table" id="routeTable" width="auto" style="white-space:nowrap"  lay-data="{ }"lay-filter="test">
+	<table class="layui-table" id="pageTable" width="auto" style="white-space:nowrap"  lay-data="{ }"lay-filter="test">
 		
 	</table>
 </div>
