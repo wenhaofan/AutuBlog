@@ -57,6 +57,9 @@ public class AdminPageService {
 	
 	public boolean update(Page page) {
 		
+		Page dbPage=pageDao.findById(page);
+		page.setPath(dbPage.getPath());
+		
 		if(StrKit.isBlank(page.getPath())) {
 			String fileName = genRandomFileName(page);
 			 
