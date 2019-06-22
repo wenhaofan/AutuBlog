@@ -33,14 +33,17 @@ public class Article extends BaseArticle<Article> {
 	}
 	
 	public String getUrl() {
+		
 		if(StrKit.notBlank(url)) {
 			return url;
 		}
+		
 		String projectPath=PropKit.get("projectPath");
 		if(!projectPath.endsWith("/")) {
 			projectPath+="/";
 		}
-		url= projectPath+"article/"+getIdentify();
+		
+		url= projectPath+"a/"+getIdentify();
 		
 		return url;
 	}
@@ -50,6 +53,10 @@ public class Article extends BaseArticle<Article> {
 			return new Meta();
 		}
 		return getMetas().get(0);
+	}
+	
+	public String getTimelineGmtCreate() {
+		return get("TimelineGmtCreate");
 	}
 	
 }

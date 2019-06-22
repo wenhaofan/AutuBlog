@@ -1,6 +1,11 @@
 统一管理所有的sql
 
 共享的sql
+
+#namespace("timeline")
+#include("front/timeline.sql")
+#end
+
 #namespace("share")
 #include("share.sql")
 #end
@@ -8,17 +13,26 @@
 #namespace("agentUser")
 #include("front/agentUser.sql")
 #end
+
 登录sql
 #namespace("login")
 #include("front/login.sql");
 #end
+
 #namespace("meta")
 #include("front/meta.sql")
 #end
+
 文章sql
-#namespace("article")
-#include("front/article.sql");
+#namespace("detail")
+#include("front/detail.sql");
 #end
+
+首页sql
+#namespace("index")
+#include("front/index.sql");
+#end
+
 #namespace("comment")
 #include("front/comment.sql");
 #end
@@ -65,5 +79,6 @@
 #namespace("page")
 #include("back/page.sql")
 #end
+
 加载通用sql组件
 #include("common.sql");

@@ -6,7 +6,7 @@ import com.autu.common.controller.BaseController;
 import com.autu.common.model.AgentUser;
 import com.autu.common.model.Article;
 import com.autu.common.model.Comment;
-import com.autu.detail.ArticleService;
+import com.autu.detail.DetailService;
 import com.autu.detail.CommentService;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
@@ -24,7 +24,7 @@ public class AdminCommentService extends BaseController {
 	private CommentService frontCommentService;
  
 	@Inject
-	private ArticleService articleService;
+	private DetailService articleService;
 	
 	/**
 	 * 分页查询评论

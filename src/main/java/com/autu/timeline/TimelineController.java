@@ -13,7 +13,9 @@ public class TimelineController extends BaseController {
 	private TimelineService TimelineService;
 	
 	public void index() {
-		set("list", TimelineService.all());
+		Integer pageSize=getParaToInt("pageSize", 6);
+		Integer pageNum=getParaToInt("pageNum",1);
+		set("timelineMap", TimelineService.all(pageSize,pageNum));
 		render("page-timeline.html");
 	}
 	

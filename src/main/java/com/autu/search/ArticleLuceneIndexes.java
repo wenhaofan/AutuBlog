@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.autu._admin.article.AdminArticleLuceneIndexes;
 import com.autu.common.model.Article;
-import com.autu.detail.ArticleService;
+import com.autu.detail.DetailService;
 import com.autu.search.lucene.LuceneHelper;
 import com.jfinal.aop.Inject;
 import com.jfinal.plugin.activerecord.Page;
@@ -19,7 +19,7 @@ public class ArticleLuceneIndexes {
 	private LuceneHelper luceneHelper=LuceneHelper.single();
 
 	@Inject
-	private ArticleService articleService;
+	private DetailService articleService;
 	@Inject
 	private AdminArticleLuceneIndexes adminArticleLuceneIndexes;
 	

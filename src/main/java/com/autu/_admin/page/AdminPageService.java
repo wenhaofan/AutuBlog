@@ -57,7 +57,7 @@ public class AdminPageService {
 	
 	public boolean update(Page page) {
 		
-		Page dbPage=pageDao.findById(page);
+		Page dbPage=pageDao.findById(page.getId());
 		page.setPath(dbPage.getPath());
 		
 		if(StrKit.isBlank(page.getPath())) {

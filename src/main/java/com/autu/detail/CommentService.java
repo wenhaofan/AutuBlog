@@ -27,7 +27,7 @@ public class CommentService {
 	@Inject
 	private static AgentUserService agentUserService;
 	@Inject
-	private ArticleService articleService;
+	private DetailService articleService;
 	@Inject
 	private AdminUserService adminUserService;
 	public void save(Comment comment,String cookie) {

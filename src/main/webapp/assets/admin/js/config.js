@@ -4,19 +4,8 @@ layui.define(['jquery', 'fl', 'form', 'laytpl', 'table', 'upload'], function (ex
             form = layui.form;
             const that=this;
             form.render();
-            $("body").on("click", "#addBlogroll", function () {
-            	that.editBlogroll({});
-            })
-
-            $("body").on("click", ".update-blogroll", function () {
-                var id = $(this).data("id");
-                that.updateBlogroll(id);
-            })
-
-            $("body").on("click", ".delete-blogroll", function () {
-                var id = $(this).data("id");
-                that.deleteBlogroll(id);
-            })
+        
+ 
 
 
             form.on("submit(editConfig)", function (data) {
@@ -32,9 +21,7 @@ layui.define(['jquery', 'fl', 'form', 'laytpl', 'table', 'upload'], function (ex
                 return false;
             })
 
-            form.on("submit(editBlogroll)", function (data) {
-            	that.doEditBlogroll(data.field);
-            })
+         
 
         },
         pjaxLoad: function () {
@@ -42,18 +29,7 @@ layui.define(['jquery', 'fl', 'form', 'laytpl', 'table', 'upload'], function (ex
         },
         load: function () {
             upload = layui.upload;
-            layui.fl.renderTable({
-                elem: '#blogrolls'
-                , url: '/admin/api/blogroll/list'
-                , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                , cols: [[
-                    { field: 'id', sort: true, width: 60, title: "id" }
-                    , { field: 'title', title: "标题" }
-                    , { field: 'url', title: "网址" }
-                    , { field: 'sort', title: "排序", width: 80 }
-                    , { templet: '#tpl-blogroll-operate', title: "操作", width: 190 }
-                ]]
-            });
+            
 
             //执行实例
             upload.render({
@@ -83,46 +59,7 @@ layui.define(['jquery', 'fl', 'form', 'laytpl', 'table', 'upload'], function (ex
             });
             this.setBasicForm();
         },
-        deleteBlogroll: function (id) {
-            layui.fl.alertConfirm({
-                title: "确认删除?", then: function () {
-                    layui.fl.ajax({
-                        url: "/admin/api/blogroll/remove/" + id,
-                        success: function (data) {
-                            layui.fl.alertOkAndReload("删除成功！");
-                        }
-                    })
-                }
-            })
-        },
-        editBlogroll: function (data) {
-            var content = template("tpl-edit-blogroll", data);
-
-            var width = 520;
-            if ($(window).width() < 768) {
-                width = 350;
-            }
-
-            layerIndex = layer.open({
-                title: "新增",
-                area: [width + 'px', '280px'],
-                type: 1,
-                content: content //这里content是一个普通的String
-            });
-        },
-        /**
-         * 获取友链信息,并打开修改框
-         */
-        updateBlogroll: function (id) {
-        	const that=this;
-            layui.fl.ajax({
-                url: "/admin/api/blogroll/get/" + id,
-                type: "post",
-                success: function (data) {
-                	that.editBlogroll(data.blogroll);
-                }
-            })
-        },
+      
         setBasicForm: function () {
             layui.fl.ajax({
                 url: "/admin/api/config",
@@ -145,16 +82,6 @@ layui.define(['jquery', 'fl', 'form', 'laytpl', 'table', 'upload'], function (ex
                 }
             })
         },
-        doEditBlogroll: function (data) {
-            layui.fl.ajax({
-                url: "/admin/api/blogroll/saveOrUpdate",
-                data: data,
-                type: "post",
-                success: function (data) {
-                    layui.fl.alertOkAndReload("操作成功！");
-                }
-            })
-        }
     };
     config.bind();
     config.load();

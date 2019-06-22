@@ -1,4 +1,4 @@
-#include("header.html")
+#include("/_view/templates/pinghsu/header.html")
 
 <article class="main-content page-page" itemscope itemtype="http://schema.org/Article">
 	<div class="post-header">
@@ -6,7 +6,7 @@
 			Links
 		</h1>
 		<div class="post-data">
-			<time datetime="#(config.gmtCreate) itemprop="datePublished">Published on #(config.gmtCreate)</time> in   with #(commentPage.totalRow) <a href="#comments">comments </a>
+			<time datetime="#(config.gmtCreate) itemprop="datePublished">Published on #(config.gmtCreate)</time> in   with #(commentPage.totalRow??) <a href="#comments">comments </a>
 		</div>
 	</div>
 	<div id="post-content" class="post-content" itemprop="articleBody">
@@ -88,11 +88,10 @@ function shareWeibo(){
 	window.open("http://service.weibo.com/share/share.php?url="+getUrl()+"&title="+document.title);
 }
 </script>
- 
-#set(article["identify"] = "links")
- 
-#include('comments.html')
 
+#if(article!=null)
+	#include('/_view/templates/pinghsu/comments.html')
+#end
 
 <div id="directory-content" class="directory-content">
     <div id="directory"></div>
@@ -222,4 +221,4 @@ postSharer.init();
  
 <script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
  
-#include('footer.html')
+#include('/_view/templates/pinghsu/footer.html')

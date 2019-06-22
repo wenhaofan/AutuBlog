@@ -5,7 +5,7 @@ import com.autu.common.interceptor.FrontInterceptor;
 import com.autu.common.interceptor.ThemesInterceptor;
 import com.autu.common.meta.MetaApi;
 import com.autu.common.uplod.UploadApi;
-import com.autu.detail.ArticleApi;
+import com.autu.detail.DetailApi;
 import com.autu.detail.CommentApi;
 import com.autu.detail.DetailController;
 import com.autu.diy.DiyPageController;
@@ -32,7 +32,7 @@ public class FrontRoutes extends Routes{
 		add("/login",LoginController.class,"/");
 	 
 		add("/api/meta", MetaApi.class,"/");
-		add("/api/article",ArticleApi.class,"/");
+		add("/api/article",DetailApi.class,"/");
 		add("/comment", CommentApi.class);
 		add("/a", DetailController.class);
 		add("/search", SearchController.class,"/");

@@ -72,14 +72,17 @@
 	 </li>		
 </script>
 <script>
+let meta;
     function pjaxLoad(){
-      layui.use(['meta'],function(meta){
-        meta.pjaxLoad();
+      layui.use(['meta'],function(m){
+        m.pjaxLoad();
+        meta=m;
       })
     }
     function firstLoad(){
-      layui.use(['meta'],function(meta){
-        
+      layui.use(['meta'],function(m){
+     
+          meta=m;
       })
     }
  </script>

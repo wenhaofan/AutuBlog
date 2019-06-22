@@ -89,6 +89,7 @@
                         } 
 
                         this.editormd = editormd("meditor", {
+                        	toolbar:true,
                             width: "100%",
                             height: 640,
                             markdown: content,
@@ -99,6 +100,8 @@
                                 imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                                 imageUploadURL : "/admin/api/upload/editormd",
                                 emoji : true,
+                                mode:'markdown',watch : true
+                                
                         });
 
                         editorSet.editorType = "markdown";

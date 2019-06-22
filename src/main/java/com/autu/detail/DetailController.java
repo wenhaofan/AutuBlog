@@ -21,7 +21,7 @@ import com.jfinal.plugin.activerecord.Page;
 public class DetailController extends BaseController {
 
 	@Inject
-	private ArticleService articleService;
+	private DetailService articleService;
 	@Inject
 	private MetaService metaService;
 	@Inject

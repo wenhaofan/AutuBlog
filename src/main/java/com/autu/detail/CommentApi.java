@@ -14,7 +14,7 @@ public class CommentApi extends BaseController {
 	private CommentService service;
 	
 	@Inject
-	private ArticleService articleService;
+	private DetailService articleService;
 	
 	public void save() {
 		Comment comment=getModel(Comment.class,"",true);

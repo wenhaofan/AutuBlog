@@ -1,7 +1,6 @@
 package com.autu._admin.common.config.router;
 
 import com.autu._admin.article.ArticleAdminApi;
-import com.autu._admin.blogroll.AdminBlogrollApi;
 import com.autu._admin.comment.AdminCommentApi;
 import com.autu._admin.common.config.interceptor.AdminIndexInterceptor;
 import com.autu._admin.common.upload.AdminEditormdUploadApi;
@@ -41,7 +40,7 @@ public class AdminApiRoutes extends Routes{
 	   add("/admin/api/metaConfig",AdminMetaWeblogConfigApi.class);
 	   add("/admin/api/baiduConfig",AdminBaiduConfigApi.class);
 	   add("/admin/api/config", AdminConfigApi.class);
-	   add("/admin/api/blogroll", AdminBlogrollApi.class);
+	 
 	   add("/admin/api/page", AdminPageApi.class);
 	   add("/admin/api/upload/editormd", AdminEditormdUploadApi.class);
 	}

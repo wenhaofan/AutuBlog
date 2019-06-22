@@ -1,6 +1,5 @@
 package com.autu.common.interceptor;
 
-import com.autu.blogroll.BlogrollService;
 import com.autu.common._config.BlogContext;
 import com.autu.common.agentUser.AgentUserService;
 import com.autu.common.controller.BaseController;
@@ -8,19 +7,17 @@ import com.autu.common.dto.Theme;
 import com.autu.common.meta.MetaService;
 import com.autu.common.meta.MetaTypeEnum;
 import com.autu.common.nav.NavService;
-import com.autu.detail.ArticleService;
 import com.autu.detail.CommentService;
+import com.autu.detail.DetailService;
 import com.autu.user.UserService;
 import com.jfinal.aop.Inject;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 
 public class FrontInterceptor implements Interceptor{
-
+ 
 	@Inject
-	private BlogrollService blogrollService;
-	@Inject
-	private ArticleService articleService;
+	private DetailService articleService;
 	@Inject
 	private MetaService metaService;
 	@Inject
@@ -50,7 +47,7 @@ public class FrontInterceptor implements Interceptor{
 		c.setAttr("navs", navService.list());
 		c.setAttr("recentArticles",articleService.listRecent());
 		c.setAttr("recentComments", commentService.listRecent());
-		c.setAttr("blogrolls", blogrollService.list());
+	 
 		c.setAttr("constant", new Object());
 		c.setAttr("theme", new Theme());
 		inv.invoke();

@@ -4,23 +4,25 @@
  
   
  
-    #for(article : list )
+    #for(item : timelineMap )
     	<div class="categorys-item">
-    		<div class="categorys-title">#(article.title)</div>
+    		<div class="categorys-title">#(item.key)</div>
 	    	<div class="post-lists">
 		    	<div class="post-lists-body">
+		    		#for(article:item.value)
 			    	<div class="post-list-item">
 						<div class="post-list-item-container">
 							<div class="item-label">
 								<div class="item-title">
-								<a href="">#(article.title)</a>
+								<a href="#(article.url)">#(article.title)</a>
 								</div>
 								<div class="item-meta clearfix">
 								<div class="item-meta-date">#(article.gmtCreate) </div>
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
+					#end 
 		    	</div>
     		</div>
     	</div>

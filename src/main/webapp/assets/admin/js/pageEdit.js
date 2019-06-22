@@ -25,7 +25,10 @@ layui.define([ 'form', 'ueditor', 'fl', 'layer', 'editormd' ],
 					$('body').on('click', '.page-preview', function() {
 						that.preview();
 					})
-
+					
+					if($('.page-edit input[name="articleId"]').val()){
+						$('.page-edit-article').show();
+					}
 				},
 				load : function() {
 					 
@@ -72,7 +75,7 @@ layui.define([ 'form', 'ueditor', 'fl', 'layer', 'editormd' ],
 						watch : false,
 						toolbar : false,
 						codeFold : true,
-						searchReplace : true,
+ 
 						placeholder : "Enjoy coding!",
 						value : content,
 						path : '/assets/plugins/editor/lib/',

@@ -5,9 +5,7 @@ import java.util.List;
 import com.autu.common.controller.BaseController;
 import com.autu.common.meta.MetaService;
 import com.autu.common.model.Article;
-import com.autu.common.model.Comment;
 import com.autu.common.model.Meta;
-import com.autu.detail.ArticleService;
 import com.autu.detail.CommentService;
 import com.autu.user.UserService;
 import com.jfinal.aop.Before;
@@ -24,7 +22,7 @@ public class IndexController extends BaseController {
 
  
 	@Inject
-	private ArticleService articleService;
+	private IndexService indexService;
 	@Inject
 	private CommentService commentService;
 	@Inject
@@ -34,8 +32,8 @@ public class IndexController extends BaseController {
 	
 	public void index() {
 		Integer limit=getParaToInt("limit", 12);
-		Page<Article> articlePage=articleService.page(1, limit,null,false);
-		List<Article> topArticleList=articleService.listTop();
+		Page<Article> articlePage=indexService.page(1, limit,null,false);
+		List<Article> topArticleList=indexService.listTop();
  
 		setAttr("articlePage",articlePage);
 		setAttr("currentPageNum", 1);
@@ -60,7 +58,7 @@ public class IndexController extends BaseController {
 			return;
 		}
 		
-		Page<Article> articlePage=articleService.page(pageNum, limit,null,false);
+		Page<Article> articlePage=indexService.page(pageNum, limit,null,false);
 		 
  
 		setAttr("articlePage",articlePage);
@@ -85,7 +83,7 @@ public class IndexController extends BaseController {
 		
 		Integer limit=getParaToInt(2, 24);
 		
-		Page<Article> articlePage=articleService.page(pageNum, limit,id,null);
+		Page<Article> articlePage=indexService.page(pageNum, limit,id,null);
 		
 		Meta category=metaService.get(id);
 		
@@ -95,24 +93,4 @@ public class IndexController extends BaseController {
 		render("page-category.html");
 	}
  
-	
- 
-	
-	public void profiles() {
-		render("profiles/profiles.html");
-	}
-
-	public void about() {
-		render("about.html");
-	}
- 
-	
-	public void links() {
-		Page<Comment> commentPage=commentService.page(getParaToInt("p",1),8, "links");
-		setAttr("article", new Article().setIdentify("links").setId(99999));
-		setAttr("commentPage", commentPage);
-		render("links.html");
-	}
-	
-
 }

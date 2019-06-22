@@ -46,6 +46,9 @@ layui.define([ 'table','fl','form','layer'], function(exports) {
 	                    { field: 'id', sort: true, title: "ID", width: 90 }
 	                  
 	                    , { templet:function(d){
+	                    	if(!d.article){
+	                    		return 0;
+	                    	}
 	                    	return d.article.pv;
 	                    }, width: 90, sort: true, title: "阅读量" }
 	                    , { field: 'pattern', title: "访问路径" }

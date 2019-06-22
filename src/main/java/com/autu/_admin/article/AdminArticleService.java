@@ -14,7 +14,7 @@ import com.autu.common.meta.MetaTypeEnum;
 import com.autu.common.model.Article;
 import com.autu.common.model.Meta;
 import com.autu.common.safe.JsoupFilter;
-import com.autu.detail.ArticleService;
+import com.autu.detail.DetailService;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Kv;
 import com.jfinal.kit.Ret;
@@ -33,7 +33,7 @@ public class AdminArticleService {
 	@Inject
 	private AdminMetaService mservice;
 	@Inject
-	private  ArticleService articleService;
+	private  DetailService articleService;
 	@Inject
 	private AdminBaiduSeoService baiduSeoService;
 	@Inject

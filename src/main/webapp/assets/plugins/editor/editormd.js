@@ -371,6 +371,7 @@ jQuery=layui.$;
             
             var _this            = this;
             var classPrefix      = this.classPrefix  = editormd.classPrefix; 
+            editormd.defaults.value="";
             var settings         = this.settings     = $.extend(true, editormd.defaults, options);
             
             id                   = (typeof id === "object") ? settings.id : id;
@@ -1885,7 +1886,9 @@ jQuery=layui.$;
             var state      = this.state;
             var editor     = this.editor;
             var preview    = this.preview;
-            var toolbar    = this.toolbar;
+            var toolbar    = this.toolbar||this.setToolbar();
+ 
+            
             var settings   = this.settings;
             var codeMirror = this.codeMirror;
             

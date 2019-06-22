@@ -14,6 +14,7 @@ layui.define([
                 type: "category",
                 callback: function (categorys) {
                     var $metaBlock = $("#category-list");
+                    $metaBlock.empty();
                     var $meta;
                     $.each(categorys, function (index, item) {
                         $meta = $(template('tpl-meta-list', {
@@ -31,6 +32,7 @@ layui.define([
                 type: "tag",
                 callback: function (tags) {
                     var $metaBlock = $("#tag-list");
+                    $metaBlock.empty();
                     var $meta;
                     $.each(tags, function (index, item) {
                         $meta = $(template('tpl-meta-list', {
@@ -123,27 +125,32 @@ layui.define([
         },
 
         add: function (data) {
+        	const that=this;
             layui.fl.ajax({
                 url: "/admin/api/meta/add",
                 type: "post",
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    layui.fl.alertOkAndReload(data.text);
+                    layui.fl.alertOk({title:"添加成功"});
+                    that.load();
                 }
             })
         },
 
         doUpdate: function (data) {
+        	const that=this;
             layui.fl.ajax({
                 url: "/admin/api/meta/update",
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    layui.fl.alertOkAndReload(data.text);
+                    layui.fl.alertOk({title:"修改成功"});
+                    that.load();
                 }
             })
         }, remove: function (id) {
+        	const that=this;
             layui.fl.alertConfirm({
                 title: '确认删除吗？',
                 then: function () {
@@ -151,7 +158,8 @@ layui.define([
                         url: "/admin/api/meta/remove/" + id,
                         dataType: "json",
                         success: function (data) {
-                            layui.fl.alertOkAndReload(data.text);
+                            layui.fl.alertOk({title:"删除成功"});
+                            that.load();
                         }
                     })
                 }
