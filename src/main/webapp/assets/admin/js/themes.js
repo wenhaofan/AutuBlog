@@ -5,6 +5,7 @@ layui.define([
     
     const themes={
         bind:function(){
+        	const fl=layui.fl;
             $("body").on("click",'.theme-change',function(){
                 var name=$(this).data("name");
                 $.ajax({

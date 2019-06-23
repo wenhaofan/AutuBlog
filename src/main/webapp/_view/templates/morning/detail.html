@@ -7,7 +7,7 @@
       <div class="news_author"><span class="au01"><a href="mailto:dancesmiling@qq.com">#(config.author)</a></span><span class="au02">#(article.gmtCreate)</span><span class="au03">共<b>#(article.pv)</b>人围观</span></div>
       <div class="tags">
       		#for(meta:atags)
-      		<a href="/article/category/#(meta.id)" target="_blank">#(meta.mname)</a>
+      		<a href="/c/1-#(meta.id)" target="_blank">#(meta.mname)</a>
       			#if(!for.last) &nbsp;#end 
       		#end
       </div>
@@ -20,12 +20,12 @@
     <div class="nextinfo">
       <p>
       #if(lastNextArticle.lastArticle!=null)
-      	上一篇： <a href="/article/#(lastNextArticle.lastArticle.identify)">#(lastNextArticle.lastArticle.title)</a>
+      	上一篇： <a href="/a/#(lastNextArticle.lastArticle.identify)">#(lastNextArticle.lastArticle.title)</a>
       #end
       </p>
       <p>
       #if(lastNextArticle.nextArticle!=null)
-      	下一篇： <a href="/article/#(lastNextArticle.nextArticle.identify)">#(lastNextArticle.nextArticle.title)</a>
+      	下一篇： <a href="/a/#(lastNextArticle.nextArticle.identify)">#(lastNextArticle.nextArticle.title)</a>
       #end
       </p>
        
@@ -34,7 +34,7 @@
       <h2>相关文章</h2>
       <ul>
       	#for(article:aboutArticles)
-      		<li><a href="/article/#(article.identify)" title="#(article.title)">#(article.title)</a></li>
+      		<li><a href="/a/#(article.identify)" title="#(article.title)">#(article.title)</a></li>
       	#end
         
       </ul>
@@ -46,7 +46,7 @@
       <form action="" method="post" name="saypl" id="saypl" onsubmit="return  fl.subComment()">
 				<div id="plpost">
 				<p class="saying">
-					<span><a href="/zaoan/e/pl/?classid=7&amp;id=20">共有#(commentPage.totalRow)条评论</a></span>
+					<span><a href="#">共有#(commentPage.totalRow)条评论</a></span>
 					<span class="response">来说两句吧...</span>
 				</p>
 		         <input type="hidden" name="identify" id="identify" value="#(article.identify)"/>
@@ -112,13 +112,13 @@
           <div class="lists-navigator clearfix">
             <ol class="page-navigator">
                 #if(!commentPage.isFirstPage())
-                <li class="prev"><a href="/article/#(article.identify)?p=#(commentPage.pageNumber-1)#commentPage">←</a></li>
+                <li class="prev"><a href="/a/#(article.identify)?p=#(commentPage.pageNumber-1)#commentPage">←</a></li>
                 #end
                 #for(navIndex =1;navIndex<=commentPage.totalPage;navIndex++)
-                <li #if(commentPage.pageNumber == navIndex) class="current" #end><a href="/article/#(article.identify)?p=#(navIndex)#commentPage">#(navIndex)</a></li>
+                <li #if(commentPage.pageNumber == navIndex) class="current" #end><a href="/a/#(article.identify)?p=#(navIndex)#commentPage">#(navIndex)</a></li>
                 #end
                 #if(!commentPage.isLastPage())
-                <li class="next"><a href="/article/#(article.identify)?p=#(commentPage.pageNumber+1)#commentPage">→</a></li>
+                <li class="next"><a href="/a/#(article.identify)?p=#(commentPage.pageNumber+1)#commentPage">→</a></li>
                 #end
             </ol>
         </div>
@@ -150,7 +150,7 @@
       <h2 class="hometitle">标签云</h2>
       <ul>	
       	#for(tag:tags)
-      	 <a href="/article/category/1-#(tag.id)">#(tag.mname)</a>
+      	 <a href="/c/1-#(tag.id)">#(tag.mname)</a>
       	#end
       </ul>
     </div>

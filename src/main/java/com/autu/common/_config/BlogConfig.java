@@ -112,6 +112,9 @@ public class BlogConfig extends JFinalConfig {
 		wallFilter.setDbType("mysql");
 		druidPlugin.addFilter(wallFilter);
 		druidPlugin.addFilter(new StatFilter()); // 添加 StatFilter 才会有统计数据
+		
+		druidPlugin.setConnectionInitSql("set names utf8mb4");
+		
 		me.add(druidPlugin);
 
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);

@@ -290,6 +290,12 @@ layui.define([
                 that.save(data.field, 1);
                 return false; // 阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
+            
+            form.on('submit(draft)', function (data) {
+                that.save(data.field, 0);
+                return false; // 阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+            
 
 
             form.on('switch(isTop)', function (data) {
@@ -388,10 +394,7 @@ layui.define([
                 }
             });
 
-             // 保存草稿
-            $("#draft").click(function () {
-                that.save(0);
-            });
+         
 
             // 保存并发布
             $("#subArticle").click(function () {
@@ -481,6 +484,7 @@ layui.define([
                     var time = "[" + new Date() + "]";
                     $(".hint-msg").text((data.article.state == 0 ? "草稿保存成功！" : "发布成功！") + time);
                     $("input[name='id']").val(data.article.id);
+                    $("input[name='identify']").val(data.article.identify);
                     var host = window.location.host;
                     var currentUrl = window.location.protocol + "//" + host + "/admin/article/edit/" + data.article.id;
 

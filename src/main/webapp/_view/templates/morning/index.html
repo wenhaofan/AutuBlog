@@ -3,7 +3,7 @@
   <ul> 
   	#for(article:articleTopList)
   	<li>
-  		<a href="/article/#(article.identify)"><i><img src="#(article.thumbImg)"></i>
+  		<a href="/a/#(article.identify)"><i><img src="#(article.thumbImg)"></i>
 	      <div class="font">
 	        <h3>#(article.title)</h3>
 	      </div>
@@ -17,16 +17,16 @@
   	#for(article:articlePage.list)
   	 <li> 
   	 	#if(article.thumbImg!=null)
-  	 		<span class="blogpic"><a href="/article/#(article.identify)"><img src="#(article.thumbImg)"></a></span>
+  	 		<span class="blogpic"><a href="/a/#(article.identify)"><img src="#(article.thumbImg)"></a></span>
   	 	#end
-      <h3 class="blogtitle"><a href="/article/#(article.identify)">#(article.title)</a></h3>
+      <h3 class="blogtitle"><a href="/a/#(article.identify)">#(article.title)</a></h3>
       <div class="bloginfo">
         <p>#(article.intro)...</p>
       </div>
       <div class="autor">
       	<span class="lm">
       		#for(meta:article.metas)
-      		  <a href="/article/category/1-#(meta.id)" title=#(meta.mname)" target="_blank" class="classname">
+      		  <a href="/c/1-#(meta.id)" title=#(meta.mname)" target="_blank" class="classname">
       			#(meta.mname)
       		  </a>
       			#if(!for.last)|#end 
@@ -35,7 +35,7 @@
       	<span class="dtime">#(article.gmtCreate)</span>
       	<span class="viewnum">浏览（<a href="/">#(article.pv)</a>）</span>
       	<span class="readmore">
-      		<a href="/article/#(article.identify)">阅读原文</a>
+      		<a href="/a/#(article.identify)">阅读原文</a>
       	</span>
       </div>
     </li>
@@ -66,7 +66,7 @@
       <div class="abtext">#(adminUser.description) </div>
     </div>
     <div class="search">
-      <form action="/article/search" method="get" name="searchform" id="searchform">
+      <form action="/search" method="get" name="searchform" id="searchform">
         <input name="keyword" id="keyboard" value="#(keyword)" class="input_text" value="请输入关键字" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
         <input name="Submit" class="input_submit" value="搜索" type="submit">
       </form>
@@ -75,7 +75,7 @@
       <h2 class="hometitle">标签云</h2>
       <ul>	
       	#for(tag:tags)
-      	 <a href="/article/category/1-#(tag.id)">#(tag.mname)</a>
+      	 <a href="/c/1-#(tag.id)">#(tag.mname)</a>
       	#end
       </ul>
     </div>
@@ -84,7 +84,7 @@
       <ul>
      	#for(article:hotArticles)
     	 <li>
-    	   <b><a href="/article/#(article.identify)" target="_blank">#(article.title)...</a></b>
+    	   <b><a href="/a/#(article.identify)" target="_blank">#(article.title)...</a></b>
            <p>
            		#if(article.thumbImg!=null)
            			<i><img src="#(article.thumbImg)"></i>
@@ -96,14 +96,6 @@
       </ul>
     </div>
  
-    <div class="links">
-      <h2 class="hometitle">友情链接</h2>
-      <ul>
-      	#for(blogroll:blogrolls)
-      	 <li><a href="#(blogroll.url)" title="#(blogroll.title)">#(blogroll.title)</a></li>
-      	#end
-      </ul>
-    </div>
     <!-- <div class="weixin">
       <h2 class="hometitle">官方微信</h2>
       <ul>

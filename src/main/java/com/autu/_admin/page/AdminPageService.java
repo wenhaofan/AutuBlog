@@ -43,7 +43,7 @@ public class AdminPageService {
 	}
 
 	private String genRandomFileName(Page page) {
-		String fileName=page.getName()+"["+System.currentTimeMillis()+"].tpl";
+		String fileName="diy["+System.currentTimeMillis()+"].html";
 		return fileName;
 	}
 	

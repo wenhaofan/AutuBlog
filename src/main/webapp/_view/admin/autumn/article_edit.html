@@ -67,7 +67,7 @@ function getThumbImg(){
 		<div class="layui-col-md6">
 			<div class="layui-form-item">
 			  <div class="layui-input-block">
-		      	<input type="text" name="identify" required  value="#(article.identify??)"  lay-verify="required" placeholder="请输入访问路径" autocomplete="off" class="layui-input">
+		      	<input type="text" name="identify" required  value="#(article.identify??)"   placeholder="请输入访问路径" autocomplete="off" class="layui-input">
 		      </div> 
 	      	</div>
 		</div>
@@ -157,7 +157,7 @@ function getThumbImg(){
 				   </div>
 				  	<div class="layui-inline" style="float:right;">
 				  		<button class="layui-btn layui-btn-normal" lay-submit lay-filter="publish">发布</button>
-				  		<button class="layui-btn layui-btn-warm"   lay-filter="draft" >存为草稿</button>
+				  		<button class="layui-btn layui-btn-warm"  lay-submit  lay-filter="draft" >存为草稿</button>
 				  	</div>
 				</div>
 			</div>
