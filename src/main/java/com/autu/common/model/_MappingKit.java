@@ -34,10 +34,7 @@ public class _MappingKit {
 		arp.addMapping("baidu_seo_config", "id", BaiduSeoConfig.class);
 		arp.addMapping("metaweblog_relevance", "id", MetaweblogRelevance.class);
 		arp.addMapping("config", "id",Config.class);
- 		arp.addMapping("theme_config", "pkId", ThemeConfig.class);
 		arp.addMapping("page", "id", Page.class);
-	 
-		arp.addMapping("seo", "id", Seo.class);
 	}
 
 	 

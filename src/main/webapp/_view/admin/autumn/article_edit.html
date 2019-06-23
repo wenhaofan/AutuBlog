@@ -148,12 +148,12 @@ function getThumbImg(){
 				  <div class="layui-inline">
 				    <label class="layui-form-label">原创</label>
 				    <div class="layui-input-inline" style="width: 100px;">
-					<input type="checkbox" lay-filter="isOriginal"    #((article==null||!article.isOriginal)?'':'checked')  lay-skin="switch" lay-text="开启|关闭">				    </div>
+					<input type="checkbox" lay-filter="isOriginal"    #((article==null||article.isOriginal)?'checked':'') lay-skin="switch" lay-text="开启|关闭">				    </div>
 				  </div>
 				   <div class="layui-inline">
 				    <label class="layui-form-label">允许评论</label>
 				    <div class="layui-input-inline" style="width: 100px;">
-					<input type="checkbox" lay-filter="allowComment"     #((article==null||!article.allowComment)?'':'checked') lay-skin="switch" lay-text="开启|关闭">				    </div>
+					<input type="checkbox" lay-filter="allowComment"   #((article==null||article.allowComment)?'checked':'')     lay-skin="switch" lay-text="开启|关闭">				    </div>
 				   </div>
 				  	<div class="layui-inline" style="float:right;">
 				  		<button class="layui-btn layui-btn-normal" lay-submit lay-filter="publish">发布</button>

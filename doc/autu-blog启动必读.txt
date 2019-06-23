@@ -1,15 +1,13 @@
 
-管理员登录账号：admin  密码:111111
-后台登录地址:http://projectPath/login
+管理员登录账号：admin  密码:admin
+后台登录地址:http://{projectPath}/login
 
 注意事项:
-	0.需要先访问/login登录后才能访问/admin，否则将会是404页面
-	1.dev_blog_config中的domain如果和访问地址不一致会导致登录不生效
+	0.dev_blog_config中的domain如果和访问地址不一致会导致登录不生效
 ------------------------------------------------------------------------
 
 0：启动之前需要使用autublog.sql  中建库建表与初始化数据
-	0.1：如果当前pom文件版本非1.0.0 ，则需要执行升级的sql文件，按版本依次执行至autu-blog-update-${pom-version}.sql 
-
+	 
 1：修改 src/main/resources 目录下的 dev_blog_config.txt 配置文件
 
 2：该项目为标准的 maven web app 项目，以往相关经验可直接使用

@@ -64,11 +64,17 @@ layui.define([
 
         
             $('.layui-layout-right').hover(function(){  
+            	clearTimeout(that.headerMouseoutTimmer);
             	 $('.layui-header').css('z-index',1999);
             	 console.log('置顶头部');
+            	
             },function(){  
-            	$('.layui-header').css('z-index','auto');
+            	that.headerMouseoutTimmer=setTimeout(function(){
+            		$('.layui-header').css('z-index','auto');
+            	},800);	
             })  
+            
+            
         }, load: function () {
 
             $(".menu-tree a").each(function () {
