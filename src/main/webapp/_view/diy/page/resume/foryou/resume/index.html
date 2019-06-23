@@ -16,29 +16,38 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>[简历]范文皓_JavaEE开发工程师/成都_2年经验</title>
+    <title>[简历]张大侠-前端开发工程师/杭州</title>
     
-
-</head>
-
-<body>
-
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/_view/diy/page/resume/foryou/resume/assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/_view/diy/page/resume/foryou/resume/assets/css/typo.css">
     <link rel="stylesheet" href="/_view/diy/page/resume/foryou/resume/assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="/_view/diy/page/resume/foryou/resume/assets/css/index.css">
-    
     <script>
         function loading() {
             document.getElementsByClassName('avatar')[0].style.display = 'block';
             document.getElementsByClassName('loading')[0].style.display = 'none';
         }
     </script>
+</head>
+
+<body>
 
     <header class="header"></header>
 
     <article class="container">
         <section class="side" id="side">
+
+            <!-- 左栏固定开关，记得及时删除这段代码 Start-->
+            <label class="switch" style="display: none;" onchange="switchFixed()">
+                <script type="text/javaScript">
+                    function switchFixed(){
+                        var value = document.getElementById('side').style.position === 'fixed' ? 'absolute' : 'fixed';
+                        document.getElementById('side').style.position = value;
+                    }
+                </script>
+                <input id="cb" type="checkbox">
+                <span class="slider round"></span>
+            </label>
             <style>
                 @media (min-width: 414px){
                     .switch{position:relative;display:inline-block!important;width:60px;height:34px;}
@@ -67,8 +76,8 @@
                     <img class="avatar" src="/_view/diy/page/resume/foryou/resume/assets/images/avatar.jpg" onload="loading()">
                 </section>
 
-                <h1 class="name">范文皓</h1>
-                <h4 class="info-job">JAVAEE开发工程师 / 成都</h4>
+                <h1 class="name">张大侠</h1>
+                <h4 class="info-job">前端开发工程师 / 杭州</h4>
 
             </section>
 
@@ -80,13 +89,16 @@
                 <ul>
                     <li>
                         <label>个人信息</label>
-                        <span>范文皓 / 男 / 21岁</span>
+                        <span>张大侠 / 男 / 24岁</span>
                     </li>
                     <li>
-                        <label>工作经验</label>
-                        <span>两年</span>
+                        <label>英语水平</label>
+                        <span>CET-6</span>
                     </li>
-                
+                    <li>
+                        <label>计算机水平</label>
+                        <span>软考中级</span>
+                    </li>
                 </ul>
             </section>
 
@@ -96,18 +108,21 @@
                     <i class="fa fa-phone" aria-hidden="true"></i>联系方式</h2>
                 <hr/>
                 <ul>
-                   
+                    <li>
+                        <label>手机</label>
+                        <a href="tel:15168285219" target="_blank">151-6828-5219</a>
+                    </li>
                     <li>
                         <label>邮箱</label>
-                        <a href="mailto:fan@wenhaofan.com" target="_blank">fan@wenhaofan.com</a>
+                        <a href="mailto:ze.zh@hotmail.com" target="_blank">ze.zh@hotmail.com</a>
                     </li>
                     <li>
                         <label>个人主页</label>
-                        <a href="https://www.wenhaofan.com" target="_blank">wenhaofan.com</a>
+                        <a href="http://0b11111110.com/" target="_blank">0b11111110.com/</a>
                     </li>
                     <li>
                         <label>Github</label>
-                        <a href="https://github.com/wenhaofan" target="_blank">github.com/wenhaofan</a>
+                        <a href="https://github.com/0b11111110" target="_blank">github.com/0b11111110</a>
                     </li>
                 </ul>
             </section>
@@ -118,74 +133,88 @@
                     <i class="fa fa-code" aria-hidden="true"></i>技能点</h2>
                 <hr/>
                 <ul>
-					<li>
-                        <label>Java</label>
+                    <li>
+                        <label>HTML</label>
                         <progress value="90" max="100"></progress>
                     </li>
                     <li>
-                        <label>MySQL</label>
-                        <progress value="80" max="100"></progress>
-                    </li>
-                    <li>
-                        <label>Layui</label>
+                        <label>CSS</label>
                         <progress value="85" max="100"></progress>
                     </li>
                     <li>
-                        <label>Bootstrap</label>
+                        <label>JavaScript</label>
                         <progress value="85" max="100"></progress>
-                    </li> 
-                   
+                    </li>
+                    <li>
+                        <label>React</label>
+                        <progress value="85" max="100"></progress>
+                    </li>
+                    <li>
+                        <label>Node.js</label>
+                        <progress value="70" max="100"></progress>
+                    </li>
                     <li>
                         <label>小程序</label>
-                        <progress value="50" max="100"></progress>
-                    </li>
-					 <li>
-                        <label>Node.js</label>
-                        <progress value="50" max="100"></progress>
-                    </li>
-					 <li>
-                        <label>Python</label>
-                        <progress value="50" max="100"></progress>
-                    </li>
-					<li>
-                        <label>C#</label>
-                        <progress value="50" max="100"></progress>
+                        <progress value="70" max="100"></progress>
                     </li>
                 </ul>
             </section>
 
-           <!-- <section class="qrcode info-unit">
+            <section class="qrcode info-unit">
                 <h2><i class="fa fa-qrcode" aria-hidden="true"></i>二维码</h2>
                 <hr/>
                 <img src="https://github.com/if2er/FeZaoDuKe-Collection/blob/master/ifeees.jpg?raw=true" style="width: 100%;" alt="">
-            </section> -->
+            </section>
 
             <!-- 技术栈 -->
-          <div class="stack info-unit">
+            <!-- <div class="stack info-unit">
                     <h2><i class="fa fa-code" aria-hidden="true"></i>其他</h2>
                     <hr/>
                     <ul>
                         <li>
-                            <label>后端</label>
-                            <span>Spring、Spring MVC、Spring Boot、Mybaties、JFinal</span>
+                            <label>前端</label>
+                            <span>React、jQuery、微信小程序、Bootstrap、SASS、LESS</span>
                         </li>
                         <li>
-                            <label>前端</label>
-                           <span>jQuery、Layui、Bootstrap、微信小程序、Vue、Nuxt</span>
+                            <label>后端</label>
+                            <span>Node.js、MySQL、MongoDB、WordPress、ThinkPHP</span>
                         </li>
                         <li>
                             <label>其他</label>
-                            <span>Git、SVN、Eclipse</span>
+                            <span>Git、SVN、Markdown</span>
                         </li>
                     </ul>
-                </div>  
+                </div> -->
         </section>
 
         <section class="main">
 
-         
+            <!-- 教育经历 -->
+            <section class="edu info-unit">
+                <h2>
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>教育经历</h2>
+                <hr/>
+                <ul>
+                    <li>
+                        <h3>
+                            <span>XXXX大学 - XXX专业（硕士）</span>
+                            <time>201X.9-201X.7</time>
+                        </h3>
+                        <p>专业排名
+                            <mark>X/XX</mark>，期间发表国际会议英文摘要X篇，国内核心期刊文章X篇（其中第一作者X篇），获XXX，XXX2次，XXX2次。(此处根据自身情况填写，可以突出自己的亮点，或者跟求职目标相关的内容)</p>
+                    </li>
+                    <li>
+                        <h3>
+                            <span>XXXX大学 - XXX专业（本科）</span>
+                            <time>201X.9-201X.7</time>
+                        </h3>
+                        <p>专业排名
+                            <mark>X/XX</mark>，期间发表国内核心期刊文章X篇，三等奖学金X次。</p>
+                    </li>
+                </ul>
+            </section>
 
-                <!-- 工作经历 -->
+            <!-- 工作经历 -->
             <section class="work info-unit">
                 <h2>
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>工作经历</h2>
@@ -193,96 +222,154 @@
                 <ul>
                     <li>
                         <h3>
-                            <span>[经历1]北京阳光柠檬科技有限公司－Java开发工程师 </span>
-                            <time>2017年6月 至 2019年6月</time>
+                            <span>[经历1]XX公司－前端开发工程师（实习）</span>
+                            <time>2016.X 至 2017.X</time>
                         </h3>
                         <ul class="info-content">
-                            <li>负责完善调整项目架构并完成所负责的开发任务；</li>
-                            <li>对接销售部门，负责项目需求调研分析，完成系统设计并不断完善；</li>
-                            <li>负责生产环境搭建、项目部署、运维；</li>
-							<li>负责协调多个项目的对接，使公司项目保持可用性和稳定性；</li>
+                            <li>深度参与XX项目迭代XX的前端开发工作，独立承担并完成XX、XX、XXXX等功能点的开发，主要维护并修复XX、XX、XX等功能点bug若干。项目采用技术栈
+                                <mark>React+React Router+Node.js+SASS</mark>，实现
+                                <mark>前后端完全分离</mark>。</li>
+                            <li>配合UI和后端，根据产品需求提供H5页面嵌入到后台模板，要求
+                                <mark>移动端显示正常</mark>。</li>
+                            <li>主要参与XXXXXXX的静态页面开发工作，要求
+                                <mark>在支付宝环境下完全兼容</mark>。</li>
                         </ul>
                     </li>
-           
+                    <li>
+                        <h3>
+                            <span>[经历2]XX－前端开发工程师（实习）</span>
+                            <time>20XX.10-20XX.7</time>
+                        </h3>
+                        <ul class="info-content">
+                            <li>深度参与公司主线产品「XXXX」的前端开发工作，完成帖子快捷回复、
+                                <mark>全站图片懒加载</mark>、活动banner、帖子管理（使用Yii框架）等功能。项目采用技术栈phpWind+NAMP。
+                                <a href="http://itsay.tech/162/" target="_blank">
+                                    <i class="fa fa-link" aria-hidden="true"></i>博客文章</a>。</li>
+                            <li>主要参与公司产品「XXXX」的前端开发工作，实现接入微博、微信、QQ等
+                                <mark>第三方账号登录</mark>等功能。项目采用技术栈WordPress+NAMP。</li>
+                            <li>活动页面的开发（七夕活动、抽奖活动以及承接外包页面）。</li>
+                            <li>论坛
+                                <mark>图片增量备份</mark>（CentOS+vsftpd+crontab）
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-link" aria-hidden="true"></i>博客文章</a>。</li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
 
             <!-- 项目经验 -->
             <section class="project info-unit">
                 <h2>
-                    <i class="fa fa-terminal" aria-hidden="true"></i>项目经历</h2>
+                    <i class="fa fa-terminal" aria-hidden="true"></i>个人项目</h2>
                 <hr/>
                 <ul>
                     <li>
                         <h3>
-                            <span>[项目1]OA系统</span>
-                          
-                            <time>2017.6月-2017.10</time>
+                            <span>[项目1]医学科学数据管理与共享平台</span>
+                            <span class="link">
+                                <a href="#" target="_blank">Demo</a>
+                            </span>
+                            <time>201X.X-201X.X</time>
                         </h3>
                         <ul class="info-content">
-                            <li>后端技术栈：Spring+Spring MVC+Mybaties+MySQL+Beetl</li>
-							<li>前端技术栈：jQuery+Bootstrap+ECharts</li>
+                            <li>技术栈：ThinkPHP+MongoDB+Axure</li>
                             <li>
                                 <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                                [目标]本软件旨在帮助公司搭建一个便利的日常办公平台，以利于公司工作任务更为方便的开展
+                                [目标]实现多类型多来源医学科学数据的提交、管理和共享
                                 <br/>
                                 <i class="fa fa-users" aria-hidden="true"></i>
-                                [团队]同 1 位研发同事
+                                [团队]同 2 位同专业同学一起
                                 <br/>
                                 <i class="fa fa-bars" aria-hidden="true"></i>
                                 [贡献]完成从
                                 <mark>“调研-设计-实现-文档”</mark>等工作，主要负责系统原型、功能框架及数据提交流程、元数据及源数据的管理与共享方案的设计以及系统开发等工作
                                 <br/>
-                            </li>
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                [效果]作品最终取得第三届共享杯国家级竞赛“一等奖” （2/2000）</li>
                         </ul>
                     </li>
                     <li>
                         <h3>
-                            <span>[项目2]柠檬EDU在线学习平台</span>
+                            <span>[项目2]肿瘤流行病数据可视化</span>
                             <span class="link">
-                                <a href="http://edu.bjlemon.com" target="_blank">Demo</a>
+                                <a href="#" target="_blank">Demo</a>
                             </span>
-                            <time>2017.12-2018.7</time>
+                            <time>201X.X-201X.X</time>
                         </h3>
                         <ul class="info-content">
-                            <li>后端技术栈：Spring+Spring MVC+Mybaties+MySQL+Beetl+Redis</li>
-							<li>前端技术栈：jQuery+Layui+ECharts (新版本使用Vue Nuxt)</li>
+                            <li>技术栈：HTML 5+D3.js+ECharts+MySQL</li>
                             <li>
                                 <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                                [目标]本软件旨在提供运营、内容和营销的在线教育整体 解决方案。功能包括课程录播授课、考试题库、 智能排课、教学管理等功能。
+                                [目标]实现常见肿瘤流行病数据多维度可视化展示、数据透视及分析
                                 <br/>
                                 <i class="fa fa-users" aria-hidden="true"></i>
-                                [团队]同 2 位研发同事
+                                [团队]与 1 位同学
                                 <br/>
                                 <i class="fa fa-bars" aria-hidden="true"></i>
-                                [贡献] 完成从
-                                <mark>“调研-设计-实现-文档”</mark>等工作，主要负责系统原型、功能框架及数据提交流程、元数据及源数据的管理与共享方案的设计以及系统开发等工作
+                                [贡献]分析项目需求，清洗并整理相关数据(扩展第三方知识组织系统和 Google trends 数据)，并用
+                                <mark>D3.js</mark> 和
+                                <mark>ECharts</mark> 进行图形化展示以及实现简易自动分析 功能
+                                <br/>
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                [效果]作品取得第二届共享杯国家级竞赛“特等奖”(1/1500)
                             </li>
                         </ul>
                     </li>
                     <li>
                         <h3>
-                            <span>[项目3] SSO单点登录系统 </span>
+                            <span>[项目3]肿瘤流行病数据可视化</span>
                             <span class="link">
-                                <a href="http://center.bjlemon.com" target="_blank">Demo</a>
+                                <a href="#" target="_blank">Demo</a>
                             </span>
-                            <time>2018.10</time>
+                            <time>201X.X-201X.X</time>
                         </h3>
                         <ul class="info-content">
-                            <li>后端技术栈：Spring+Spring Boot+Beetl+Redis+Mybaties+MySQL</li>
-							<li>前端技术栈：jQuery+HTML+CSS</li>
+                            <li>技术栈：HTML 5+D3.js+ECharts+MySQL</li>
                             <li>
                                 <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                                [目标]实现多个系统的登录、注册，以及用户的统一管理，为内部系统提供REST接口。
+                                [目标]实现常见肿瘤流行病数据多维度可视化展示、数据透视及分析
                                 <br/>
-                             
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                [团队]与 1 位同学
+                                <br/>
                                 <i class="fa fa-bars" aria-hidden="true"></i>
-                                [贡献]负责该项目的需求分析，系统设计,以及前后端开发以及系统的对接。
+                                [贡献]分析项目需求，清洗并整理相关数据(扩展第三方知识组织系统和 Google trends 数据)，并用
+                                <mark>D3.js</mark> 和
+                                <mark>ECharts</mark> 进行图形化展示以及实现简易自动分析功能
                                 <br/>
-                                 
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                [效果]作品取得第二届共享杯国家级竞赛“特等奖”(1/1500)
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <h3>
+                            <span>[项目4]肿瘤流行病数据可视化</span>
+                            <span class="link">
+                                <a href="#" target="_blank">Demo</a>
+                            </span>
+                            <time>201X.X-201X.X</time>
+                        </h3>
+                        <ul class="info-content">
+                            <li>技术栈：HTML 5+D3.js+ECharts+MySQL</li>
+                            <li>
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                [目标]实现常见肿瘤流行病数据多维度可视化展示、数据透视及分析
+                                <br/>
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                [团队]与 1 位
+                                <br/>
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                [贡献]分析项目需求，清洗并整理相关数据(扩展第三方知识组织系统和 Google trends 数据)，并用
+                                <mark>D3.js</mark> 和
+                                <mark>ECharts</mark> 进行图形化展示以及实现简易自动分析 功能
+                                <br/>
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                [效果]作品取得第二届共享杯国家级竞赛“特等奖”(1/1500)
+                            </li>
+                        </ul>
+                    </li>
+
                 </ul>
             </section>
 
@@ -300,8 +387,8 @@
 
 
     <footer class="footer">
-        <p>© 2019 范文皓.文档最后更新时间为
-            <time>2019年06月23日</time>.</p>
+        <p>© 2017 张大侠.文档最后更新时间为
+            <time>2018年06月20日</time>.</p>
     </footer>
 
     <!-- 侧栏 -->
@@ -311,7 +398,7 @@
                 <a href="https://gitee.com/itsay/resume" target="_blank">源代码</a>
             </li>
             <li>
-                <a href="https://wenhaofan.com/" target="_blank">Blog</a>
+                <a href="http://if2er.com/" target="_blank">Blog</a>
             </li>
         </ul>
     </aside>
