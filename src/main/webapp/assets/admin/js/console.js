@@ -11,10 +11,8 @@ layui.define([
 
         },
         pjaxLoad:function(){
+        	const $=layui.$;
             this.load();
-            
-            const $=layui.$;
-            $('.console-statistic-box').html($('#tpl-console-statistic'));
         },
         load: function () {
             const fl = layui.fl;
