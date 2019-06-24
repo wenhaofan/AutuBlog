@@ -1,7 +1,4 @@
 #sql("list")
- 
-	
-	
 	SELECT
 	title,
 	intro,
@@ -20,6 +17,8 @@ WHERE
 			Date_FORMAT( gmtCreate, '%Y年%m月%d日' ) AS datestr 
 		FROM
 			article 
+		where
+			state=1
 		GROUP BY
 			Date_FORMAT( gmtCreate, '%Y年%m月%d日' ) 
 		ORDER BY
@@ -28,5 +27,4 @@ WHERE
 		)   AS datestrs  )
 ORDER BY
 	gmtCreate DESC
-	
 #end
