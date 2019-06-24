@@ -41,7 +41,7 @@
 
 [预览地址：http://blog.autu.live](http://blog.autu.live "预览地址：http://blog.autu.live") 
 
-[后台地址：http://blog.autu.live/admin](http://blog.autu.live "后台地址：http://blog.autu.live") 
+[后台地址：http://blog.autu.live/admin](http://blog.autu.live/admin "后台地址：http://blog.autu.live/admin") 
 
 账号：admin
 
@@ -50,7 +50,7 @@
 **为方便预览未设置权限，请勿随意更改数据，谢谢合作**
 
 ## 界面预览
-
+![antu1.png](http://qiniu.wenhaofan.com/resume.png)
 ![antu1.png](http://qiniu.wenhaofan.com/admibimg.png)
 ![antu_022.png](http://qiniu.wenhaofan.com/v2adminimg2.png)
 ![antu_03.png](http://qiniu.wenhaofan.com/v2adminimg3.png)
