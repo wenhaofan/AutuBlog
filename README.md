@@ -45,9 +45,9 @@
 
 ## 在线预览
 账号：admin
-密码：admin
+密码：admin </br>
 [预览地址：http://blog.autu.live](http://blog.autu.live "预览地址：http://blog.autu.live") </br>
-[预览地址：http://blog.autu.live/admin](http://blog.autu.live "预览地址：http://blog.autu.live") </br>
+[后台地址：http://blog.autu.live/admin](http://blog.autu.live "后台地址：http://blog.autu.live") </br>
 **为方便预览未设置权限，请勿随意更改数据，谢谢合作**
 
 ## 开源协议

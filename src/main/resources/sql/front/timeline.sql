@@ -8,6 +8,7 @@
 FROM
 	article 
 WHERE
+	state=1 and 
 	Date_FORMAT( gmtCreate, '%Y年%m月%d日' ) IN (
 	SELECT
 		datestr 

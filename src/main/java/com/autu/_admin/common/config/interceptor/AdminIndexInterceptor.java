@@ -29,10 +29,7 @@ public class AdminIndexInterceptor implements Interceptor{
 		}
  
 		User adminUser=adminUserService.getAdminUser();
-
-		String requestUrl=c.getRequest().getRequestURI();
-		
-		c.setAttr("requestUrl", requestUrl);
+ 
 		c.setAttr("adminUser", adminUser);
 		
 		String viewPath=((Controller)inv.getTarget()).getViewPath();
