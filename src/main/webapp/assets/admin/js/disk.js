@@ -99,7 +99,7 @@ layui.define([
                 {
                     events: {
                         "click": function (element) {
-                            goBackFolder();
+                            that.goBackFolder();
                         }
                     }, text: "返回"
                     , className: "menuGoBack",
@@ -110,7 +110,7 @@ layui.define([
                 {
                     events: {
                         "click": function (element) {
-                            createFolderItem();
+                            that.createFolderItem();
                         }
                     }, text: "新建文件夹"
                 }, {
@@ -138,13 +138,13 @@ layui.define([
                 }, {
                     events: {
                         "click": function (element) {
-                            rename(element);
+                            that.rename(element);
                         }
                     }, text: "重命名"
                 }, {
                     events: {
                         "click": function (element) {
-                            removeFile($(element).data("id"));
+                            that.removeFile($(element).data("id"));
                         }
                     }, text: "删除"
                 }
@@ -217,6 +217,7 @@ layui.define([
          * @returns
          */
         queryFolderNav: function (folderId) {
+          const fl= layui.fl;
             $.ajax({
                 url: "/admin/api/disk/listFolderChain/" + folderId,
                 dataType: "json",
@@ -296,6 +297,7 @@ layui.define([
          * @returns
          */
        listDiskItem: function (query) {
+         const fl= layui.fl;
             $(".disk-content").empty();
             if (!query) {
                 query = {};
@@ -391,6 +393,7 @@ layui.define([
          * @returns
          */
         createFolder: function (paras) {
+          const fl= layui.fl;
             that = this;
             paras.parentId = currentFolderId;
             $.ajax({
@@ -523,7 +526,7 @@ layui.define([
             const that = this;
             var name = $(element).prev().val();
             var id = $(element).parent().data("id");
-
+const fl= layui.fl;
             $.ajax({
                 url: "/admin/api/disk/update",
                 data: { id: id, name: name },
