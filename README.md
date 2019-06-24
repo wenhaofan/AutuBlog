@@ -3,7 +3,7 @@
 #### 项目介绍
 
 + `AntuBlog` 是一款使用基于[JFinal](https://gitee.com/jfinal/jfinal)开发的轻量级Java博客系统。
-+ 主题1预览：[pinghsu](http://pinghsu.wenhaofan.com)
++ 主题1预览：[pinghsu](http://blog.autu.live)
 
 ## 特性
 
