@@ -1,0 +1,6 @@
+AutuBlog 1.0 相对 预览版 的变化：
+1.文章编辑页 富文本使用Ueditor替换summernote,使用Editormd替换mditor
+2.使用Layui的模块化加载组织后台JS
+3.移除Bootstrap相关依赖
+4.新增页面管理模块，可新增自定义页面
+5.前台新增时间线模块
