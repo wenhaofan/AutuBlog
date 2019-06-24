@@ -29564,8 +29564,12 @@ UE.registerUI('autosave', function(editor) {
 
 });
 
-layui.define([],function(exports){
-    exports("ueditor",{UE:UE});
-})
+if(typeof layui !="undefined"){
+
+	layui.define([],function(exports){
+	    exports("ueditor",{UE:UE});
+	})
+}
+
 
 })();
