@@ -65,19 +65,19 @@
 	<div class="lists-navigator clearfix">
      <ol class="page-navigator">
 		    #if(!articlePage.isFirstPage())
-		    	<li class="prev"><a href="/p/#(currentPageNum-1)">上一页</a></li>
+		    	<li class="prev"><a href="/p/#(articlePage.pageNumber-1)">上一页</a></li>
 		    #end
 		  
 		    #for(pageNum=1;pageNum<=articlePage.totalPage;pageNum++)
-				#if(pageNum == currentPageNum) 
-					<li  class="current" ><a href="javascript:void(0)">#(currentPageNum)</a></li>
+				#if(pageNum == articlePage.pageNumber) 
+					<li  class="current" ><a href="javascript:void(0)">#(articlePage.pageNumber)</a></li>
 				#else
 					<li ><a href="/p/#(pageNum)">#(pageNum)</a></li>
 		    	#end
 		    #end
 		
 		    #if(!articlePage.isLastPage())
-		    <li class="next"><a href="/p/#(currentPageNum+1)">下一页</a></li>
+		    <li class="next"><a href="/p/#(articlePage.pageNumber+1)">下一页</a></li>
 		    #end
 		</ol>
   </div>
