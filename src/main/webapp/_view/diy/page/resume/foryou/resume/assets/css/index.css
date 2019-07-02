@@ -219,7 +219,7 @@ mark {
 @media screen and (max-width: 1034px) {
   body {
     padding: 1rem 3%; } }
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 750px) {
   .container .side {
     position: static;
     width: 95%;
