@@ -107,21 +107,23 @@ layui.define(['jquery','fl', 'form', 'laytpl'], function (exports) {
                 }
             });
         },
-        renderBupdate: function (that) {
+        renderBupdate: function (obj) {
+        	const that=this;
             layui.fl.ajax({
-                url: "/admin/api/baiduConfig/bget/" + $(that).data("id"),
+                url: "/admin/api/baiduConfig/bget/" + $(obj).data("id"),
                 dataType: 'json',
                 success: function (data) {
-                    renderBEdit(data.config);
+                	that.renderBEdit(data.config);
                 }
             })
         },
         renderMupdate: function (taht) {
+        	const that=this;
             layui.fl.ajax({
                 url: "/admin/api/metaConfig/mget/" + $(taht).data("id"),
                 dataType: 'json',
                 success: function (data) {
-                    renderMEdit(data.config);
+                    that.renderMEdit(data.config);
                 }
             })
         },
