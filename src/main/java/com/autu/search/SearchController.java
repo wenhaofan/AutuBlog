@@ -22,8 +22,7 @@ public class SearchController extends BaseController {
 			query();
 			return;
 		}
- 
- 
+
 		render("search.html");
 	}
 	

@@ -6,8 +6,10 @@ import com.autu.common.controller.BaseController;
 import com.autu.common.model.Article;
 import com.autu.common.model.Meta;
 import com.autu.common.model.User;
+import com.autu.search.ArticleLuceneIndexes;
 import com.jfinal.aop.Inject;
 import com.jfinal.kit.Ret;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 
 /**
@@ -22,7 +24,27 @@ public class ArticleAdminApi extends BaseController {
 	private AdminArticleService articleService;
 	@Inject
 	private AdminArticleLuceneIndexes luceneIndexes;
+	@Inject
+	private ArticleLuceneIndexes  articleLuceneIndexes;
 	
+	/**
+	 * 根据索引查询
+	 */
+	public void search() {
+		String queryStr=getPara("keyword");
+		
+		Integer pageNum=getParaToInt(0,1);
+		Integer pageSize= getParaToInt(1,10);
+		Page<Article>  articlePage=null;
+		try {
+			articlePage=articleLuceneIndexes.search(queryStr,pageNum,pageSize);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+ 
+		renderJson(Ret.ok("page",articlePage));
+	}
  
 	public void createIndex() {
 		luceneIndexes.resetArticleIndexes();
@@ -30,14 +52,23 @@ public class ArticleAdminApi extends BaseController {
 	}
 	
 	public void list() {
+		
+		/**
+		 * 如果有搜索关键字，则使用Lucene进行查询
+		 */
+		if(StrKit.notBlank(getPara("keyword"))) {
+			search();
+			return ;
+		}
+		
 		Article article = getModel(Article.class, "", true);
 		Integer metaid = getParaToInt("categoryId");
 		Integer pageNum = getParaToInt("page");
 		Integer limit = getParaToInt("limit",10);
 		
 		Page<Article> articlePage = articleService.page(article, metaid, pageNum, limit);
-		Ret ret = Ret.ok("page",articlePage);
-		renderJson(ret);
+		
+		renderJson(Ret.ok("page",articlePage));
 	}
 	
  
