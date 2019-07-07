@@ -15,16 +15,15 @@ public class DiyPageInterceptor implements Interceptor {
 	@Override
 	public void intercept(Invocation inv) {
 
-		Controller c=inv.getController();
-		
-		String target=c.getRequest().getRequestURI();
-	 
+		Controller c = inv.getController();
 
-		if(c.getRequest().getAttribute("page")!=null) {
+		String target = c.getRequest().getRequestURI();
+
+		if (c.getRequest().getAttribute("page") != null) {
 			inv.invoke();
 			return;
 		}
-		
+
 		PageService pageService = Aop.get(PageService.class);
 
 		Page currPage = null;
