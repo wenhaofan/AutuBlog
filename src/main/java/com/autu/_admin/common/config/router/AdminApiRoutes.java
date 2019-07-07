@@ -3,6 +3,7 @@ package com.autu._admin.common.config.router;
 import com.autu._admin.article.ArticleAdminApi;
 import com.autu._admin.comment.AdminCommentApi;
 import com.autu._admin.common.config.interceptor.AdminIndexInterceptor;
+import com.autu._admin.common.config.interceptor.OperateLogInterceptor;
 import com.autu._admin.common.upload.AdminEditormdUploadApi;
 import com.autu._admin.config.AdminBaiduConfigApi;
 import com.autu._admin.config.AdminConfigApi;
@@ -26,7 +27,8 @@ public class AdminApiRoutes extends Routes{
  
 	   addInterceptor(new AdminIndexInterceptor());
 	   addInterceptor(new ExceptionInterceptor());
-	 
+	   addInterceptor(new OperateLogInterceptor());
+	   
 	   add("/admin/api/themes",AdminThemeApi.class);
 	   add("/admin/api/user",AdminUserApi.class);
 	   add("/admin/api/nav", AdminNavApi.class);

@@ -7,4 +7,5 @@ public class AccessLogService {
 	public void add(AccessLog log) {
 		log.save();
 	}
+	
 }

@@ -46,6 +46,7 @@ public class AccessLogInterceptor implements Interceptor {
 		log.setIp(ip);
 		log.setReferer(referer);
 		log.setTarget(target);
+		
 		if(agentUser!=null) {
 			log.setCookie(agentUser.getCookie());
 			log.setAgentUserId(agentUser.getId());

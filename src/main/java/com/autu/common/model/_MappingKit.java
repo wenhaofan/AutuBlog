@@ -35,6 +35,7 @@ public class _MappingKit {
 		arp.addMapping("metaweblog_relevance", "id", MetaweblogRelevance.class);
 		arp.addMapping("config", "id",Config.class);
 		arp.addMapping("page", "id", Page.class);
+		arp.addMapping("operate_log", "pkId", OperateLog.class);
 	}
 
 	 
