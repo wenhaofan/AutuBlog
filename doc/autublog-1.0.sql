@@ -79,9 +79,8 @@ CREATE TABLE `article`  (
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `page` VALUES (1, '/resume', '/_view/diy/page/resume/foryou/resume/index.html', 1, '2019-06-23 21:05:34', 0, NULL, 'ceshi', 1, NULL, '1');
-INSERT INTO `page` VALUES (9, '/links', '/_view/diy/page/links/links.html', NULL, '2019-06-24 12:53:02', 0, NULL, NULL, 2, NULL, NULL);
-INSERT INTO `page` VALUES (10, '/about', '/_view/diy/page/diy[1561269749537].html', NULL, '2019-06-24 12:53:00', 0, NULL, NULL, 3, NULL, NULL);
+INSERT INTO `article` VALUES (1, '第一篇文章', '<p><img src=\"https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/satisfied.png\" alt=\":satisfied:\" class=\"emoji\" title=\":satisfied:\"/> <img src=\"https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/relieved.png\" alt=\":relieved:\" class=\"emoji\" title=\":relieved:\"/>12</p>', '2018-09-30 19:11:39', 100, '/upload/thumb/jpg/520520_20190623145855.jpg', 1, 1, 0, '2018-09-30 19:11:39', '20180930191139', '12', 1, 2, NULL);
+
 -- ----------------------------
 -- Table structure for baidu_seo_config
 -- ----------------------------
