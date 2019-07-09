@@ -150,7 +150,9 @@ CREATE TABLE `config`  (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES (1, 'Autu个人博客', '一款开源的个人博客', '范文皓', '12', 'Autu个人博客', '2018-09-30 19:19:32', '3', '1', '2', '/upload/ico/ico/520520_20180930205220.ico', '/upload/logo/png/520520_20180930205236.png', 0, '4', '5', '7', '6', 'pinghsu');
+INSERT INTO `article` VALUES (1, '第一篇文章', '<p><img src=\"https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/satisfied.png\" alt=\":satisfied:\" class=\"emoji\" title=\":satisfied:\"/> <img src=\"https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/relieved.png\" alt=\":relieved:\" class=\"emoji\" title=\":relieved:\"/>12</p>', '2018-09-30 19:11:39', 265, '/upload/thumb/jpg/520520_20190623145855.jpg', 1, 1, 0, '2018-09-30 19:11:39', '20180930191139', '12', 1, 2, NULL);
+INSERT INTO `article` VALUES (2, '友情链接', '<ul class=\"flinks list-paddingleft-2\" style=\"box-sizing: border-box; margin-top: 20px; margin-bottom: 20px; padding: 0px; border: 0px; -webkit-font-smoothing: antialiased; vertical-align: baseline; color: rgb(49, 49, 49); font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 14px; white-space: normal;\"><li><p><a href=\"http://www.vseu.com/\" target=\"_blank\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; -webkit-font-smoothing: antialiased; text-decoration-line: none; color: rgb(49, 49, 49); outline: 0px;\">🔒幸运草</a>&nbsp;&nbsp;</p></li><li><p><a href=\"http://blog.pcdhw.cn/\" target=\"_blank\" style=\"font-family: sans-serif; font-size: 16px; box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; -webkit-font-smoothing: antialiased; text-decoration-line: none; color: rgb(49, 49, 49); outline: 0px;\">🔒佩晨的个人博客</a>&nbsp;</p></li><li><p><a href=\"http://www.johnbin.cn/\" target=\"_blank\" style=\"font-family: sans-serif; font-size: 16px; box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; -webkit-font-smoothing: antialiased; text-decoration-line: none; color: rgb(49, 49, 49); outline: 0px;\">🔒辄夜花泽</a></p></li></ul><p><br/></p>', '2019-06-23 13:19:35', 36, NULL, 0, 1, 0, '2019-06-23 13:19:35', '20190623131935', '🔒幸运草  🔒佩晨的个人博客 🔒辄夜花泽', 0, 2, NULL);
+INSERT INTO `article` VALUES (3, '关于我', '<h1>关于我</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;关于我的介绍</p><h1>我的项目</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;在Github以及码云均有托管，有兴趣的可以看看啦，最好顺便点个start<br/></p><p>&nbsp; &nbsp; Github:<a href=\"https://github.com/wenhaofan\">https://github.com/wenhaofan</a></p><p>&nbsp; &nbsp; 码云:<a href=\"https://gitee.com/wenhaofan\">https://gitee.com/wenhaofan</a></p><h1>联系方式&nbsp;&nbsp;&nbsp;&nbsp;</h1><p>&nbsp; &nbsp; QQ交流群：662586079</p><p>&nbsp;&nbsp;&nbsp;&nbsp;QQ：2195743583</p><p>&nbsp;&nbsp;&nbsp;&nbsp;邮箱：fan@wenhaofan.com<br/></p>', '2019-06-23 14:13:19', 39, NULL, 0, 1, 0, '2019-06-23 14:13:19', '20190623141319', '关于我    关于我的介绍我的项目    在Github以及码云均有托管，有兴趣的可以看看啦，最好顺便点个start    Github:https://github.com/wenhaofan  ', 1, 2, NULL);
 
 -- ----------------------------
 -- Table structure for disk
@@ -292,8 +294,8 @@ CREATE TABLE `page`  (
 -- Records of page
 -- ----------------------------
 INSERT INTO `page` VALUES (1, '/resume', '/_view/diy/page/resume/foryou/resume/index.html', 1, '2019-06-23 21:05:34', 0, NULL, 'ceshi', 1, NULL, '1');
-INSERT INTO `page` VALUES (9, '/links', '/_view/diy/page/links/links.html', NULL, '2019-06-23 21:05:09', 0, NULL, NULL, 78, NULL, NULL);
-INSERT INTO `page` VALUES (10, '/about', '/_view/diy/page/diy[1561269749537].html', NULL, '2019-06-23 21:05:19', 0, NULL, NULL, 79, NULL, NULL);
+INSERT INTO `page` VALUES (9, '/links', '/_view/diy/page/links/links.html', NULL, '2019-06-23 21:05:09', 0, NULL, NULL, 2, NULL, NULL);
+INSERT INTO `page` VALUES (10, '/about', '/_view/diy/page/diy[1561269749537].html', NULL, '2019-06-23 21:05:19', 0, NULL, NULL, 3, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for relevancy
