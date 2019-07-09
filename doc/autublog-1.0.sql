@@ -77,11 +77,6 @@ CREATE TABLE `article`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of article
--- ----------------------------
-INSERT INTO `article` VALUES (1, '第一篇文章', '<p><img src=\"https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/satisfied.png\" alt=\":satisfied:\" class=\"emoji\" title=\":satisfied:\"/> <img src=\"https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/relieved.png\" alt=\":relieved:\" class=\"emoji\" title=\":relieved:\"/>12</p>', '2018-09-30 19:11:39', 100, '/upload/thumb/jpg/520520_20190623145855.jpg', 1, 1, 0, '2018-09-30 19:11:39', '20180930191139', '12', 1, 2, NULL);
-
--- ----------------------------
 -- Table structure for baidu_seo_config
 -- ----------------------------
 DROP TABLE IF EXISTS `baidu_seo_config`;
