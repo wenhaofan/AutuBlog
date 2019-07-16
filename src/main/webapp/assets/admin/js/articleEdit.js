@@ -65,6 +65,19 @@
                                 'ueditor':true,
                                
                             });
+                            
+                            UE.dom.domUtils.on(that.ueditor.body,"keydown",function(oEvent){
+                            	var oEvent = oEvent || window.oEvent; 
+                          	    //获取键盘的keyCode值
+                          	    var nKeyCode = oEvent.keyCode || oEvent.which || oEvent.charCode;
+                          	    //获取ctrl 键对应的事件属性
+                          	    var bCtrlKeyCode = oEvent.ctrlKey || oEvent.metaKey;
+                          	     if( nKeyCode == 83 && bCtrlKeyCode  ) {
+                          	    	 $('button[lay-filter="publish"]').trigger('click');
+                        			 oEvent.returnValue = false;
+                          	     } 
+                            });
+                          
                         });
 
                         that.editorType = "html";

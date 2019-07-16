@@ -5,7 +5,7 @@ import com.autu.common.model.User;
 import com.jfinal.aop.Inject;
 
 /**
- *  
+ * 
  * @author 范文皓
  * @createDate 创建时间：2018年9月6日 下午12:38:51
  */
@@ -13,10 +13,10 @@ public class UserService {
 
 	@Inject
 	public User dao;
-	
+
 	public User getAdminUser() {
-		User user=dao.findFirstByCache(BlogContext.CacheNameEnum.BLOGGER.name(), "getAdminUser", "select * from user");
+		User user = dao.findFirstByCache(BlogContext.CacheNameEnum.BLOGGER.name(), "getAdminUser","select * from user");
 		return user.setPwd("");
 	}
-	
+
 }
