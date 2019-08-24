@@ -22,9 +22,10 @@ public class DiskApi extends BaseController{
 	public void get() {
 		Disk disk=service.get(getParaToInt());
 		if(disk.getUrl().startsWith("/upload")){
-			String projectPath=BlogContext.getProjectPath().endsWith("/")?BlogContext.getProjectPath().substring(0, BlogContext.getProjectPath().length()-1):BlogContext.getProjectPath();
+			String projectPath = BlogContext.getProjectPath();
+			String path=projectPath.endsWith("/")?projectPath.substring(0, projectPath.length()-1):BlogContext.getProjectPath();
 			
-			disk.setUrl(projectPath+disk.getUrl());
+			disk.setUrl(path+disk.getUrl());
 		}
 		renderJson(Ret.ok("disk",disk));
 	}

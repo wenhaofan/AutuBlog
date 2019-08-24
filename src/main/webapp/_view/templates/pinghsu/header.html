@@ -14,10 +14,10 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
    <link rel="shortcut icon" href="#(config.ico??"/favicon.ico")">
     <link rel="apple-touch-icon" href="#(config.ico??"/favicon.ico")">
-    <meta name="author" content="#(config.author)(#(basePath))"/>
-    <meta name="keywords" content="#(seoKeywords)"/>
-    <meta name="description" content="#(seoDescr)"/>
-    <title>#(seoTitle==null?config.title:(seoTitle==config.title?seoTitle:seoTitle+"-"+config.title))</title>
+    <meta name="author" content="#(config.author??)(#(basePath))"/>
+    <meta name="keywords" content="#(seo.keywords??)"/>
+    <meta name="description" content="#(seo.dscr??)"/>
+    <title>#(seo.title??==null?config.title:(seo.title==config.title?seo.title:seo.title+"-"+config.title))</title>
     <link href="/_view/templates/pinghsu/css/xcode.min.css" rel="stylesheet">
     <link href="/_view/templates/pinghsu/css/style.min.css" rel="stylesheet">
     <!--[if lt IE 9]>

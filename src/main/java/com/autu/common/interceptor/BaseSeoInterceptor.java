@@ -17,8 +17,7 @@ public abstract class BaseSeoInterceptor implements Interceptor {
 		{
 			add("/");
 			add("/search");
-			add("/article/category");
-			add("/article/search");
+			add("/c");
 		}
 	};
 

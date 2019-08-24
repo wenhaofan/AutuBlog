@@ -1,6 +1,7 @@
  
 package com.autu.common.kit;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -16,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import com.autu.common._config.BlogContext;
 import com.autu.detail.CommentService;
@@ -60,9 +62,14 @@ public class EmailKit {
 			message.setFrom(new InternetAddress(fromEmail));
 			// Set To: 头部头字段
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-
+ 
 			// Set Subject: 头部头字段
-			message.setSubject(title);
+			try {
+				message.setSubject(MimeUtility.encodeWord(title, "UTF-8", "Q"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			// 设置消息体
 			

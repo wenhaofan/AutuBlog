@@ -7,7 +7,7 @@
 	<br>
 	#(comment.content)
 	<hr>
-	#set(commentUrl=projectPath+"article/"+comment.getIdentify()+"?p="+comment.getPageNum()+"#li-comment-"+comment.getId())
+	#set(commentUrl=projectPath+"/a/"+comment.getIdentify()+"?p="+comment.getPageNum()+"#li-comment-"+comment.getId())
 	评论者:  <a href=#(commentUrl) >#(user.name)</a>
 	
 	#if(config.isAuditComment)
@@ -22,7 +22,7 @@
 #end
 
 #key("reply")
-	#set(commentUrl=projectPath+"article/"+comment.getIdentify()+"?p="+comment.getPageNum()+"#li-comment-"+comment.getId())
+	#set(commentUrl=projectPath+"/a/"+comment.getIdentify()+"?p="+comment.getPageNum()+"#li-comment-"+comment.getId())
 	#Re:#(re)
 	<br>
 	#(comment.content)
