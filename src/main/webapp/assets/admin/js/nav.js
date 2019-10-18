@@ -56,7 +56,7 @@ layui.define([
         	  	});
         	})
         	
-        	$("body").on("click",".delete",function(){
+        	$("body").on("click",".nav-delete",function(){
 				deleteId=$(this).data("id");
 				fl=layui.fll
 				fl.alertConfirm({title:"确认删除！",then:function(){

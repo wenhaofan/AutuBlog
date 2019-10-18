@@ -10,6 +10,6 @@ public class Main {
 		  
 			 //System.out.println(ret);
 		  luceneHelper.deleteIndex("id", "1");
-	 
+     
 	}
 }

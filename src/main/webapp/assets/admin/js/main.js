@@ -25,7 +25,7 @@ layui.use(['admin','element'], function (admin){
 });
  
 function ctrlsEvent(func){
-	
+
 	 document.onkeydown = function(oEvent) {
 	    var oEvent = oEvent || window.oEvent; 
 	    //获取键盘的keyCode值

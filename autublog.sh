@@ -1,14 +1,14 @@
 #!/bin/bash
 # ----------------------------------------------------------------------
 # name:         jfinal.sh
-# version:      1.0
-# author:       yangfuhai
-# email:        fuhai999@gmail.com
+# version:      1.2
+# author:       fanwenhao
+# email:        fan@wenhaofan.com
 #
 # 使用说明：
 # 1: 该脚本使用前需要首先修改 MAIN_CLASS 值，使其指向实际的启动类
 #
-# 2：使用命令行 ./jfinal.sh start | stop | restart 可启动/关闭/重启项目  
+# 2：使用命令行 ./autublog.sh start | stop | restart 可启动/关闭/重启项目  
 #
 # 3: JAVA_OPTS 可通过 -D 传入 undertow.port 与 undertow.host 这类参数覆盖
 #    配置文件中的相同值此外还有 undertow.resourcePath、undertow.ioThreads、
