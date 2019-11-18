@@ -11,7 +11,7 @@
 	) a left join (
 	  select  DATE_FORMAT(gmtCreate,'%Y%m%d') as datetime, count(distinct cookie) as count ,cookie
 	  from access_log
-	  group by DATE_FORMAT(gmtCreate,'%Y%m%d')
+	  group by DATE_FORMAT(gmtCreate,'%Y%m%d') ,cookie,gmtCreate
 	) b on a.gmtcreate = b.datetime
 	order by UNIX_TIMESTAMP(a.gmtcreate)
 #end
