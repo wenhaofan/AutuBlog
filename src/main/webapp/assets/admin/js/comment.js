@@ -10,7 +10,7 @@ layui.define(['layer', 'table', 'form', 'jquery'], function (exports) {
             form.render();
             //监听提交
             form.on('submit(reply)', function (data) {
-                submitReply(data.field);
+                that.submitReply(data.field);
                 return false;
             });
 
