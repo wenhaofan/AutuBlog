@@ -12,7 +12,7 @@ layui.config({
      editormd:'{/}/assets/plugins/editor/editormd',
      lsCache:'{/}/assets/frame/layui/plugins/lsCache/lsCache',
      clipboard:'{/}/assets/plugins/clipboard/clipboard.min',
-     echarts:'{/}/assets/echarts/echarts'
+     echarts:'{/}/assets/plugins/echarts/echarts'
 });
 
 

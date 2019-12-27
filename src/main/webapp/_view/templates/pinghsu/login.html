@@ -11,13 +11,25 @@
     <meta name="description" content="#(seoDescr)"/>
     <title>登录</title>
  	 
-	<link rel="stylesheet" type="text/css" href="/assets/login/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/assets/login/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/assets/login/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/login/main.css">
 	<link href="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.css" rel="stylesheet">
 <script src="/assets/plugins/limonte-sweetalert2/6.4.1/sweetalert2.min.js"></script>
- 
+<style>
+.login-icon{
+    position: absolute;
+    height: calc(100% - 20px);
+    bottom: 0;
+    left: 0;
+    padding-left: 13px;
+    padding-top: 23px;
+}
+
+.has-val~.fa::after {
+    color: #a64bf4;
+}
+</style>
 
 <script type="text/javascript" src="/assets/frame/layui/layui.js"></script>
  
@@ -34,13 +46,20 @@
 					<div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
 						<span class="label-input100">用户名</span>
 						<input class="input100" type="text" name="ac" placeholder="请输入用户名" autocomplete="off">
-						<span class="focus-input100" data-symbol=""></span>
+					 
+						<span class="focus-input100"  >
+						<i class="fa fa-user-o login-icon" aria-hidden="true"></i>
+						</span>
+						
+						
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="请输入密码">
 						<span class="label-input100">密码</span>
 						<input class="input100" type="password" name="pwd" placeholder="请输入密码">
-						<span class="focus-input100" data-symbol=""></span>
+						<span class="focus-input100" >
+							<i class="fa fa-lock login-icon" aria-hidden="true"></i>
+						</span>
 					</div>
 
 					<div class="text-right p-t-8 p-b-31">

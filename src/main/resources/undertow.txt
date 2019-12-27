@@ -1,7 +1,7 @@
 # 配置 undertow，更多配置 参考 doc 目录下面的示例配置 undertow-config-demo.txt
 
 undertow.devMode=true
-undertow.port=8080
+undertow.port=80
 undertow.host=0.0.0.0
 
 # 开启 gzip 压缩

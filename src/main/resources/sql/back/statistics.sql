@@ -1,19 +1,24 @@
 #sql("beforeNum")
-	select 
-		DATE_FORMAT(a.gmtcreate,'%m-%d') as gmtcreate,ifnull(b.count,0) as count
-	from (
+	SELECT
+		DATE_FORMAT( a.gmtcreate, '%m-%d' ) AS gmtcreate,
+		count( DISTINCT cookie ) AS count
+	FROM(
 	    SELECT 
 	    	curdate() as gmtcreate
 	    #for(i=1;i<days;i++)
 	      union all
 	   	  SELECT date_sub(curdate(), interval #(i) day) as gmtcreate
 	    #end
-	) a left join (
-	  select  DATE_FORMAT(gmtCreate,'%Y%m%d') as datetime, count(distinct cookie) as count ,cookie
-	  from access_log
-	  group by DATE_FORMAT(gmtCreate,'%Y%m%d') ,cookie,gmtCreate
-	) b on a.gmtcreate = b.datetime
-	order by UNIX_TIMESTAMP(a.gmtcreate)
+	) a 
+		LEFT JOIN (
+		SELECT
+			DATE_FORMAT( gmtCreate, '%Y%m%d' ) AS datetime,
+			cookie
+		FROM
+			access_log 
+		) b ON a.gmtcreate = b.datetime 
+	group BY
+		UNIX_TIMESTAMP(a.gmtcreate)
 #end
 
 #sql("hotArticle")

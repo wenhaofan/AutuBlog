@@ -11,7 +11,10 @@ public class Metabuilder extends MetaBuilder {
 
 	@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 	private List<String> tables=new ArrayList(){{
-		add("operate_log");
+		add("survery");
+		add("survery_option");
+		add("survery_question");
+		add("user_survery_option");
 	}};
 	
 	public Metabuilder(DataSource dataSource) {

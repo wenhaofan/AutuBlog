@@ -268,11 +268,11 @@ iframe {
   width: 100%;
 }
 
-.input100:focus + .focus-input100::after {
+.input100:focus + .focus-input100 .fa::before {
   color: #a64bf4;
 }
 
-.has-val.input100 + .focus-input100::after {
+.has-val.input100 + .focus-input100 .fa::before {
   color: #a64bf4;
 }
 
@@ -449,3 +449,7 @@ iframe {
     padding-right: 15px;
   }
 } 
+
+.swal2-modal .swal2-spacer {
+	height: 0px!important;
+}

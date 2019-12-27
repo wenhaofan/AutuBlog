@@ -1,5 +1,6 @@
 package com.autu.index;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.autu.common.controller.BaseController;
@@ -10,6 +11,7 @@ import com.autu.detail.CommentService;
 import com.autu.user.UserService;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
+import com.jfinal.kit.HttpKit;
 import com.jfinal.plugin.activerecord.Page;
 
 /**
@@ -20,6 +22,15 @@ import com.jfinal.plugin.activerecord.Page;
 @Before(IndexSeoInterceptor.class)
 public class IndexController extends BaseController {
 
+	public static void main(String[] args) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(2);
+		
+		list.add(0, 3);
+		
+		System.out.println(list);
+	}
  
 	@Inject
 	private IndexService indexService;
@@ -39,6 +50,8 @@ public class IndexController extends BaseController {
 		setAttr("currentPageNum", 1);
 		setAttr("articleTopList", topArticleList);
 		render("index.html");
+ 
+		
 	}
 
 	/**

@@ -157,7 +157,7 @@ layui.define([
             this.listDiskItem({ parentId: currentFolderId });
 
             if (currentFolderId != 0) {
-                queryFolderNav(currentFolderId);
+                that.queryFolderNav(currentFolderId);
             }
             
             
@@ -169,7 +169,6 @@ layui.define([
             	,accept:'file'
             	,field:'upfile'
                 ,done: function(data){
-                	
                 	if(data.state=="ok"){
                 		layer.msg("上传成功");
                 		that.addFileItem(data.disk);
@@ -185,6 +184,7 @@ layui.define([
         },
         pjaxLoad:function(){
         	this.load();
+        	this.bind();
         },
         clickFolder: function (folderId, folderName) {
             this.changeMenuNav(folderId, folderName);
@@ -217,6 +217,7 @@ layui.define([
          * @returns
          */
         queryFolderNav: function (folderId) {
+          const that = this;
           const fl= layui.fl;
             $.ajax({
                 url: "/admin/api/disk/listFolderChain/" + folderId,
@@ -225,7 +226,7 @@ layui.define([
                     if (fl.isOk(data)) {
                         var diskList = data.diskList;
                         for (var i = diskList.length - 1; i >= 0; i--) {
-                            changeMenuNav(diskList[i].id, diskList[i].name);
+                        	that.changeMenuNav(diskList[i].id, diskList[i].name);
                         }
                     }
                 }
