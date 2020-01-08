@@ -1,6 +1,6 @@
  1：命令行进入项目根目录，然后运行 mvn clean package 即可打包
 
-2：打包完后，进入 AutuBlog/target/autu-release/autu-blog/script
+2：打包完后，进入 AutuBlog/target/autu-release/autu-blog/
    目录，windows 下双击 start.bat 启动项目， linux 下运行 autublog.sh start 脚本启动项目，
    运行 autublog.sh stop 关闭项目
 
