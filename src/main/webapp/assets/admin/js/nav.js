@@ -58,7 +58,7 @@ layui.define([
         	
         	$("body").on("click",".nav-delete",function(){
 				deleteId=$(this).data("id");
-				fl=layui.fll
+				fl=layui.fl;
 				fl.alertConfirm({title:"确认删除！",then:function(){
 					fl.ajax({
 						url:"/admin/api/nav/delete",
