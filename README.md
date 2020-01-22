@@ -1,11 +1,10 @@
+# AntuBlog 博客系统
 ## 服务器推荐配置
 | CPU    |  内存  |  硬盘  |  价格  |
 | -----:   | :----: | :----: | :----: |
 | 1核      |   1G    |   40G    |   95元/一年    |
 
 [抢购地址：https://www.aliyun.com](https://www.aliyun.com/minisite/goods?userCode=akzbfam0)
-# AntuBlog 博客系统
-
 #### 项目介绍
 
 + `AntuBlog` 是一款使用基于[JFinal](https://gitee.com/jfinal/jfinal)开发的轻量级Java博客系统。
