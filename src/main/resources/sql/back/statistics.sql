@@ -18,7 +18,7 @@
 			access_log 
 		) b ON a.gmtcreate = b.datetime 
 	group BY
-		UNIX_TIMESTAMP(a.gmtcreate)
+		 DATE_FORMAT( a.gmtcreate, '%m-%d' )
 #end
 
 #sql("hotArticle")
